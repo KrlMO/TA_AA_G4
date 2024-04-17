@@ -3,15 +3,22 @@ package pe.edu.pucp.campoysoft.onlinemarket.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaServicioTinteDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
+import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
 
 
 public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
-
+    private Connection con;
+    private java.sql.CallableStatement cs;
+    private ResultSet rs;
+    private String sql;
+    
     @Override
     public int insertar(LineaServicioTinte lineaServTinte) {
         int resultado = 0;
@@ -51,32 +58,6 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
 
     @Override
     public ArrayList<LineaServicioTinte> listarTodas() {
-        ArrayList<ServicioTinte> servtintes = new ArrayList<>();
-        try{
-            con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call ListServicioTintes()}");
-            rs = cs.executeQuery();
-            while(rs.next()){
-                ServicioTinte servtinte = new ServicioTinte();
-                servtinte.setIdAtencion(rs.getInt("id_atencion"));
-                EstadoAtencion estado = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
-                servtinte.setEstadoServicio(estado);
-                servtinte.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
-                servtinte.setPrecioTotal(rs.getDouble("precio_total"));
-                servtinte.setPesoTotal(rs.getDouble("peso_total"));
-                servtinte.setAreaTotal(rs.getDouble("area_total"));
-                servtinte.setCodServicioTinte(rs.getInt("cod_servicio_tinte"));
-                servtinte.setHorasTintado(rs.getDouble("horas_tintado"));
-                servtintes.add(servtinte);
-            }
-            rs.close();
-            cs.close();
-        }catch(SQLException ex){
-            System.out.println(ex.getMessage());
-        }finally{
-            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
-        }
-        return servtintes;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }

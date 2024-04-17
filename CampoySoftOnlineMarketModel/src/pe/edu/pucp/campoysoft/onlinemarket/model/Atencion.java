@@ -14,6 +14,7 @@ public class Atencion {
     private Empleado empleado;
     private Cliente cliente;
 
+    public Atencion(){}
     public Atencion(int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,Empleado empleado,Cliente cliente) {
         this.idAtencion = idAtencion;
         this.estadoServicio = estadoServicio;
