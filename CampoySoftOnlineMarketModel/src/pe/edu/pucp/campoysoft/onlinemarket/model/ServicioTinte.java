@@ -10,6 +10,8 @@ public class ServicioTinte extends Atencion {
     private double horasTintado;
     private ArrayList<LineaServicioTinte> lineaServicios;
     
+    public ServicioTinte(){}
+    
     public ServicioTinte(int codServicioTinte, double horasTintado, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,Empleado empleado,Cliente cliente) {
         super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,empleado,cliente);
         this.codServicioTinte = codServicioTinte;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
+import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 
 public class CompraMySQL implements CompraDAO{
     private Connection con;
