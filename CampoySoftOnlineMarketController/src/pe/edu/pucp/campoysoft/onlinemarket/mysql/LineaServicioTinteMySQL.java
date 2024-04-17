@@ -51,7 +51,32 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
 
     @Override
     public ArrayList<LineaServicioTinte> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<ServicioTinte> servtintes = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListServicioTintes()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                ServicioTinte servtinte = new ServicioTinte();
+                servtinte.setIdAtencion(rs.getInt("id_atencion"));
+                EstadoAtencion estado = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                servtinte.setEstadoServicio(estado);
+                servtinte.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
+                servtinte.setPrecioTotal(rs.getDouble("precio_total"));
+                servtinte.setPesoTotal(rs.getDouble("peso_total"));
+                servtinte.setAreaTotal(rs.getDouble("area_total"));
+                servtinte.setCodServicioTinte(rs.getInt("cod_servicio_tinte"));
+                servtinte.setHorasTintado(rs.getDouble("horas_tintado"));
+                servtintes.add(servtinte);
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return servtintes;
     }
 
 }
