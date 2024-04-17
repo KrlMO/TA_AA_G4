@@ -25,7 +25,19 @@ public class AdministradorMySQL implements AdministradorDAO{
     public int insertar(Administrador administrador){
         int resultado = 0;
         try{
-            
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call InsertAdministrador(?,?,?,?,?,?,?,?)}");
+            cs.registerOutParameter("_id_administrador",java.sql.Types.INTEGER);
+            cs.setString("p_nombre", administrador.getNombre());
+            cs.setString("p_ap_paterno", administrador.getApPaterno());
+            cs.setString("p_ap_materno", administrador.getApMaterno());
+            cs.setString("p_dni", String.valueOf(administrador.getDni()));
+            cs.setDate("p_fecha_nac", new java.sql.Date(administrador.getFechaNac().getTime()));
+            cs.setString("p_direccion", administrador.getDireccion());
+            cs.setString("p_cod_admin",administrador.getCodAdmin());
+            cs.executeUpdate();
+            administrador.setIdPersona(cs.getInt("_id_administrador"));
+            resultado = 1;
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -33,11 +45,25 @@ public class AdministradorMySQL implements AdministradorDAO{
         }
         return resultado;
     }
-
+    
     @Override
     public int modificar(Administrador administrador) {
         int resultado = 0;
         try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call UpdateAdministrador(?,?,?,?,?,?,?,?,?)}");
+            
+            cs.setString("nuevo_nombre", administrador.getNombre());
+            cs.setString("nuevo_ap_paterno", administrador.getApPaterno());
+            cs.setString("nuevo_ap_materno", administrador.getApMaterno());
+            cs.setString("nuevo_dni", String.valueOf(administrador.getDni()));
+            cs.setDate("nuevo_fecha_nac", new java.sql.Date(administrador.getFechaNac().getTime()));
+            cs.setString("nuevo_direccion", administrador.getDireccion());
+            cs.setInt("nuevo_activo_per", administrador.isActivo() ? 1 : 0);
+            cs.setInt("administrador_id", administrador.getIdPersona());
+            cs.setString("nuevo_cod_admin",administrador.getCodAdmin());
+            cs.executeUpdate();
+            resultado = 1;
             
         }catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -51,7 +77,12 @@ public class AdministradorMySQL implements AdministradorDAO{
     public int eliminar(int idAdministrador) {
         int resultado = 0;
         try{
-            
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call DeleteAdministradorById(?)}");
+            cs.setInt("admin_id", idAdministrador);
+            cs.executeUpdate(); 
+            resultado = 1;
+            cs.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -64,7 +95,25 @@ public class AdministradorMySQL implements AdministradorDAO{
     public ArrayList<Administrador> listar() {
         ArrayList<Administrador> adminstradores = new ArrayList<>();
         try{
-
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListAdministradores()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Administrador administrador = new Administrador();
+                administrador.setIdPersona(rs.getInt("id_administrador"));
+                administrador.setCodAdmin(rs.getString("cod_admin"));
+                administrador.setIdPersona(rs.getInt("id_persona"));
+                administrador.setActivo(true);
+                administrador.setNombre(rs.getString("nombre"));
+                administrador.setApPaterno(rs.getString("ap_paterno"));
+                administrador.setApMaterno(rs.getString("ap_materno"));
+                administrador.setDni(Integer.parseInt(rs.getString("dni")));
+                administrador.setFechaNac(rs.getDate("fecha_nac"));
+                administrador.setDireccion(rs.getString("direccion"));
+                adminstradores.add(administrador);    
+            }
+            rs.close();
+            cs.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
