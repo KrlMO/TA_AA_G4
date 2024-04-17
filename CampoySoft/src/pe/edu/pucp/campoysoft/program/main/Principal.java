@@ -6,6 +6,10 @@ package pe.edu.pucp.campoysoft.program.main;
 
 import java.util.ArrayList;
 import java.util.Date;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
+import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
 import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
 
 import pe.edu.pucp.campoysoft.rrhh.dao.EmpleadoDAO;
@@ -130,5 +134,25 @@ public class Principal {
         
         
         
+        Compra comp = new Compra(1003, 5, EstadoAtencion.Emitido, 10, 2000, 50, 300, emp, cli);
+        CompraDAO daoCompra = new CompraMySQL();
+        
+        if(daoCompra.insertar(comp)==1)
+            System.out.println("Se ha registrado la compra con exito");
+        else
+            System.out.println("Ha ocurrido un error");
+        
+        comp = new Compra(1004, 6, EstadoAtencion.Entregado, 20, 2500, 70, 120, emp, cli);
+        
+        if(daoCompra.insertar(comp)==1)
+            System.out.println("Se ha registrado la compra con exito");
+        else
+            System.out.println("Ha ocurrido un error");
+
+        if(daoCompra.modificar(comp)==1){
+            System.out.println("Se ha modificado con exito");
+        }else{  
+            System.out.println("Ha ocurrido un error");
+        }
     }
 }
