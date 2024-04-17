@@ -19,7 +19,7 @@ public class EmpleadoMySQL implements EmpleadoDAO{
     private CallableStatement cs;
     private ResultSet rs;
     private String sql;
-    
+    @Override
     public int insertar(Empleado empleado){
         int resultado = 0;
         
