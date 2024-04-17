@@ -45,7 +45,7 @@ public class LineaCompraMySQL implements LineaCompraDAO{
     }
 
     @Override
-    public int elimniar(int codLinea) {
+    public int eliminar(int codLinea) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
