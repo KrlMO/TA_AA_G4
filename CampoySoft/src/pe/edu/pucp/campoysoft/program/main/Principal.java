@@ -6,6 +6,7 @@ package pe.edu.pucp.campoysoft.program.main;
 
 import java.util.ArrayList;
 import java.util.Date;
+import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
 
 import pe.edu.pucp.campoysoft.rrhh.dao.EmpleadoDAO;
 import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
@@ -126,5 +127,8 @@ public class Principal {
             String str= administradores.get(i).toString();
             System.out.println(str);
         }
+        
+        
+        
     }
 }
