@@ -88,7 +88,31 @@ public class CompraMySQL implements CompraDAO{
 
     @Override
     public ArrayList<Compra> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Compra> compras = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListCompras()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Compra compra = new Compra();
+                compra.setIdAtencion(rs.getInt("id_atencion"));
+                EstadoAtencion estado = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                compra.setEstadoServicio(estado);
+                compra.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
+                compra.setPrecioTotal(rs.getDouble("precio_total"));
+                compra.setPesoTotal(rs.getDouble("peso_total"));
+                compra.setAreaTotal(rs.getDouble("area_total"));
+                compra.setCodCompra(rs.getInt("id_compra"));
+                compras.add(compra);  
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return compras;
     }
     
 }
