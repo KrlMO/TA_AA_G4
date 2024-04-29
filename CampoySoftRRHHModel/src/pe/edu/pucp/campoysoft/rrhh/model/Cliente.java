@@ -47,7 +47,7 @@ public class Cliente extends Persona{
     }
     
 
-    public ArrayList<ProductoRollo> ListarProducto(){
+    public ArrayList<ProductoRollo> ListarProducto(){ // Carlos
         ArrayList<ProductoRollo> prods;
         ProductoRolloDAO daoProdcutoRollo= new ProductoRolloMySQL();
         prods = daoProdcutoRollo.listar();
