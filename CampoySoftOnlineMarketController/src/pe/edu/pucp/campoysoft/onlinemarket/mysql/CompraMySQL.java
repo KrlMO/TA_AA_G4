@@ -1,6 +1,7 @@
 package pe.edu.pucp.campoysoft.onlinemarket.mysql;
 
-import com.mysql.cj.jdbc.CallableStatement;
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,8 @@ import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
 import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 
 public class CompraMySQL implements CompraDAO{
-    private Connection con;
-    private java.sql.CallableStatement cs;
+     private Connection con;
+    private CallableStatement cs;
     private ResultSet rs;
     private String sql;
     
@@ -48,20 +49,20 @@ public class CompraMySQL implements CompraDAO{
     public int modificar(Compra compra) {
         int resultado = 0;
         try{
-            try (Connection con = DBManager.getInstance().getConnection()) {
-                String sql = "{CALL UpdateCompra(?,?,?,?,?,?,?,?,?)}";
-                CallableStatement cs = (CallableStatement) con.prepareCall(sql);
-                
-                cs.setInt(1, compra.getIdAtencion());
-                cs.setInt(2, compra.getIdAtencion());
-                cs.setInt(3, compra.getIdAtencion());
-                cs.setInt(4, compra.getIdAtencion());
-                cs.setInt(5, compra.getIdAtencion());
-                cs.setInt(6, compra.getIdAtencion());
-                cs.setInt(7, compra.getIdAtencion());
-                cs.setInt(8, compra.getIdAtencion());
-                cs.setInt(9, compra.getIdAtencion());
-            }
+            con = DBManager.getInstance().getConnection();
+            String sql = "{CALL UpdateCompra(?,?,?,?,?,?,?,?,?)}";
+            CallableStatement cs = (CallableStatement) con.prepareCall(sql);
+
+            cs.setInt(1, compra.getIdAtencion());
+            cs.setInt(2, compra.getIdAtencion());
+            cs.setInt(3, compra.getIdAtencion());
+            cs.setInt(4, compra.getIdAtencion());
+            cs.setInt(5, compra.getIdAtencion());
+            cs.setInt(6, compra.getIdAtencion());
+            cs.setInt(7, compra.getIdAtencion());
+            cs.setInt(8, compra.getIdAtencion());
+            cs.setInt(9, compra.getIdAtencion());
+            
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }

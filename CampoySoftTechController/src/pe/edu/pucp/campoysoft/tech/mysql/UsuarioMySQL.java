@@ -65,12 +65,47 @@ public class UsuarioMySQL implements UsuarioDAO{
 
     @Override
     public int eliminar(int idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         int resultado = 0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ELIMINAR_EMPLEADO(?)}");
+            cs.setInt("usuario_id", idUsuario);
+            cs.executeUpdate();
+            resultado = 1;
+            cs.close();
+
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return resultado;
+
     }
 
     @Override
     public ArrayList<Usuario> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+            try{
+                con = DBManager.getInstance().getConnection();
+                cs = con.prepareCall("{call ListUsuarios()}");
+                rs = cs.executeQuery();
+                while(rs.next()){
+                    Usuario usuario = new Usuario();
+                    usuario.setIdusuario(rs.getInt("id_usuario"));
+                    usuario.setUsername(rs.getString("username"));
+                    usuario.setPassword(rs.getString("password"));
+                    usuario.setActivo(true);
+                    usuarios.add(usuario);//añado un empleado al arraylist empleados
+                }
+                rs.close();
+                cs.close();
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }finally{
+                try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+            }
+            return usuarios;//devuelve un arraylist con los datos de todos los empleados
     }
     
 }

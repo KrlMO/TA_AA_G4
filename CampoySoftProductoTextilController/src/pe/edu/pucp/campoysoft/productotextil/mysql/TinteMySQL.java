@@ -25,7 +25,18 @@ public class TinteMySQL implements TinteDAO{
     public int insertar(Tinte tinte){
         int resultado = 0;
         try{
-            
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call InsertTinte(?,?,?,?,?,?)}");
+            cs.registerOutParameter("_id_tinte", java.sql.Types.INTEGER); // registra como parametro de salida
+            cs.setString("p_cod_tinte", tinte.getCodTinte());
+            cs.setString("p_nombre", tinte.getNombre());
+            cs.setInt("p_R", tinte.getR());
+            cs.setInt("p_G", tinte.getG());
+            cs.setInt("p_B", tinte.getB());
+            cs.executeUpdate();
+            tinte.setIdTinte(cs.getInt("_id_tinte")); // seteas el id del empleado que se acaba de recibir
+            resultado = 1;
+            cs.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -38,7 +49,17 @@ public class TinteMySQL implements TinteDAO{
     public int modificar(Tinte tinte) {
         int resultado = 0;
         try{
-            
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call UpdateTinte(?,?,?,?,?,?)}");
+            cs.setInt("tinte_id", tinte.getIdTinte());
+            cs.setString("nuevo_cod_tinte", tinte.getCodTinte());
+            cs.setString("nuevo_nombre", tinte.getNombre());
+            cs.setInt("nuevo_r", tinte.getR());
+            cs.setInt("nuevo_g", tinte.getG());
+            cs.setInt("nuevo_b", tinte.getB());
+            cs.executeUpdate();
+            resultado = 1;
+            cs.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -51,13 +72,18 @@ public class TinteMySQL implements TinteDAO{
     public int eliminar(int idTinte) {
         int resultado = 0;
         try{
-            
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call DeleteTinteById(?)}");
+            cs.setInt("tinte_id", idTinte);
+            cs.executeUpdate();
+            resultado = 1;
+            cs.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
             try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
         }
-        return resultado;
+        return resultado;   
     }
 
     @Override

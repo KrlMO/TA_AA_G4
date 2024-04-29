@@ -3,11 +3,12 @@ package pe.edu.pucp.campoysoft.tech.model;
 
 import java.util.Date;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
+import java.sql.Blob;
 
 public class DebitoYape {
     private int id_debito_yape;
     private String codigo_pago_yape;
-    //private blob
+    private Blob qr;
     private String numero_cel;
     private Date fecha_hora_emision;
     private Date fecha_hora_pago;
@@ -15,6 +16,14 @@ public class DebitoYape {
     private Atencion atencion;
 
     public DebitoYape() {
+    }
+
+    public Blob getQr() {
+        return qr;
+    }
+
+    public void setQr(Blob qr) {
+        this.qr = qr;
     }
 
     public DebitoYape(int id_debito_yape, String codigo_pago_yape, String numero_cel, Date fecha_hora_emision, Date fecha_hora_pago, boolean activo, Atencion atencion) {

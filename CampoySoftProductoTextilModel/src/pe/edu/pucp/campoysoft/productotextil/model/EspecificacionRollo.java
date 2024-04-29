@@ -8,9 +8,11 @@ public class EspecificacionRollo {
     private double achoRollo;
     private double areaRollo;
     private double pesoRollo;
-
-    public EspecificacionRollo(int idEspecifiacionRollo, TipoTela tipoTela, TipoRollo tipoRollo, double longitudRollo, double achoRollo, double areaRollo, double pesoRollo) {
-        this.idEspecifiacionRollo = idEspecifiacionRollo;
+    
+    public EspecificacionRollo(){}
+    
+    public EspecificacionRollo( TipoTela tipoTela, TipoRollo tipoRollo, double longitudRollo, double achoRollo, double areaRollo, double pesoRollo) {
+        
         this.tipoTela = tipoTela;
         this.tipoRollo = tipoRollo;
         this.longitudRollo = longitudRollo;

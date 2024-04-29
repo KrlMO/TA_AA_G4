@@ -10,9 +10,10 @@ public class Usuario {
     private String password;
     private Persona persona;
     private boolean activo;
+    
+    public Usuario(){}
 
-    public Usuario(int idusuario, String username, String password, Persona persona, boolean activo) {
-        this.idusuario = idusuario;
+    public Usuario(String username, String password, Persona persona, boolean activo) {
         this.username = username;
         this.password = password;
         this.persona = persona;

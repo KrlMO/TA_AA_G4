@@ -15,9 +15,10 @@ public class Tinte {
     private int R;
     private int G;
     private int B;
-
-    public Tinte(int idTinte, String codTinte, String nombre, int R, int G, int B) {
-        this.idTinte = idTinte;
+    
+    public Tinte(){}
+    public Tinte( String codTinte, String nombre, int R, int G, int B) {
+        
         this.codTinte = codTinte;
         this.nombre = nombre;
         this.R = R;

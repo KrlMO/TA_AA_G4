@@ -10,30 +10,24 @@ package pe.edu.pucp.campoysoft.productotextil.model;
  */
 public class ProductoRollo {
     private int idProducto;
-    private TipoTela tipoTela;
-    private double longitud;
-    private double precioUnitario;
-    private double peso;
-    private double ancho;
-    private double area;
-    private int stock;
+    private EspecificacionRollo especificiacionRollo;
     private Tinte tinte;
+    private int stock;
     private String descripcion;
     private boolean activo;
-
-    public ProductoRollo(int idProducto, TipoTela tipoTela, double longitud, double precioUnitario, double peso, double ancho, double area, int stock, Tinte tinte, String descripcion, boolean activo) {
-        this.idProducto = idProducto;
-        this.tipoTela = tipoTela;
-        this.longitud = longitud;
-        this.precioUnitario = precioUnitario;
-        this.peso = peso;
-        this.ancho = ancho;
-        this.area = area;
-        this.stock = stock;
+    private double precioXmetro2;
+    
+    public ProductoRollo(){}
+    
+    public ProductoRollo(EspecificacionRollo especificiacionRollo, Tinte tinte, int stock, String descripcion, boolean activo, double precioXmetro2) {
+        this.especificiacionRollo = especificiacionRollo;
         this.tinte = tinte;
+        this.stock = stock;
         this.descripcion = descripcion;
         this.activo = activo;
+        this.precioXmetro2 = precioXmetro2;
     }
+    
 
     public int getIdProducto() {
         return idProducto;
@@ -43,60 +37,12 @@ public class ProductoRollo {
         this.idProducto = idProducto;
     }
 
-    public TipoTela getTipoTela() {
-        return tipoTela;
+    public EspecificacionRollo getEspecificiacionRollo() {
+        return especificiacionRollo;
     }
 
-    public void setTipoTela(TipoTela tipoTela) {
-        this.tipoTela = tipoTela;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public double getPrecioUnitario() {
-        return precioUnitario;
-    }
-
-    public void setPrecioUnitario(double precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
-
-    public double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public double getAncho() {
-        return ancho;
-    }
-
-    public void setAncho(double ancho) {
-        this.ancho = ancho;
-    }
-
-    public double getArea() {
-        return area;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setEspecificiacionRollo(EspecificacionRollo especificiacionRollo) {
+        this.especificiacionRollo = especificiacionRollo;
     }
 
     public Tinte getTinte() {
@@ -105,6 +51,14 @@ public class ProductoRollo {
 
     public void setTinte(Tinte tinte) {
         this.tinte = tinte;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getDescripcion() {
@@ -122,6 +76,18 @@ public class ProductoRollo {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    public double getPrecioXmetro2() {
+        return precioXmetro2;
+    }
+
+    public void setPrecioXmetro2(double precioXmetro2) {
+        this.precioXmetro2 = precioXmetro2;
+    }
+    
+
+
+   
     
     
 }
