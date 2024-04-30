@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Date; 
 import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
 
-import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
-import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
-import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
 public class Cliente extends Persona{
     
     private String codCliente;
@@ -45,14 +42,6 @@ public class Cliente extends Persona{
     public String toString() {
         String str = super.toString();
         return "Cliente{" + "codCliente=" + codCliente + ", activo=" + activo + '}' + str;
-    }
-    
-
-    public ArrayList<ProductoRollo> ListarProducto(){ // Carlos
-        ArrayList<ProductoRollo> prods;
-        ProductoRolloDAO daoProdcutoRollo= new ProductoRolloMySQL();
-        prods = daoProdcutoRollo.listar();
-        return prods;
     }
    
 }
