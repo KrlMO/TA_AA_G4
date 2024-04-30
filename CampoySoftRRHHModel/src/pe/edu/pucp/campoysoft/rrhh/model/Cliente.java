@@ -45,13 +45,5 @@ public class Cliente extends Persona{
         String str = super.toString();
         return "Cliente{" + "codCliente=" + codCliente + ", activo=" + activo + '}' + str;
     }
-    
-
-    public ArrayList<ProductoRollo> ListarProducto(){ // Carlos
-        ArrayList<ProductoRollo> prods;
-        ProductoRolloDAO daoProdcutoRollo= new ProductoRolloMySQL();
-        prods = daoProdcutoRollo.listar();
-        return prods;
-    }
    
 }
