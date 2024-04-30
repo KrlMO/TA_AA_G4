@@ -3,6 +3,9 @@ package pe.edu.pucp.campoysoft.rrhh.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
+import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
+import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
 
 
 public class Empleado extends Persona{
@@ -28,9 +31,6 @@ public class Empleado extends Persona{
     public void setCodEmpleado(String codEmpleado) {
         this.codEmpleado = codEmpleado;
     }
-    
-
-    
 
     public double getSalario() {
         return salario;
@@ -62,6 +62,43 @@ public class Empleado extends Persona{
         return "Empleado{" + "codEmpleado=" + codEmpleado + ", salario=" + salario + ", cargo=" + cargo + ", activo=" + activo + '}'+ str;
     }
     
+    public ArrayList<ProductoRollo> listar_proStock_bajo(){
+        ProductoRolloDAO prDAO = new ProductoRolloMySQL();
+        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+        productoRollos=prDAO.listar();
+        for(int i = productoRollos.size() - 1; i >= 0; i--){
+            if(productoRollos.get(i).getStock() <= 5){
+                productoRollos.remove(i);
+            }
+        }
+        
+        return productoRollos;
+    }
     
+    public ProductoRollo encontrar_producto(int id){
+        
+        ProductoRolloDAO prDAO = new ProductoRolloMySQL();
+        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+        ProductoRollo producto= new ProductoRollo();
+        productoRollos=prDAO.listar();
+        for(int i = productoRollos.size() - 1; i >= 0; i--){
+            if(productoRollos.get(i).getIdProducto()== id){
+                producto=productoRollos.get(i);
+                break;
+            }
+        }
+        
+        return producto;
+    }
+    public void reponer_stock(int id_producto,int cantidad){
+        ProductoRollo producto = this.encontrar_producto(id_producto);
+        producto.setStock(producto.getStock()+cantidad);
+        ProductoRolloDAO prDAO = new ProductoRolloMySQL();
+        prDAO.modificar(producto);
+    }
+    
+    public void despachar_Atencion(int id_atencion){
+        
+    }
     
 }
