@@ -4,9 +4,6 @@ package pe.edu.pucp.campoysoft.rrhh.model;
 import java.util.ArrayList;
 import java.util.Date; 
 
-import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
-import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
-import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
 public class Cliente extends Persona{
     
     private String codCliente;
