@@ -15,15 +15,25 @@ public class Tinte {
     private int R;
     private int G;
     private int B;
+    private boolean activo;
     
     public Tinte(){}
-    public Tinte( String codTinte, String nombre, int R, int G, int B) {
+    public Tinte( String codTinte, String nombre, int R, int G, int B,boolean activo) {
         
         this.codTinte = codTinte;
         this.nombre = nombre;
         this.R = R;
         this.G = G;
         this.B = B;
+        this.activo=activo;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public int getIdTinte() {
