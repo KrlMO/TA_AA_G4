@@ -1,8 +1,6 @@
 package pe.edu.pucp.campoysoft.onlinemarket.model;
 
 import java.util.ArrayList;
-import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
-import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
 
 
 public class Compra extends Atencion {
@@ -10,8 +8,8 @@ public class Compra extends Atencion {
     private ArrayList<LineaCompra> lineaCompras;
     
     public Compra(){}
-    public Compra(int codCompra, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,Empleado empleado, Cliente cliente) {
-        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,empleado,cliente);
+    public Compra(int codCompra, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal, int id_cliente) {
+        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente);
         this.codCompra = codCompra;
     }
 

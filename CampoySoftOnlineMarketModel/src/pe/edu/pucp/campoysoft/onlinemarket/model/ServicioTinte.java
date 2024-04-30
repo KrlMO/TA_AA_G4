@@ -1,8 +1,6 @@
 package pe.edu.pucp.campoysoft.onlinemarket.model;
 
 import java.util.ArrayList;
-import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
-import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
 
 
 public class ServicioTinte extends Atencion {
@@ -12,8 +10,8 @@ public class ServicioTinte extends Atencion {
     
     public ServicioTinte(){}
     
-    public ServicioTinte(int codServicioTinte, double horasTintado, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,Empleado empleado,Cliente cliente) {
-        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,empleado,cliente);
+    public ServicioTinte(int codServicioTinte, double horasTintado, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente) {
+        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente);
         this.codServicioTinte = codServicioTinte;
         this.horasTintado = horasTintado;
     }
