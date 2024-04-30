@@ -4,6 +4,8 @@
  */
 package pe.edu.pucp.campoysoft.productotextil.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author samt1
@@ -84,10 +86,10 @@ public class ProductoRollo {
     public void setPrecioXmetro2(double precioXmetro2) {
         this.precioXmetro2 = precioXmetro2;
     }
-    
 
-
-   
-    
+    @Override
+    public String toString() {
+        return "ProductoRollo{" + "idProducto=" + idProducto + ", especificiacionRollo=" + especificiacionRollo + ", tinte=" + tinte + ", stock=" + stock + ", descripcion=" + descripcion + ", activo=" + activo + ", precioXmetro2=" + precioXmetro2 + '}';
+    }
     
 }
