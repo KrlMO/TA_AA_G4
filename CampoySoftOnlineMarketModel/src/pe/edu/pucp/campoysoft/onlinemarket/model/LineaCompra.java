@@ -4,30 +4,32 @@ import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 public class LineaCompra {
-    private static int index=0;
+
     private int idLineaCompra;
-    private double longitud;
-    private double precioUnitario;
-    private double peso;
-    private double ancho;
-    private double area;
-    private TipoTela tipoTela;
     private int cantRollo;
     private Compra compra;
     private ProductoRollo prodRollo;
+    private boolean activo;
+    public LineaCompra(){
+        
+    }
 
-    public LineaCompra(double longitud, double precioUnitario, double peso, double ancho, double area, TipoTela tipoTela, int cantRollo,Compra compra, ProductoRollo prodRollo) {
-        this.idLineaCompra = ++index;
-        this.longitud = longitud;
-        this.precioUnitario = precioUnitario;
-        this.peso = peso;
-        this.ancho = ancho;
-        this.area = area;
-        this.tipoTela = tipoTela;
+    public LineaCompra(int cantRollo, Compra compra, ProductoRollo prodRollo, boolean activo) {
         this.cantRollo = cantRollo;
         this.compra = compra;
         this.prodRollo = prodRollo;
+        this.activo = activo;
     }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+
 
     public int getIdLineaCompra() {
         return idLineaCompra;
@@ -35,54 +37,6 @@ public class LineaCompra {
 
     public void setIdLineaCompra(int idLineaCompra) {
         this.idLineaCompra = idLineaCompra;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public double getPrecioUnitario() {
-        return precioUnitario;
-    }
-
-    public void setPrecioUnitario(double precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
-
-    public double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public double getAncho() {
-        return ancho;
-    }
-
-    public void setAncho(double ancho) {
-        this.ancho = ancho;
-    }
-
-    public double getArea() {
-        return area;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
-    }
-
-    public TipoTela getTipoTela() {
-        return tipoTela;
-    }
-
-    public void setTipoTela(TipoTela tipoTela) {
-        this.tipoTela = tipoTela;
     }
 
     public int getCantRollo() {
@@ -108,5 +62,6 @@ public class LineaCompra {
     public void setProdRollo(ProductoRollo prodRollo) {
         this.prodRollo = prodRollo;
     }
+    
     
 }

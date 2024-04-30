@@ -41,17 +41,66 @@ public class LineaCompraMySQL implements LineaCompraDAO{
 
     @Override
     public int modificar(LineaCompra lineaCompra) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int resultado = 0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call UpdateLineaCompra(?,?,?,?)}");
+            cs.setInt("_id_linea_compra", lineaCompra.getIdLineaCompra());
+            cs.setInt("p_fk_id_compra", lineaCompra.getCompra().getIdAtencion());
+            cs.setInt("p_fk_id_producto", lineaCompra.getProdRollo().getIdProducto());
+            cs.setInt("p_cant_rollo", lineaCompra.getCantRollo());
+            cs.executeUpdate();
+            resultado = 1;
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();cs.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return resultado;
     }
 
     @Override
     public int elimniar(int codLinea) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int resultado = 0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call DeleteLineaCompraById(?)}");
+            cs.setInt("linea_compra_id", codLinea);
+            cs.executeUpdate();
+            resultado = 1;
+            cs.close();
+
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();cs.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return resultado;
     }
 
     @Override
     public ArrayList<LineaCompra> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<LineaCompra> lineasCompras = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListLineaCompra()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                LineaCompra lineaCompra = new LineaCompra();
+                lineaCompra.setIdLineaCompra(rs.getInt("id_linea_compra"));
+                lineaCompra.getCompra().setCodCompra(rs.getInt("fk_id_compra"));
+                lineaCompra.getProdRollo().setIdProducto(rs.getInt("fk_id_producto"));
+                lineaCompra.setCantRollo(rs.getInt("cant_rollo"));
+                lineaCompra.setActivo(true);  
+            }
+            rs.close();
+            cs.close();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return lineasCompras;
     }
   
 }
