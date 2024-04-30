@@ -90,7 +90,22 @@ public class TinteMySQL implements TinteDAO{
     public ArrayList<Tinte> listar() {
         ArrayList<Tinte> tintes = new ArrayList<>();
         try{
-
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListTintes()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Tinte tinte = new Tinte();
+                tinte.setIdTinte(rs.getInt("id_tinte"));
+                tinte.setCodTinte(rs.getString("cod_tinte"));
+                tinte.setNombre(rs.getString("nombre"));
+                tinte.setR(rs.getInt("R"));
+                tinte.setG(rs.getInt("G"));
+                tinte.setB(rs.getInt("B"));
+                tinte.setActivo(true);
+                tintes.add(tinte);//añado un empleado al arraylist empleados
+            }
+            rs.close();
+            cs.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{

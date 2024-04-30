@@ -52,7 +52,18 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
     public int modificar(ProductoRollo productoRollo) {
         int resultado = 0;
         try{
-            
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call UpdateProductoRollo(?,?,?,?,?,?,?)}");
+            cs.setInt("producto_id", productoRollo.getIdProducto());
+            cs.setInt("nuevo_fk_id_especificacion_rollo",productoRollo.getEspecificiacionRollo().getIdEspecifiacionRollo());
+            cs.setInt("nuevo_fk_id_tinte",productoRollo.getTinte().getIdTinte());
+            cs.setDouble("nueva_precio_x_metro2", productoRollo.getPrecioXmetro2());
+            cs.setInt("nuevo_stock",productoRollo.getStock());
+            cs.setString("nuevo_descripcion",productoRollo.getDescripcion());
+            cs.executeUpdate();
+            resultado = 1;
+            cs.close();
+
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
