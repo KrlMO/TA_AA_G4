@@ -26,7 +26,7 @@ public class CompraMySQL implements CompraDAO{
             cs = con.prepareCall("{call InsertCompra(?,?,?,?,?,?,?,?)}");
             
             cs.registerOutParameter("_id_compra",java.sql.Types.INTEGER);
-            cs.setInt("p_fk_id_cliente", compra.getCliente().getIdPersona());
+            cs.setInt("p_fk_id_cliente", compra.getCliente());
             cs.setString("p_estado_servicio", compra.getEstadoServicio().name());
             cs.setDouble("p_precio_total", compra.getPrecioTotal());
             cs.setInt("p_cantidad_total_rollos", compra.getCanTotalRollos());
