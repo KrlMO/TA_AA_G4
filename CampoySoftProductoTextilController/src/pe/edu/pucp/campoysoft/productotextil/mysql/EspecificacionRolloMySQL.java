@@ -7,10 +7,13 @@ package pe.edu.pucp.campoysoft.productotextil.mysql;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.productotextil.dao.EspecificacionRolloDAO;
 import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 /**
  *
@@ -29,47 +32,93 @@ public class EspecificacionRolloMySQL implements EspecificacionRolloDAO{
             try{
                 con = DBManager.getInstance().getConnection();
                 cs = con.prepareCall("{call InsertEspecificacionRollo(?,?,?,?,?,?,?)}");
-                cs.registerOutParameter("_id_especificacion_rollo", java.sql.Types.INTEGER); // registra como parametro de salida
+                cs.registerOutParameter("_id_especificacion_rollo", java.sql.Types.INTEGER);
                 cs.setString("p_tipo_tela", especificacionRollo.getTipoTela().name());
                 cs.setString("p_tipo_rollo", especificacionRollo.getTipoRollo().name());
-                cs.setDouble("p_ancho_rollo",especificacionRollo.getAchoRollo());
+                cs.setDouble("p_ancho_rollo",especificacionRollo.getAnchoRollo());
                 cs.setDouble("p_longitud_rollo",especificacionRollo.getLongitudRollo());
                 cs.setDouble("p_area_rollo",especificacionRollo.getAreaRollo());
                 cs.setDouble("p_peso_rollo",especificacionRollo.getPesoRollo()); 
     
                 cs.executeUpdate();
-                especificacionRollo.setIdEspecifiacionRollo(cs.getInt("_id_especificacion_rollo")); // seteas el id del empleado que se acaba de recibir
+                especificacionRollo.setIdEspecifiacionRollo(cs.getInt("_id_especificacion_rollo")); 
                 resultado = 1;
                 cs.close();
-            }catch(Exception ex){
+            }catch(SQLException ex){
                 System.out.println(ex.getMessage());
             }finally{
-                try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+                try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
             }
             return resultado;
         }
 
         @Override
         public int modificar(EspecificacionRollo especificacionRollo) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            int resultado = 0;
+            try{
+                con = DBManager.getInstance().getConnection();
+                cs = con.prepareCall("{call UpdateEspecificacionRollo(?,?,?,?,?,?,?)}");
+                cs.setInt("espe_rollo_id", especificacionRollo.getIdEspecifiacionRollo());
+                cs.setString("nuevo_tipo_tela", especificacionRollo.getTipoTela().name());
+                cs.setString("nuevo_tipo_rollo", especificacionRollo.getTipoRollo().name());
+                cs.setDouble("nuevo_longitud", especificacionRollo.getLongitudRollo());
+                cs.setDouble("nuevo_ancho", especificacionRollo.getAnchoRollo());
+                cs.setDouble("nuevo_area", especificacionRollo.getAreaRollo());
+                cs.setDouble("nuevo_peso", especificacionRollo.getPesoRollo());
+                cs.executeUpdate();
+                resultado = 1;
+                cs.close();
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }finally{
+                try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+            }
+            return resultado;
         }
 
         @Override
         public int eliminar(int idEspecificacionRollo) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            int resultado = 0;
+            try{
+                con = DBManager.getInstance().getConnection();
+                cs = con.prepareCall("{call DeleteEspecificacionRolloById(?)}");
+                cs.setInt("espe_rollo_id", idEspecificacionRollo);
+                cs.executeUpdate();
+                resultado = 1;
+                cs.close();
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }finally{
+                try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+            }
+            return resultado;
         }
 
         @Override
         public ArrayList<EspecificacionRollo> listar() {
-            ArrayList<EspecificacionRollo> especificacionesRollos = new ArrayList<>();
-            try{
-
-            }catch(Exception ex){
-                System.out.println(ex.getMessage());
-            }finally{
-                try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+            ArrayList<EspecificacionRollo> especificacionesRollo = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListEspecificacionRollo()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                EspecificacionRollo especificacion = new EspecificacionRollo();
+                especificacion.setIdEspecifiacionRollo(rs.getInt("id_especificacion_rollo"));
+                especificacion.setTipoTela(TipoTela.valueOf(rs.getString("tipo_tela")));
+                especificacion.setTipoRollo(TipoRollo.valueOf(rs.getString("tipo_rollo")));
+                especificacion.setLongitudRollo(rs.getDouble("longitud_rollo"));
+                especificacion.setAnchoRollo(rs.getDouble("ancho_rollo"));
+                especificacion.setAreaRollo(rs.getDouble("area_rollo"));
+                especificacion.setPesoRollo(rs.getDouble("peso_rollo"));
             }
-            return especificacionesRollos;//devuelve un arraylist con los datos de todos los empleados
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return especificacionesRollo;
         }
     
 }
