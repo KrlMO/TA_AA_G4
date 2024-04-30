@@ -5,7 +5,7 @@ public class EspecificacionRollo {
     private TipoTela tipoTela;
     private TipoRollo tipoRollo;
     private double longitudRollo;
-    private double achoRollo;
+    private double anchoRollo;
     private double areaRollo;
     private double pesoRollo;
     
@@ -16,7 +16,7 @@ public class EspecificacionRollo {
         this.tipoTela = tipoTela;
         this.tipoRollo = tipoRollo;
         this.longitudRollo = longitudRollo;
-        this.achoRollo = achoRollo;
+        this.anchoRollo = achoRollo;
         this.areaRollo = areaRollo;
         this.pesoRollo = pesoRollo;
     }
@@ -53,12 +53,12 @@ public class EspecificacionRollo {
         this.longitudRollo = longitudRollo;
     }
 
-    public double getAchoRollo() {
-        return achoRollo;
+    public double getAnchoRollo() {
+        return anchoRollo;
     }
 
-    public void setAchoRollo(double achoRollo) {
-        this.achoRollo = achoRollo;
+    public void setAnchoRollo(double achoRollo) {
+        this.anchoRollo = achoRollo;
     }
 
     public double getAreaRollo() {
