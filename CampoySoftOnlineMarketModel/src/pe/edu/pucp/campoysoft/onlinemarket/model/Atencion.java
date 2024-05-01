@@ -1,8 +1,5 @@
 package pe.edu.pucp.campoysoft.onlinemarket.model;
 
-import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
-import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
-
 
 public class Atencion {
     private int idAtencion;
@@ -11,19 +8,17 @@ public class Atencion {
     private double precioTotal;
     private double pesoTotal;
     private double areaTotal;
-    private Empleado empleado;
-    private Cliente cliente;
+    private int idCliente;
 
     public Atencion(){}
-    public Atencion(int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,Empleado empleado,Cliente cliente) {
+    public Atencion(int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente) {
         this.idAtencion = idAtencion;
         this.estadoServicio = estadoServicio;
         this.canTotalRollos = canTotalRollos;
         this.precioTotal = precioTotal;
         this.pesoTotal = pesoTotal;
         this.areaTotal = areaTotal;
-        this.empleado = empleado;
-        this.cliente = cliente;
+        this.idCliente = id_cliente;
     }
 
     public int getIdAtencion() {
@@ -74,20 +69,12 @@ public class Atencion {
         this.areaTotal = areaTotal;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public int getCliente() {
+        return this.idCliente;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
     
     
