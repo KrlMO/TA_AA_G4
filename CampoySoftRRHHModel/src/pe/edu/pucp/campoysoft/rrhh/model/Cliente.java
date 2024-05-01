@@ -53,16 +53,13 @@ public class Cliente extends Persona{
     
     public int eliminar_servicio_carrito(int id_servicio){ // Carlos
         int resultado=0;
-        
         for(int i=0;i<atenciones.size();i++){
             if(atenciones.get(i).getIdAtencion()==id_servicio){
                 atenciones.remove(i);
                 resultado = 1;
-                return resultado;
+                break;
             }
         }
         return resultado;
     }
-
-   
 }
