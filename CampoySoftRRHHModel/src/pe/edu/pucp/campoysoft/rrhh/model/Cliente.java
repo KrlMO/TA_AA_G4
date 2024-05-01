@@ -3,6 +3,7 @@ package pe.edu.pucp.campoysoft.rrhh.model;
 
 import java.util.ArrayList;
 import java.util.Date; 
+import java.util.Iterator;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
 
 public class Cliente extends Persona{
@@ -51,15 +52,18 @@ public class Cliente extends Persona{
         return "Cliente{" + "codCliente=" + codCliente + ", activo=" + activo + '}' + str;
     }
     
-    public int eliminar_servicio_carrito(int id_servicio){ // Carlos
+    public int eliminar_servicio_carrito(int id_servicio){ 
         int resultado=0;
-        for(int i=0;i<atenciones.size();i++){
-            if(atenciones.get(i).getIdAtencion()==id_servicio){
-                atenciones.remove(i);
+        Iterator<Atencion> iterator = atenciones.iterator();
+        while (iterator.hasNext()) {
+            Atencion atencion = iterator.next();
+            if (atencion.getIdAtencion() == id_servicio) {
+                iterator.remove();
                 resultado = 1;
                 break;
             }
         }
+
         return resultado;
     }
 }
