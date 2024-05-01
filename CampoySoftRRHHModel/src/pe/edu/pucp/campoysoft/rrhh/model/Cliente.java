@@ -3,12 +3,13 @@ package pe.edu.pucp.campoysoft.rrhh.model;
 
 import java.util.ArrayList;
 import java.util.Date; 
+import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
 
 public class Cliente extends Persona{
     
     private String codCliente;
     private boolean activo;
-    
+    private ArrayList<Atencion>atenciones;
     public Cliente(){}
     
     
