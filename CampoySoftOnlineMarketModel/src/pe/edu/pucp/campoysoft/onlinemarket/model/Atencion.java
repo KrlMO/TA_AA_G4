@@ -94,6 +94,11 @@ public class Atencion {
     public void setCliente(int idCliente) {
         this.idCliente = idCliente;
     }
+
+    @Override
+    public String toString() {
+        return "Atencion{" + "idAtencion=" + idAtencion + ", estadoServicio=" + estadoServicio + ", canTotalRollos=" + canTotalRollos + ", precioTotal=" + precioTotal + ", pesoTotal=" + pesoTotal + ", areaTotal=" + areaTotal + ", idCliente=" + idCliente + ", idEmpleado=" + idEmpleado + '}';
+    }
     
     
 }

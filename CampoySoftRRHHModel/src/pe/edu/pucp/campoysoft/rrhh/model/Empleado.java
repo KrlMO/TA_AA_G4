@@ -82,6 +82,61 @@ public class Empleado extends Persona{
         return productoRollos;
     }
     
+    public ArrayList<Atencion> listar_Atencion_Emitidas(){
+        CompraDAO compraDAO = new CompraMySQL();
+        ArrayList<Atencion> atenciones = new ArrayList<>();
+        ArrayList<Compra> compras = new ArrayList<>();
+        Compra compra;
+        compras = compraDAO.listarTodas();
+        for(int i = compras.size() - 1; i >= 0; i--){
+            if(compras.get(i).getEstadoServicio()== EstadoAtencion.Emitido){
+                compra = compras.get(i);
+                atenciones.add(compra);
+                
+            }
+        }
+        ServicioTinteDAO servicioTinteDAO = new ServicioTinteMySQL();
+        ArrayList<ServicioTinte> servicioTintes = new ArrayList<>();
+        ServicioTinte servicioTinte;
+        servicioTintes = servicioTinteDAO.listarTodas();
+        for(int i = servicioTintes.size() - 1; i >= 0; i--){
+            if(servicioTintes.get(i).getEstadoServicio()== EstadoAtencion.Emitido){
+                servicioTinte = servicioTintes.get(i);
+                atenciones.add(servicioTinte);
+                
+            }
+        }
+        return atenciones;
+        
+    }
+    
+    public ArrayList<Atencion> listar_Atencion_Entregadas(){
+        CompraDAO compraDAO = new CompraMySQL();
+        ArrayList<Atencion> atenciones = new ArrayList<>();
+        ArrayList<Compra> compras = new ArrayList<>();
+        Compra compra;
+        compras = compraDAO.listarTodas();
+        for(int i = compras.size() - 1; i >= 0; i--){
+            if(compras.get(i).getEstadoServicio()== EstadoAtencion.Entregado){
+                compra = compras.get(i);
+                atenciones.add(compra);
+                
+            }
+        }
+        ServicioTinteDAO servicioTinteDAO = new ServicioTinteMySQL();
+        ArrayList<ServicioTinte> servicioTintes = new ArrayList<>();
+        ServicioTinte servicioTinte;
+        servicioTintes = servicioTinteDAO.listarTodas();
+        for(int i = servicioTintes.size() - 1; i >= 0; i--){
+            if(servicioTintes.get(i).getEstadoServicio()== EstadoAtencion.Emitido){
+                servicioTinte = servicioTintes.get(i);
+                atenciones.add(servicioTinte);
+                
+            }
+        }
+        return atenciones;
+        
+    }
     public ProductoRollo encontrar_producto(int id){
         
         ProductoRolloDAO prDAO = new ProductoRolloMySQL();
@@ -133,4 +188,6 @@ public class Empleado extends Persona{
         }
         
     }
+
+
 }

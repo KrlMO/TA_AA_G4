@@ -7,6 +7,7 @@ package pe.edu.pucp.campoysoft.program.main;
 import java.util.ArrayList;
 import java.util.Date;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
 import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
@@ -40,8 +41,13 @@ public class Principal {
 //            String str= productoRollos.get(i).toString();
 //            System.out.println(str);
 //        }
-          emp.despachar_Atencion(1);
-          
+//          emp.despachar_Atencion(1);
+        ArrayList<Atencion> atenciones = new ArrayList<>();
+        atenciones=emp.listar_Atencion_Emitidas();
+        for(int i=0;i<atenciones.size();i++){
+            String str= atenciones.get(i).toString();
+            System.out.println(str);
+        }
 //        emp = new Empleado("EMP002" ,200, "reponedor", true, "jesus", "cacerez", "Martinez", 72379187, new Date(), "Miraflores");
 //        if(daoEmpleado.insertar(emp)==1){
 //            System.out.println("Se ha registrado con exito");
