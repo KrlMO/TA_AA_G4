@@ -60,6 +60,7 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
             cs.setDouble("nueva_precio_x_metro2", productoRollo.getPrecioXmetro2());
             cs.setInt("nuevo_stock",productoRollo.getStock());
             cs.setString("nuevo_descripcion",productoRollo.getDescripcion());
+            cs.setBoolean("nuevo_activo", true);
             cs.executeUpdate();
             resultado = 1;
             cs.close();
@@ -105,6 +106,7 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
                 productoRollo.setEspecificiacionRollo(especificacionRollo);
                 Tinte tinte = new Tinte();
                 tinte.setIdTinte(rs.getInt("fk_id_tinte"));
+                productoRollo.setTinte(tinte);
                 productoRollo.setPrecioXmetro2(rs.getDouble("precio_x_metro2"));
                 productoRollo.setStock(rs.getInt("stock"));
                 productoRollo.setDescripcion("descripcion");

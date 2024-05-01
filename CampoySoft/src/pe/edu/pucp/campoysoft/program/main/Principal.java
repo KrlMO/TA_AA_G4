@@ -33,13 +33,13 @@ public class Principal {
 //        }else{
 //            System.out.println("Ha ocurrido un error");
 //        }
-//        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
-//        productoRollos = emp.listar_proStock_bajo();
-//        
-//        for(int i=0;i<productoRollos.size();i++){
-//            String str= productoRollos.get(i).toString();
-//            System.out.println(str);
-//        }
+        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+        productoRollos = emp.listar_proStock_bajo();
+//        emp.reponer_stock(40, 100);
+        for(int i=0;i<productoRollos.size();i++){
+            String str= productoRollos.get(i).toString();
+            System.out.println(str);
+        }
         
 //        emp = new Empleado("EMP002" ,200, "reponedor", true, "jesus", "cacerez", "Martinez", 72379187, new Date(), "Miraflores");
 //        if(daoEmpleado.insertar(emp)==1){
@@ -54,14 +54,14 @@ public class Principal {
 //            System.out.println("Ha ocurrido un error");
 //        }
 //
-        Empleado emp2 = new Empleado();
-        emp.setCargo("asistente");
-        emp.setIdPersona(1);
-        if(daoEmpleado.modificar(emp)==1){
-            System.out.println("Se ha registrado con exito");
-        }else{  
-            System.out.println("Ha ocurrido un error");
-        }
+//        Empleado emp2 = new Empleado();
+//        emp.setCargo("asistente");
+//        emp.setIdPersona(1);
+//        if(daoEmpleado.modificar(emp)==1){
+//            System.out.println("Se ha registrado con exito");
+//        }else{  
+//            System.out.println("Ha ocurrido un error");
+//        }
 //
 //        ArrayList<Empleado> empleados = new ArrayList<>();
 //        empleados = daoEmpleado.listar();

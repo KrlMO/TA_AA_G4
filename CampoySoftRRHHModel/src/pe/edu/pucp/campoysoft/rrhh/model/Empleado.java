@@ -67,7 +67,7 @@ public class Empleado extends Persona{
         ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
         productoRollos=prDAO.listar();
         for(int i = productoRollos.size() - 1; i >= 0; i--){
-            if(productoRollos.get(i).getStock() <= 5){
+            if(productoRollos.get(i).getStock() >= 100){
                 productoRollos.remove(i);
             }
         }
