@@ -6,7 +6,10 @@ import java.util.Date;
 import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
 import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
 import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
-
+import pe.edu.pucp.campoysoft.onlinemarket.dao.ServicioTinteDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
 
 public class Empleado extends Persona{
     private String codEmpleado;
@@ -102,7 +105,7 @@ public class Empleado extends Persona{
     }
     
     public void encontrar_Atencion(int id){
-//        AtencionDAO atencionDAO = new AtencionMySQL();
-//        ArrayList<Atencion> atenciones = new ArrayList<>();
+        CompraDAO compraDAO = new CompraMySQL();
+        ArrayList<Compra> compras = new ArrayList<>();
     }
 }
