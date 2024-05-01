@@ -9,9 +9,10 @@ public class Atencion {
     private double pesoTotal;
     private double areaTotal;
     private int idCliente;
+    private int idEmpleado;
 
     public Atencion(){}
-    public Atencion(int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente) {
+    public Atencion(int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente,int idEmpleado) {
         this.idAtencion = idAtencion;
         this.estadoServicio = estadoServicio;
         this.canTotalRollos = canTotalRollos;
@@ -19,6 +20,23 @@ public class Atencion {
         this.pesoTotal = pesoTotal;
         this.areaTotal = areaTotal;
         this.idCliente = id_cliente;
+        this.idEmpleado = idEmpleado;
+    }
+
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public int getIdAtencion() {

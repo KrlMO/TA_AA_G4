@@ -49,19 +49,21 @@ public class CompraMySQL implements CompraDAO{
     public int modificar(Compra compra) {
         int resultado = 0;
         try{
-            con = DBManager.getInstance().getConnection();
-            String sql = "{CALL UpdateCompra(?,?,?,?,?,?,?,?,?)}";
-            CallableStatement cs = (CallableStatement) con.prepareCall(sql);
-
-            cs.setInt(1, compra.getIdAtencion());
-            cs.setInt(2, compra.getIdAtencion());
-            cs.setInt(3, compra.getIdAtencion());
-            cs.setInt(4, compra.getIdAtencion());
-            cs.setInt(5, compra.getIdAtencion());
-            cs.setInt(6, compra.getIdAtencion());
-            cs.setInt(7, compra.getIdAtencion());
-            cs.setInt(8, compra.getIdAtencion());
-            cs.setInt(9, compra.getIdAtencion());
+             con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call UpdateCompra(?,?,?,?,?,?,?,?,?)}");
+            
+            cs.setInt("atencion_id", compra.getIdAtencion());
+            cs.setString("nuevo_estado_servicio", compra.getEstadoServicio().name());
+            cs.setDouble("nuevo_precio_total", compra.getPrecioTotal());
+            cs.setInt("nueva_cantidad_total_rollos", compra.getCanTotalRollos());
+            cs.setDouble("nuevo_peso_total", compra.getPesoTotal());
+            cs.setDouble("nuevo_area_total", compra.getAreaTotal());
+            cs.setString("nuevo_cod_compra",  String.valueOf(compra.getCodCompra()));
+            cs.setInt("nuevo_fk_id_empleado", compra.getIdEmpleado());
+            cs.setBoolean("nuevo_activo_comp", true);
+            cs.executeUpdate();
+            resultado = 1;
+            cs.close();
             
         }catch(SQLException ex){
             System.out.println(ex.getMessage());

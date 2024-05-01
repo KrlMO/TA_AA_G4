@@ -33,14 +33,15 @@ public class Principal {
 //        }else{
 //            System.out.println("Ha ocurrido un error");
 //        }
-        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
-        productoRollos = emp.listar_proStock_bajo();
+//        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+//        productoRollos = emp.listar_proStock_bajo();
 //        emp.reponer_stock(40, 100);
-        for(int i=0;i<productoRollos.size();i++){
-            String str= productoRollos.get(i).toString();
-            System.out.println(str);
-        }
-        
+//        for(int i=0;i<productoRollos.size();i++){
+//            String str= productoRollos.get(i).toString();
+//            System.out.println(str);
+//        }
+          emp.despachar_Atencion(1);
+          
 //        emp = new Empleado("EMP002" ,200, "reponedor", true, "jesus", "cacerez", "Martinez", 72379187, new Date(), "Miraflores");
 //        if(daoEmpleado.insertar(emp)==1){
 //            System.out.println("Se ha registrado con exito");

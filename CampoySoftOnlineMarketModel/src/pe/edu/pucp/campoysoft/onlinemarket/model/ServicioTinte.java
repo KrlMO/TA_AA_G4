@@ -10,8 +10,8 @@ public class ServicioTinte extends Atencion {
     
     public ServicioTinte(){}
     
-    public ServicioTinte(int codServicioTinte, double horasTintado, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente) {
-        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente);
+    public ServicioTinte(int codServicioTinte, double horasTintado, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente,int idEmpleado) {
+        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente,idEmpleado);
         this.codServicioTinte = codServicioTinte;
         this.horasTintado = horasTintado;
     }

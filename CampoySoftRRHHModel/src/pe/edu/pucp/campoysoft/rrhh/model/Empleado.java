@@ -8,8 +8,12 @@ import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
 import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.ServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
+import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
+import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.ServicioTinteMySQL;
 
 public class Empleado extends Persona{
     private String codEmpleado;
@@ -100,12 +104,33 @@ public class Empleado extends Persona{
         prDAO.modificar(producto);
     }
     
-    public void despachar_Atencion(int id_atencion){
-        
-    }
+   
     
-    public void encontrar_Atencion(int id){
+    public void despachar_Atencion(int id){
         CompraDAO compraDAO = new CompraMySQL();
         ArrayList<Compra> compras = new ArrayList<>();
+        Compra compra;
+        compras = compraDAO.listarTodas();
+        for(int i = compras.size() - 1; i >= 0; i--){
+            if(compras.get(i).getIdAtencion()== id){
+                compra=compras.get(i);
+                compra.setEstadoServicio(EstadoAtencion.Entregado);
+                compra.setIdEmpleado(this.getIdPersona());
+                compraDAO.modificar(compra);
+                return;
+            }
+        }
+        ServicioTinteDAO servicioTinteDAO = new ServicioTinteMySQL();
+        ArrayList<ServicioTinte> ServicioTintes = new ArrayList<>();
+        ServicioTinte servicioTinte;
+        for(int i = ServicioTintes.size() - 1; i >= 0; i--){
+            if(ServicioTintes.get(i).getIdAtencion()== id){
+                servicioTinte=ServicioTintes.get(i);;
+                servicioTinte.setEstadoServicio(EstadoAtencion.Entregado);
+                servicioTinte.setIdAtencion(this.getIdPersona());
+                servicioTinteDAO.modificar(servicioTinte);
+            }
+        }
+        
     }
 }
