@@ -101,4 +101,8 @@ public class Empleado extends Persona{
         
     }
     
+    public void encontrar_Atencion(int id){
+//        AtencionDAO atencionDAO = new AtencionMySQL();
+//        ArrayList<Atencion> atenciones = new ArrayList<>();
+    }
 }
