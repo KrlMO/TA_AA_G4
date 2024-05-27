@@ -8,7 +8,7 @@ public class DBManager {
     private Connection con;
     private final String host = "nicolaydb.ctdmcgvtbjvf.us-east-1.rds.amazonaws.com";
     private final String port = "3306";
-    private final String db = "elNicolays";
+    private final String db = "elNicolays?useSSL=false";
     private final String username = "admin";
     private final String password = "2o6k1pfgpPi2IEGGKSsJ";
     
