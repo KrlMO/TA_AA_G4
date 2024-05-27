@@ -15,6 +15,7 @@ import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
 import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
 import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
 import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 public class ProductoRolloMySQL implements ProductoRolloDAO{
     
@@ -112,6 +113,39 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
                 productoRollo.setDescripcion("descripcion");
                 productoRollo.setActivo(true);
                 productoRollos.add(productoRollo);//añado un empleado al arraylist empleados
+            }
+            rs.close();
+            cs.close();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return productoRollos;
+    }
+    
+    @Override
+    public ArrayList<ProductoRollo> listarPorTipo(TipoTela tipoTela) {
+        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListarProductosPorTipoTela(?)}");
+            cs.setString("tipoTela", tipoTela.toString());
+            rs = cs.executeQuery();
+            while(rs.next()){
+                ProductoRollo productoRollo = new ProductoRollo();
+                productoRollo.setIdProducto(rs.getInt("id_producto"));
+                EspecificacionRollo especificacionRollo = new EspecificacionRollo();
+                especificacionRollo.setIdEspecifiacionRollo(rs.getInt("fk_id_especificacion_rollo"));
+                productoRollo.setEspecificiacionRollo(especificacionRollo);
+                Tinte tinte = new Tinte();
+                tinte.setIdTinte(rs.getInt("fk_id_tinte"));
+                productoRollo.setTinte(tinte);
+                productoRollo.setPrecioXmetro2(rs.getDouble("precio_x_metro2"));
+                productoRollo.setStock(rs.getInt("stock"));
+                productoRollo.setDescripcion(rs.getString("descripcion"));
+                productoRollo.setActivo(true);
+                productoRollos.add(productoRollo);
             }
             rs.close();
             cs.close();

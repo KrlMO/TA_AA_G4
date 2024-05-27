@@ -5,9 +5,11 @@
 package pe.edu.pucp.campoysoft.productotextil.dao;
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 public interface ProductoRolloDAO {
     public ArrayList<ProductoRollo> listar();
+    public ArrayList<ProductoRollo> listarPorTipo(TipoTela tipoTela);
     public int insertar(ProductoRollo productoRollo);
     public int modificar(ProductoRollo productoRollo);
     public int eliminar (int idProducto);
