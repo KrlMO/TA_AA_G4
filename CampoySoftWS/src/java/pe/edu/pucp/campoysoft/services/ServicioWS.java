@@ -24,7 +24,6 @@ public class ServicioWS {
     @WebMethod(operationName = "listarEmpleados")
     public ArrayList<Empleado> listarEmpleados() {
         ArrayList<Empleado> empleados = new ArrayList<>();
-        
         try{
             daoEmpleado = new EmpleadoMySQL();
             empleados = daoEmpleado.listar();
