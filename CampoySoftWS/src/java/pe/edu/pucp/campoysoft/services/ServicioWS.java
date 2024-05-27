@@ -7,6 +7,10 @@ package pe.edu.pucp.campoysoft.services;
 import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
+import java.util.ArrayList;
+import pe.edu.pucp.campoysoft.rrhh.dao.EmpleadoDAO;
+import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
+import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
 
 /**
  *
@@ -15,10 +19,19 @@ import jakarta.jws.WebParam;
 @WebService(serviceName = "ServicioWS")
 public class ServicioWS {
     
+    private EmpleadoDAO daoEmpleado;
     
-    
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
+    @WebMethod(operationName = "listarEmpleados")
+    public ArrayList<Empleado> listarEmpleados() {
+        ArrayList<Empleado> empleados = new ArrayList<>();
+        
+        try{
+            daoEmpleado = new EmpleadoMySQL();
+            empleados = daoEmpleado.listar();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        return empleados;
     }
 }
