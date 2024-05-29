@@ -88,7 +88,7 @@ public class LineaCompraMySQL implements LineaCompraDAO{
             while(rs.next()){
                 LineaCompra lineaCompra = new LineaCompra();
                 lineaCompra.setIdLineaCompra(rs.getInt("id_linea_compra"));
-                lineaCompra.getCompra().setCodCompra(rs.getInt("fk_id_compra"));
+                lineaCompra.getCompra().setCodCompra(rs.getString("fk_id_compra"));
                 lineaCompra.getProdRollo().setIdProducto(rs.getInt("fk_id_producto"));
                 lineaCompra.setCantRollo(rs.getInt("cant_rollo"));
                 lineaCompra.setActivo(true);  

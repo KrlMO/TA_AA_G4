@@ -128,7 +128,7 @@ public class Empleado extends Persona{
         ServicioTinte servicioTinte;
         servicioTintes = servicioTinteDAO.listarTodas();
         for(int i = servicioTintes.size() - 1; i >= 0; i--){
-            if(servicioTintes.get(i).getEstadoServicio()== EstadoAtencion.Emitido){
+            if(servicioTintes.get(i).getEstadoServicio()== EstadoAtencion.Entregado){
                 servicioTinte = servicioTintes.get(i);
                 atenciones.add(servicioTinte);
                 
@@ -178,11 +178,12 @@ public class Empleado extends Persona{
         ServicioTinteDAO servicioTinteDAO = new ServicioTinteMySQL();
         ArrayList<ServicioTinte> ServicioTintes = new ArrayList<>();
         ServicioTinte servicioTinte;
+        ServicioTintes = servicioTinteDAO.listarTodas();
         for(int i = ServicioTintes.size() - 1; i >= 0; i--){
             if(ServicioTintes.get(i).getIdAtencion()== id){
                 servicioTinte=ServicioTintes.get(i);;
                 servicioTinte.setEstadoServicio(EstadoAtencion.Entregado);
-                servicioTinte.setIdAtencion(this.getIdPersona());
+                servicioTinte.setIdEmpleado(this.getIdPersona());
                 servicioTinteDAO.modificar(servicioTinte);
             }
         }

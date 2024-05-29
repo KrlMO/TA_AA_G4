@@ -50,4 +50,15 @@ public class ServicioEmpleadoWS {
                 
         return listPedEntre;
     }
+    
+    @WebMethod(operationName = "Atender")
+    public void Atender(@WebParam(name = "atencion")int idAtencion, @WebParam(name = "empleado") int idEmp){
+        try{
+            Empleado emp = new Empleado();
+            emp.setIdPersona(idEmp);
+            emp.despachar_Atencion(idAtencion);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
 }

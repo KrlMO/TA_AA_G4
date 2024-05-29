@@ -27,7 +27,29 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
 
     @Override
     public int modificar(ServicioTinte servTinte) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int resultado = 0;
+        try{
+             con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call UpdateServicioTinte(?,?,?,?,?,?,?,?,?)}");
+            
+            cs.setInt("atencion_id", servTinte.getIdAtencion());
+            cs.setString("nuevo_estado_servicio", servTinte.getEstadoServicio().name());
+            cs.setDouble("nuevo_precio_total", servTinte.getPrecioTotal());
+            cs.setInt("nueva_cantidad_total_rollos", servTinte.getCanTotalRollos());
+            cs.setDouble("nuevo_peso_total", servTinte.getPesoTotal());
+            cs.setDouble("nuevo_area_total", servTinte.getAreaTotal());
+            cs.setString("nuevo_cod_servicio_tinte",  String.valueOf(servTinte.getCodServicioTinte()));
+            cs.setDouble("nuevo_horas_tintado", servTinte.getHorasTintado());
+            cs.setBoolean("nuevo_activo_serv", true);
+            
+            cs.executeUpdate();
+            resultado = 1;
+            cs.close();
+            
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return resultado;
     }
 
     @Override
