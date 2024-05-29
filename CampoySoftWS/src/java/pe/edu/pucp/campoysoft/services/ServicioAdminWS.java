@@ -41,4 +41,15 @@ public class ServicioAdminWS {
         }
         return resultado;
     }
+    @WebMethod(operationName = "eliminarEmpleado")
+    public int eliminarEmpleado(@WebParam(name = "empleado")int idEmpleado) {
+        int resultado = 0;
+        try{
+            daoEmpleado = new EmpleadoMySQL();
+            resultado = daoEmpleado.eliminar(idEmpleado);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return resultado;
+    }
 }
