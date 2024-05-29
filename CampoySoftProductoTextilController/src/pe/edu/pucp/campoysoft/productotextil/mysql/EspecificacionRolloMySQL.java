@@ -110,6 +110,7 @@ public class EspecificacionRolloMySQL implements EspecificacionRolloDAO{
                 especificacion.setAnchoRollo(rs.getDouble("ancho_rollo"));
                 especificacion.setAreaRollo(rs.getDouble("area_rollo"));
                 especificacion.setPesoRollo(rs.getDouble("peso_rollo"));
+                especificacionesRollo.add(especificacion);
             }
             rs.close();
             cs.close();
