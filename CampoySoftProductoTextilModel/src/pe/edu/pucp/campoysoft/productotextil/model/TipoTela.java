@@ -9,5 +9,5 @@ package pe.edu.pucp.campoysoft.productotextil.model;
  * @author samt1
  */
 public enum TipoTela {
-    Franela,Terry,Licra,Jersey,Pique,Rib,LineaEscolar,LineaSublimado
+    Franela,Terry,Licra,Jersey,Pique,Rib,Poliester,PoliAlgodon
 }
