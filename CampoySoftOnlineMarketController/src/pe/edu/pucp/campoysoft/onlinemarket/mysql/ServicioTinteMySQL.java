@@ -52,27 +52,29 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
 
     @Override
     public ArrayList<ServicioTinte> listarTodas() {
-        ArrayList<ServicioTinte> listservicios = new ArrayList<>();
-        boolean activo;
-        int idEmp;
+        ArrayList<ServicioTinte> listServ = new ArrayList<>();
+        
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call listservicios()}");
+            cs = con.prepareCall("{call ListServicioTintes()}");
             rs = cs.executeQuery();
+            int cant;
             while(rs.next()){
                 ServicioTinte serv = new ServicioTinte();
-                serv.setId_servicio(rs.getInt("id_servicio"));
+                serv.setIdAtencion(rs.getInt("id_atencion"));
                 serv.setIdCliente(rs.getInt("fk_id_cliente"));
+                EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                serv.setEstadoServicio(est);
+                listServ.add(serv);
             }
             rs.close();
             cs.close();
+            cant = listServ.size();
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }finally{
             try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
         }
-        return listservicios;
+        return listServ;
     }
-
-     
 }
