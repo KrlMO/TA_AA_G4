@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.ServicioTinteDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
 
 public class ServicioTinteMySQL implements ServicioTinteDAO{
@@ -19,24 +20,9 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
     
     @Override
     public int insertar(ServicioTinte servTinte) {
-       int resultado = 0;
-        try{
-            try (Connection con = DBManager.getInstance().getConnection()) {
-                String sql = "insert into ServicioTinte(id_servicio_tinte,"
-                        + "cod_servicio_tinte,horas_tintado) "
-                        + "values (?,?,?)";
-                PreparedStatement statement = con.prepareStatement(sql);
-                statement.setInt(1, servTinte.getIdAtencion());
-                statement.setString(2, Integer.toString(servTinte.getCodServicioTinte()));
-                statement.setDouble(3, servTinte.getHorasTintado()); 
-                
-                resultado = statement.executeUpdate();
-                System.out.println("Resultado " + resultado);
-            }
-        }catch(SQLException ex){
-            System.out.println(ex.getMessage());
-        }
-        return resultado;
+       
+        return 0;
+       
     }
 
     @Override
@@ -66,7 +52,26 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
 
     @Override
     public ArrayList<ServicioTinte> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<ServicioTinte> listservicios = new ArrayList<>();
+        boolean activo;
+        int idEmp;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call listservicios()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                ServicioTinte serv = new ServicioTinte();
+                serv.setId_servicio(rs.getInt("id_servicio"));
+                serv.setIdCliente(rs.getInt("fk_id_cliente"));
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return listservicios;
     }
 
      

@@ -28,7 +28,7 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
                         + "fk_id_tinte_destino,tipo_tela_recibida,longitud_recibida,peso_recibida,ancho_recibida,area_recibida) "
                         + "values (?,?,?,?,?,?,?)";
                 PreparedStatement statement = con.prepareStatement(sql);
-                statement.setInt(1, lineaServTinte.getServTinte().getCodServicioTinte());
+                statement.setString(1, lineaServTinte.getServTinte().getCodServicioTinte());
                 statement.setInt(2, lineaServTinte.getTinteDestino().getIdTinte());
                 statement.setString(3, lineaServTinte.getTipoTela().name());
                 statement.setDouble(4, lineaServTinte.getLongitud());

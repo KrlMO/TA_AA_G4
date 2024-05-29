@@ -1078,8 +1078,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.CampoySoftOnlineMarketController}" name="call.subproject"/>
-            <param location="${project.CampoySoftOnlineMarketController}/build.xml" name="call.script"/>
+            <param location="${project.CampoySoftOnlineMarketController-1}" name="call.subproject"/>
+            <param location="${project.CampoySoftOnlineMarketController-1}/build.xml" name="call.script"/>
             <param name="call.target" value="jar"/>
             <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1087,8 +1087,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.CampoySoftOnlineMarketModel}" name="call.subproject"/>
-            <param location="${project.CampoySoftOnlineMarketModel}/build.xml" name="call.script"/>
+            <param location="${project.CampoySoftOnlineMarketModel-2}" name="call.subproject"/>
+            <param location="${project.CampoySoftOnlineMarketModel-2}/build.xml" name="call.script"/>
             <param name="call.target" value="jar"/>
             <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1096,17 +1096,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.CampoySoftOnlineMarketModel-1}" name="call.subproject"/>
-            <param location="${project.CampoySoftOnlineMarketModel-1}/build.xml" name="call.script"/>
-            <param name="call.target" value="jar"/>
-            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
-            <param name="transfer.not.archive.disabled" value="true"/>
-            <param name="transfer.do.jlink" value="false"/>
-        </antcall>
-        <antcall target="-maybe-call-dep">
-            <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.CampoySoftProductoTextilModel}" name="call.subproject"/>
-            <param location="${project.CampoySoftProductoTextilModel}/build.xml" name="call.script"/>
+            <param location="${project.CampoySoftProductoTextilModel-1}" name="call.subproject"/>
+            <param location="${project.CampoySoftProductoTextilModel-1}/build.xml" name="call.script"/>
             <param name="call.target" value="jar"/>
             <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1812,8 +1803,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.CampoySoftOnlineMarketController}" name="call.subproject"/>
-            <param location="${project.CampoySoftOnlineMarketController}/build.xml" name="call.script"/>
+            <param location="${project.CampoySoftOnlineMarketController-1}" name="call.subproject"/>
+            <param location="${project.CampoySoftOnlineMarketController-1}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1821,8 +1812,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.CampoySoftOnlineMarketModel}" name="call.subproject"/>
-            <param location="${project.CampoySoftOnlineMarketModel}/build.xml" name="call.script"/>
+            <param location="${project.CampoySoftOnlineMarketModel-2}" name="call.subproject"/>
+            <param location="${project.CampoySoftOnlineMarketModel-2}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1830,17 +1821,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.CampoySoftOnlineMarketModel-1}" name="call.subproject"/>
-            <param location="${project.CampoySoftOnlineMarketModel-1}/build.xml" name="call.script"/>
-            <param name="call.target" value="clean"/>
-            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
-            <param name="transfer.not.archive.disabled" value="true"/>
-            <param name="transfer.do.jlink" value="false"/>
-        </antcall>
-        <antcall target="-maybe-call-dep">
-            <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.CampoySoftProductoTextilModel}" name="call.subproject"/>
-            <param location="${project.CampoySoftProductoTextilModel}/build.xml" name="call.script"/>
+            <param location="${project.CampoySoftProductoTextilModel-1}" name="call.subproject"/>
+            <param location="${project.CampoySoftProductoTextilModel-1}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
