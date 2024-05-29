@@ -4,6 +4,12 @@ import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import java.util.ArrayList;
+import pe.edu.pucp.campoysoft.productotextil.dao.EspecificacionRolloDAO;
+import pe.edu.pucp.campoysoft.productotextil.dao.TinteDAO;
+import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
+import pe.edu.pucp.campoysoft.productotextil.mysql.EspecificacionRolloMySQL;
+import pe.edu.pucp.campoysoft.productotextil.mysql.TinteMySQL;
 import pe.edu.pucp.campoysoft.rrhh.dao.EmpleadoDAO;
 import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
 import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
@@ -16,6 +22,8 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
 public class ServicioAdminWS {
     
     private EmpleadoDAO daoEmpleado;
+    private EspecificacionRolloDAO daoEspecificacion;
+    private TinteDAO daoTinte;
     
     @WebMethod(operationName = "listarEmpleados")
     public ArrayList<Empleado> listarEmpleados() {
@@ -51,5 +59,31 @@ public class ServicioAdminWS {
             System.out.println(ex.getMessage());
         }
         return resultado;
+    }
+    //especificaciones
+    @WebMethod(operationName = "listarEspecificacionRollo")
+    public ArrayList<EspecificacionRollo> listarEspecificacionRollo(){
+        ArrayList<EspecificacionRollo> especificaciones = new ArrayList<>();
+        try{
+            daoEspecificacion = new EspecificacionRolloMySQL();
+            especificaciones = daoEspecificacion.listar();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        return especificaciones;
+    }
+    //tintes
+    @WebMethod(operationName = "listarTintes")
+    public ArrayList<Tinte> listarTintes(){
+        ArrayList<Tinte> tintes = new ArrayList<>();
+        try{
+            daoTinte = new TinteMySQL();
+            tintes = daoTinte.listar();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        return tintes;
     }
 }
