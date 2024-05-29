@@ -15,7 +15,7 @@ import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
 
 /**
  *
- * @author samt1
+ * @author s
  */
 @WebService(serviceName = "ServicioUsuarioWS")
 public class ServicioUsuarioWS {
