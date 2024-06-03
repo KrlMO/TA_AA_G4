@@ -12,9 +12,12 @@ import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
 import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
-
+import pe.edu.pucp.campoysoft.tech.dao.UsuarioDAO;
+import pe.edu.pucp.campoysoft.tech.mysql.UsuarioMySQL;
+import pe.edu.pucp.campoysoft.tech.model.Usuario;
 /**
- *
+ *ServiciosCampoyTextWS
+ * http://localhost:8080/CampoySoftWS/servicios.disco
  * @author s
  */
 @WebService(serviceName = "ServicioUsuarioWS")
@@ -27,7 +30,7 @@ public class ServicioUsuarioWS {
     public ArrayList<ProductoRollo> ListarProductosRollosXnombre(@WebParam(name = "tipo_de_tela") String tipoTelaS) {
         ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
          TipoTela tipoTela;
-        
+         Usuario usu = new Usuario();
         // Manejar posibles excepciones para TipoTela.valueOf
         try {
             tipoTela = TipoTela.valueOf(tipoTelaS);
@@ -40,5 +43,12 @@ public class ServicioUsuarioWS {
         ProductoRolloDAO daoPr = new ProductoRolloMySQL();
         productoRollos = daoPr.listarPorTipo(tipoTela);
         return productoRollos;
+    }
+    @WebMethod(operationName = "holaUsu")
+    public Usuario holaUsu(@WebParam(name = "tipo_de_tela") String nombre) {
+        Usuario usu = new Usuario();
+        usu.setUsername(nombre);
+        
+        return usu;
     }
 }
