@@ -56,4 +56,13 @@ public class ServicioUsuarioWS {
         return usuDAO.identificar_usu(username, password);
     }
     
+    @WebMethod(operationName = "buscarProductos")
+    public ArrayList<ProductoRollo> buscarProductos(@WebParam(name = "text") String text) {
+        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+                
+        ProductoRolloDAO daoPr = new ProductoRolloMySQL();
+        productoRollos = daoPr.buscarProducto(text);
+        return productoRollos;
+    }
+    
 }

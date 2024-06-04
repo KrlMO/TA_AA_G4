@@ -55,4 +55,6 @@ public class ServicioWS {
         productoRollos = daoPr.listarPorTipo(tipoTela);
         return productoRollos;
     }
+    
+    
 }
