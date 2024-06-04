@@ -76,63 +76,33 @@ public class ServicioUsuarioWS {
         return productoRollos;
     }
     
-    @WebMethod(operationName = "getInfoCliente")
-    public Persona getInfoCliente(@WebParam(name = "idCliente")int idCliente){
+    @WebMethod(operationName = "obtenerInfoUsuario")
+    public Persona obtenerInfoUsuario(@WebParam(name = "username") String username,@WebParam(name = "password") String password, @WebParam(name = "tipo") int i){
+        Cliente cli;
+        Empleado emp;
+        Administrador admin;
         try{
-            ClienteDAO daoCli = new ClienteMySQL();
-            ArrayList<Cliente> listCli = daoCli.listar();
-            Iterator<Cliente> iterator = listCli.iterator();
-
-            while (iterator.hasNext()) {
-                Cliente cliente = iterator.next();
-                if (cliente.getIdPersona() == idCliente) {
-                    return cliente;
-                }
+            UsuarioDAO daoUsuario = new UsuarioMySQL();
+            if(i==1){
+                cli = new Cliente();
+                cli = (Cliente)daoUsuario.obtenerDatos(username, password,i);
+                return cli;
             }
-            return null;
+            
+            if(i==2){
+                emp = new Empleado();
+                emp = (Empleado)daoUsuario.obtenerDatos(username, password, i);
+                return emp;
+            }
+            if(i==3){
+                admin = new Administrador();
+                admin = (Administrador) daoUsuario.obtenerDatos(username, password, i);
+                return admin;
+            }
         }catch(Exception e){
             System.out.println(e.getMessage());
             return null;
         }
-    }
-    
-    @WebMethod(operationName = "getInfoEmpleado")
-    public Persona getInfoEmpleado(@WebParam(name = "idEmp")int idEmp){
-        try{
-            EmpleadoDAO daoEmp = new EmpleadoMySQL();
-            ArrayList<Empleado> listEmp = daoEmp.listar();
-            Iterator<Empleado> iterator = listEmp.iterator();
-
-            while (iterator.hasNext()) {
-                Empleado emp = iterator.next();
-                if (emp.getIdPersona() == idEmp) {
-                    return emp;
-                }
-            }
-            return null;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-    
-    @WebMethod(operationName = "getInfoAdmin")
-    public Persona getInfoAdmin(@WebParam(name = "idAdmin")int idAdmin){
-        try{
-            AdministradorDAO daoAdmin = new AdministradorMySQL();
-            ArrayList<Administrador> listAdmin = daoAdmin.listar();
-            Iterator<Administrador> iterator = listAdmin.iterator();
-
-            while (iterator.hasNext()) {
-                Administrador admin = iterator.next();
-                if (admin.getIdPersona() == idAdmin) {
-                    return admin;
-                }
-            }
-            return null;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
+        return null;
     }
 }

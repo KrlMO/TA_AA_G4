@@ -1,6 +1,7 @@
 package pe.edu.pucp.campoysoft.tech.dao;
 
 import java.util.ArrayList;
+import pe.edu.pucp.campoysoft.rrhh.model.Persona;
 import pe.edu.pucp.campoysoft.tech.model.Usuario;
 
 public interface UsuarioDAO {
@@ -9,4 +10,5 @@ public interface UsuarioDAO {
     int eliminar(int idUsuario);
     ArrayList<Usuario> listarTodas();
     int identificar_usu(String username,String password);
+    Persona obtenerDatos(String usuario, String pass,int tipo);
 }

@@ -8,6 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.config.DBManager;
+import pe.edu.pucp.campoysoft.rrhh.model.Administrador;
+import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
+import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
+import pe.edu.pucp.campoysoft.rrhh.model.Persona;
 import pe.edu.pucp.campoysoft.tech.dao.UsuarioDAO;
 import pe.edu.pucp.campoysoft.tech.model.Usuario;
 
@@ -125,6 +129,57 @@ public class UsuarioMySQL implements UsuarioDAO{
                 try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
         }
         return i;
+    }
+
+    @Override
+    public Persona obtenerDatos(String usuario, String pass, int tipo) {
+        try {
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ObtenerInformacionPersona(?,?,?)}");
+            cs.setString("p_usuario", usuario);
+            cs.setString("p_password", pass);
+            rs = cs.executeQuery();
+            
+            if(tipo==1){
+                Cliente cli = new Cliente();
+                cli.setIdPersona(rs.getInt("id_persona"));
+                cli.setNombre(rs.getString("nombre"));
+                cli.setApPaterno(rs.getString("ap_paterno"));
+                cli.setApMaterno(rs.getString("ap_materno"));
+                rs.close();
+                cs.close();
+                return cli;
+            }
+            if(tipo==2){
+                Empleado emp = new Empleado();
+                emp.setIdPersona(rs.getInt("id_persona"));
+                emp.setNombre(rs.getString("nombre"));
+                emp.setApPaterno(rs.getString("ap_paterno"));
+                emp.setApMaterno(rs.getString("ap_materno"));
+                rs.close();
+                cs.close();
+                return emp;
+            }
+            if(tipo==3){
+                Administrador admin = new Administrador();
+                admin.setIdPersona(rs.getInt("id_persona"));
+                admin.setNombre(rs.getString("nombre"));
+                admin.setApPaterno(rs.getString("ap_paterno"));
+                admin.setApMaterno(rs.getString("ap_materno"));
+                rs.close();
+                cs.close();
+                return admin;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return null;
     }
     
 }
