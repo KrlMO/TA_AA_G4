@@ -8,10 +8,21 @@ import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import java.util.ArrayList;
+import java.util.Iterator;
 import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
 import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
+import pe.edu.pucp.campoysoft.rrhh.dao.AdministradorDAO;
+import pe.edu.pucp.campoysoft.rrhh.dao.ClienteDAO;
+import pe.edu.pucp.campoysoft.rrhh.dao.EmpleadoDAO;
+import pe.edu.pucp.campoysoft.rrhh.model.Administrador;
+import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
+import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
+import pe.edu.pucp.campoysoft.rrhh.model.Persona;
+import pe.edu.pucp.campoysoft.rrhh.mysql.AdministradorMySQL;
+import pe.edu.pucp.campoysoft.rrhh.mysql.ClienteMySQL;
+import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
 import pe.edu.pucp.campoysoft.tech.dao.UsuarioDAO;
 import pe.edu.pucp.campoysoft.tech.mysql.UsuarioMySQL;
 import pe.edu.pucp.campoysoft.tech.model.Usuario;
@@ -65,4 +76,63 @@ public class ServicioUsuarioWS {
         return productoRollos;
     }
     
+    @WebMethod(operationName = "getInfoCliente")
+    public Persona getInfoCliente(@WebParam(name = "idCliente")int idCliente){
+        try{
+            ClienteDAO daoCli = new ClienteMySQL();
+            ArrayList<Cliente> listCli = daoCli.listar();
+            Iterator<Cliente> iterator = listCli.iterator();
+
+            while (iterator.hasNext()) {
+                Cliente cliente = iterator.next();
+                if (cliente.getIdPersona() == idCliente) {
+                    return cliente;
+                }
+            }
+            return null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    @WebMethod(operationName = "getInfoEmpleado")
+    public Persona getInfoEmpleado(@WebParam(name = "idEmp")int idEmp){
+        try{
+            EmpleadoDAO daoEmp = new EmpleadoMySQL();
+            ArrayList<Empleado> listEmp = daoEmp.listar();
+            Iterator<Empleado> iterator = listEmp.iterator();
+
+            while (iterator.hasNext()) {
+                Empleado emp = iterator.next();
+                if (emp.getIdPersona() == idEmp) {
+                    return emp;
+                }
+            }
+            return null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    @WebMethod(operationName = "getInfoAdmin")
+    public Persona getInfoAdmin(@WebParam(name = "idAdmin")int idAdmin){
+        try{
+            AdministradorDAO daoAdmin = new AdministradorMySQL();
+            ArrayList<Administrador> listAdmin = daoAdmin.listar();
+            Iterator<Administrador> iterator = listAdmin.iterator();
+
+            while (iterator.hasNext()) {
+                Administrador admin = iterator.next();
+                if (admin.getIdPersona() == idAdmin) {
+                    return admin;
+                }
+            }
+            return null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
