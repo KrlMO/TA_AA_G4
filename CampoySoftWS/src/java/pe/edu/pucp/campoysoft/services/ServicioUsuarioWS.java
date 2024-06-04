@@ -28,7 +28,6 @@ import pe.edu.pucp.campoysoft.tech.mysql.UsuarioMySQL;
 import pe.edu.pucp.campoysoft.tech.model.Usuario;
 /**
  *ServiciosCampoyTextWS
- * http://localhost:8080/CampoySoftWS/servicios.disco
  * @author s
  */
 @WebService(serviceName = "ServicioUsuarioWS")
@@ -77,32 +76,14 @@ public class ServicioUsuarioWS {
     }
     
     @WebMethod(operationName = "obtenerInfoUsuario")
-    public Persona obtenerInfoUsuario(@WebParam(name = "username") String username,@WebParam(name = "password") String password, @WebParam(name = "tipo") int i){
-        Cliente cli;
-        Empleado emp;
-        Administrador admin;
+    public int obtenerInfoUsuario(@WebParam(name = "username") String username,@WebParam(name = "password") String password){
+        
         try{
             UsuarioDAO daoUsuario = new UsuarioMySQL();
-            if(i==1){
-                cli = new Cliente();
-                cli = (Cliente)daoUsuario.obtenerDatos(username, password,i);
-                return cli;
-            }
-            
-            if(i==2){
-                emp = new Empleado();
-                emp = (Empleado)daoUsuario.obtenerDatos(username, password, i);
-                return emp;
-            }
-            if(i==3){
-                admin = new Administrador();
-                admin = (Administrador) daoUsuario.obtenerDatos(username, password, i);
-                return admin;
-            }
+            return daoUsuario.obtenerDatos(username, password);
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return null;
+            return 0;
         }
-        return null;
     }
 }

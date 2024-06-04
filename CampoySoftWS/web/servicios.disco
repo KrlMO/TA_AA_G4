@@ -2,5 +2,4 @@
   <contractRef  xmlns="http://schemas.xmlsoap.org/disco/scl/" ref="http://localhost:8080/CampoySoftWS/ServicioAdminWS?wsdl"/>
   <contractRef  xmlns="http://schemas.xmlsoap.org/disco/scl/" ref="http://localhost:8080/CampoySoftWS/ServicioEmpleadoWS?wsdl"/>
   <contractRef  xmlns="http://schemas.xmlsoap.org/disco/scl/" ref="http://localhost:8080/CampoySoftWS/ServicioUsuarioWS?wsdl"/>
-  <contractRef  xmlns="http://schemas.xmlsoap.org/disco/scl/" ref="http://localhost:8080/CampoySoftWS/ServicioWS?wsdl"/>
 </discovery>

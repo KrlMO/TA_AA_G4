@@ -132,54 +132,38 @@ public class UsuarioMySQL implements UsuarioDAO{
     }
 
     @Override
-    public Persona obtenerDatos(String usuario, String pass, int tipo) {
+    public int obtenerDatos(String usuario, String pass) {
+        int id = 0;
         try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call ObtenerInformacionPersona(?,?,?)}");
+            cs = con.prepareCall("{call ObtenerInformacionPersona(?,?)}");
             cs.setString("p_usuario", usuario);
             cs.setString("p_password", pass);
             rs = cs.executeQuery();
-            
-            if(tipo==1){
-                Cliente cli = new Cliente();
-                cli.setIdPersona(rs.getInt("id_persona"));
-                cli.setNombre(rs.getString("nombre"));
-                cli.setApPaterno(rs.getString("ap_paterno"));
-                cli.setApMaterno(rs.getString("ap_materno"));
-                rs.close();
-                cs.close();
-                return cli;
-            }
-            if(tipo==2){
-                Empleado emp = new Empleado();
-                emp.setIdPersona(rs.getInt("id_persona"));
-                emp.setNombre(rs.getString("nombre"));
-                emp.setApPaterno(rs.getString("ap_paterno"));
-                emp.setApMaterno(rs.getString("ap_materno"));
-                rs.close();
-                cs.close();
-                return emp;
-            }
-            if(tipo==3){
-                Administrador admin = new Administrador();
-                admin.setIdPersona(rs.getInt("id_persona"));
-                admin.setNombre(rs.getString("nombre"));
-                admin.setApPaterno(rs.getString("ap_paterno"));
-                admin.setApMaterno(rs.getString("ap_materno"));
-                rs.close();
-                cs.close();
-                return admin;
+
+            // Mover el cursor del ResultSet a la primera fila
+            if (rs.next()) {
+                // Obtener el valor de fk_id_persona de la fila actual
+                id = rs.getInt("fk_id_persona");
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
             try {
-                con.close();
+                if (cs != null) {
+                    cs.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         }
-        return null;
+        return id;
     }
-    
+
 }

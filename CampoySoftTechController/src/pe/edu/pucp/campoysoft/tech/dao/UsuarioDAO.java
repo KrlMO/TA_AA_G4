@@ -10,5 +10,5 @@ public interface UsuarioDAO {
     int eliminar(int idUsuario);
     ArrayList<Usuario> listarTodas();
     int identificar_usu(String username,String password);
-    Persona obtenerDatos(String usuario, String pass,int tipo);
+    int obtenerDatos(String usuario, String pass);
 }

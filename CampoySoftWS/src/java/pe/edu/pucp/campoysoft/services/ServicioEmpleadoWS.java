@@ -43,18 +43,19 @@ public class ServicioEmpleadoWS {
     @WebMethod(operationName = "listarPedidosEntregados")
     public ArrayList<Atencion> listarPedEntregado(@WebParam(name = "idEmp")int idEmp){
         ArrayList<Atencion> listPedEntre = new ArrayList<>();
+        ArrayList<Atencion> nuevo = new ArrayList<>();
         try{
             Empleado emp = new Empleado();
             listPedEntre = emp.listar_Atencion_Entregadas();
             for(Atencion ataux:listPedEntre){
-                if(ataux.getIdEmpleado()!=idEmp)
-                    listPedEntre.remove(ataux);
+                if(ataux.getIdEmpleado()==idEmp)
+                    nuevo.add(ataux);
             }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
                 
-        return listPedEntre;
+        return nuevo;
     }
     
     @WebMethod(operationName = "Atender")
