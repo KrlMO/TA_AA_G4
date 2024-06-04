@@ -10,6 +10,7 @@ import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 public interface ProductoRolloDAO {
     public ArrayList<ProductoRollo> listar();
     public ArrayList<ProductoRollo> listarPorTipo(TipoTela tipoTela);
+    public ArrayList<ProductoRollo> buscarProducto(String text);
     public int insertar(ProductoRollo productoRollo);
     public int modificar(ProductoRollo productoRollo);
     public int eliminar (int idProducto);
