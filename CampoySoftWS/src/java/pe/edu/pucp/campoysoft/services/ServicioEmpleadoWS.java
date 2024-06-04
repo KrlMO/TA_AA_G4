@@ -10,7 +10,10 @@ import jakarta.jws.WebParam;
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaCompra;
+import pe.edu.pucp.campoysoft.rrhh.dao.ClienteDAO;
+import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
 import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
+import pe.edu.pucp.campoysoft.rrhh.mysql.ClienteMySQL;
 
 /**
  *
@@ -60,5 +63,20 @@ public class ServicioEmpleadoWS {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
+    }
+    @WebMethod(operationName = "ObtenerNombre")
+    public String obtenerNombreCliente(@WebParam(name = "idCliente") int id){
+        ArrayList<Cliente> listCli = new ArrayList<>();
+        try{
+            ClienteDAO daoCli = new ClienteMySQL();
+            listCli = daoCli.listar();
+            for(Cliente caux:listCli){
+                if(id==caux.getIdPersona())
+                    return caux.getNombre()+" "+caux.getApPaterno() +" "+caux.getApMaterno();
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "";
     }
 }
