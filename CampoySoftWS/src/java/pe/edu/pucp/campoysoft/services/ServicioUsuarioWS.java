@@ -30,7 +30,6 @@ public class ServicioUsuarioWS {
     public ArrayList<ProductoRollo> ListarProductosRollosXnombre(@WebParam(name = "tipo_de_tela") String tipoTelaS) {
         ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
          TipoTela tipoTela;
-         Usuario usu = new Usuario();
         // Manejar posibles excepciones para TipoTela.valueOf
         try {
             tipoTela = TipoTela.valueOf(tipoTelaS);
@@ -51,4 +50,10 @@ public class ServicioUsuarioWS {
         
         return usu;
     }
+    @WebMethod(operationName = "identificar_usu")
+    public int identificar_usu(@WebParam(name = "username") String username,@WebParam(name = "password") String password) {
+        UsuarioDAO usuDAO = new UsuarioMySQL();
+        return usuDAO.identificar_usu(username, password);
+    }
+    
 }

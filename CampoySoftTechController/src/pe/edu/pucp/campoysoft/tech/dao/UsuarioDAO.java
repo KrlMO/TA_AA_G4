@@ -8,4 +8,5 @@ public interface UsuarioDAO {
     int modificar(Usuario usuario);
     int eliminar(int idUsuario);
     ArrayList<Usuario> listarTodas();
+    int identificar_usu(String username,String password);
 }

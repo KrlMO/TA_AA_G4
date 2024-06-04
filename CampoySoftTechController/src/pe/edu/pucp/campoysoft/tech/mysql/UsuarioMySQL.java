@@ -107,5 +107,24 @@ public class UsuarioMySQL implements UsuarioDAO{
             }
             return usuarios;//devuelve un arraylist con los datos de todos los empleados
     }
+
+    @Override
+    public int identificar_usu(String username, String password) {
+        int i=0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call BuscarUsuario(?,?,?)}");
+            cs.setString("p_username", username);
+            cs.setString("p_password", password);
+            cs.registerOutParameter("resultado",java.sql.Types.INTEGER);
+            cs.executeUpdate();
+            i=cs.getInt("resultado");
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+                try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return i;
+    }
     
 }
