@@ -104,6 +104,7 @@ public class CompraMySQL implements CompraDAO{
                 compra.setEstadoServicio(estado);
                 compra.setCodCompra(rs.getString("cod_compra"));
                 compra.setIdCliente(rs.getInt("fk_id_cliente"));
+                compra.setIdEmpleado(rs.getInt("fk_id_empleado"));
                 compras.add(compra);  
             }
             rs.close();

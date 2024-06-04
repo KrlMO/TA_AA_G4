@@ -141,10 +141,9 @@ public class UsuarioMySQL implements UsuarioDAO{
             cs.setString("p_password", pass);
             rs = cs.executeQuery();
 
-            // Mover el cursor del ResultSet a la primera fila
             if (rs.next()) {
                 // Obtener el valor de fk_id_persona de la fila actual
-                id = rs.getInt("fk_id_persona");
+                id = rs.getInt("id_persona");
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

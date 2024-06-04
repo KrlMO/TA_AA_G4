@@ -185,6 +185,7 @@ public class Empleado extends Persona{
                 servicioTinte.setEstadoServicio(EstadoAtencion.Entregado);
                 servicioTinte.setIdEmpleado(this.getIdPersona());
                 servicioTinteDAO.modificar(servicioTinte);
+                return;
             }
         }
         

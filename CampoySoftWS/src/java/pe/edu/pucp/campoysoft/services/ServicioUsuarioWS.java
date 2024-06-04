@@ -75,8 +75,8 @@ public class ServicioUsuarioWS {
         return productoRollos;
     }
     
-    @WebMethod(operationName = "obtenerInfoUsuario")
-    public int obtenerInfoUsuario(@WebParam(name = "username") String username,@WebParam(name = "password") String password){
+    @WebMethod(operationName = "obtenerIDPersona")
+    public int obtenerIDPersona(@WebParam(name = "username") String username,@WebParam(name = "password") String password){
         
         try{
             UsuarioDAO daoUsuario = new UsuarioMySQL();
@@ -85,5 +85,19 @@ public class ServicioUsuarioWS {
             System.out.println(e.getMessage());
             return 0;
         }
+    }
+    
+    @WebMethod(operationName = "holaCliente")
+    public Cliente holaCli(@WebParam(name = "nombClie")String nombre){
+        Cliente cli = new Cliente();
+        cli.setNombre(nombre);
+        return cli;
+    }
+    
+    @WebMethod(operationName = "holaAdmin")
+    public Administrador holaAdmin(@WebParam(name = "nombAdmin")String nombre){
+        Administrador admin = new Administrador();
+        admin.setNombre(nombre);
+        return admin;
     }
 }
