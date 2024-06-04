@@ -156,4 +156,37 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
         }
         return productoRollos;
     }
+    
+    @Override
+public ArrayList<ProductoRollo> buscarProducto(String text) {
+    ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+    try {
+        con = DBManager.getInstance().getConnection();
+        cs = con.prepareCall("{call BuscarProductoPorDescripcion(?)}");
+        cs.setString(1, text);
+        rs = cs.executeQuery();
+        while (rs.next()) {
+            ProductoRollo productoRollo = new ProductoRollo();
+            productoRollo.setIdProducto(rs.getInt("id_producto"));
+            EspecificacionRollo especificacionRollo = new EspecificacionRollo();
+            especificacionRollo.setIdEspecifiacionRollo(rs.getInt("fk_id_especificacion_rollo"));
+            productoRollo.setEspecificiacionRollo(especificacionRollo);
+            Tinte tinte = new Tinte();
+            tinte.setIdTinte(rs.getInt("fk_id_tinte"));
+            productoRollo.setTinte(tinte);
+            productoRollo.setPrecioXmetro2(rs.getDouble("precio_x_metro2"));
+            productoRollo.setStock(rs.getInt("stock"));
+            productoRollo.setDescripcion(rs.getString("descripcion")); // Obtener la descripción de la base de datos
+            productoRollo.setActivo(rs.getBoolean("activo")); // Asumiendo que hay un campo activo en la tabla
+            productoRollos.add(productoRollo);
+        }
+        rs.close();
+        cs.close();
+    } catch (Exception ex) {
+        System.out.println(ex.getMessage());
+    } finally {
+        try { con.close(); } catch (Exception ex) { System.out.println(ex.getMessage()); }
+    }
+    return productoRollos;
+}
 }
