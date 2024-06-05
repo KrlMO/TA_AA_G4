@@ -142,7 +142,6 @@ public class UsuarioMySQL implements UsuarioDAO{
             rs = cs.executeQuery();
 
             if (rs.next()) {
-                // Obtener el valor de fk_id_persona de la fila actual
                 id = rs.getInt("id_persona");
             }
         } catch (Exception ex) {
