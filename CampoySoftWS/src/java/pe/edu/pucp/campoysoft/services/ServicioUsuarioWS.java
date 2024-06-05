@@ -100,4 +100,20 @@ public class ServicioUsuarioWS {
         admin.setNombre(nombre);
         return admin;
     }
+    
+    @WebMethod(operationName = "ObtenerProductoRollo")
+    public ProductoRollo ObtenerProductoRollo(@WebParam(name = "id_producto_rollo") int id_producto_rollo) {
+        ProductoRollo producto = null;
+        // Manejar posibles excepciones para TipoTela.valueOf
+        try {
+            ProductoRolloDAO daoPr = new ProductoRolloMySQL();
+            producto = daoPr.obtenerProductoRollo(id_producto_rollo);
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        
+        return producto;
+    }
 }
