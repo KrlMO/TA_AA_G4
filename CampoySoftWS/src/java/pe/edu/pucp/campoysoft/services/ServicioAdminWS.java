@@ -86,4 +86,20 @@ public class ServicioAdminWS {
         
         return tintes;
     }
+    
+    @WebMethod(operationName = "ObtenerNombreEmpleado")
+    public String ObtenerNombreEmpleado(@WebParam(name = "idEmpleado") int id){
+        ArrayList<Empleado> listCli = new ArrayList<>();
+        try{
+            EmpleadoDAO daoCli = new EmpleadoMySQL();
+            listCli = daoCli.listar();
+            for(Empleado caux:listCli){
+                if(id==caux.getIdPersona())
+                    return caux.getNombre()+" "+caux.getApPaterno() +" "+caux.getApMaterno();
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "";
+    }
 }
