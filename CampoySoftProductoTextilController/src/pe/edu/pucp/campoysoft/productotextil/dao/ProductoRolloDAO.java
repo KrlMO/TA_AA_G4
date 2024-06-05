@@ -14,4 +14,6 @@ public interface ProductoRolloDAO {
     public int insertar(ProductoRollo productoRollo);
     public int modificar(ProductoRollo productoRollo);
     public int eliminar (int idProducto);
+    //
+    public ProductoRollo obtenerProductoRollo(int productoID);
 }
