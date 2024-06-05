@@ -21,6 +21,7 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
  * @author FERNANDO
  */
 @WebService(serviceName = "ServicioWS")
+
 public class ServicioWS {
     
     private EmpleadoDAO daoEmpleado;
