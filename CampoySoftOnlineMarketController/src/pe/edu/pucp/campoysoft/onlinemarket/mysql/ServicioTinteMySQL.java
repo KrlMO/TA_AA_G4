@@ -40,6 +40,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
             cs.setDouble("nuevo_area_total", servTinte.getAreaTotal());
             cs.setString("nuevo_cod_servicio_tinte",  String.valueOf(servTinte.getCodServicioTinte()));
             cs.setDouble("nuevo_horas_tintado", servTinte.getHorasTintado());
+            cs.setInt("nuevo_fk_id_empleado", servTinte.getIdEmpleado());
             cs.setBoolean("nuevo_activo_serv", true);
             
             cs.executeUpdate();
