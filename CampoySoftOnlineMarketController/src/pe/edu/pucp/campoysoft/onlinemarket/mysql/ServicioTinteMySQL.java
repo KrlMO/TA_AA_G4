@@ -30,7 +30,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
         int resultado = 0;
         try{
              con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call UpdateServicioTinte(?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call UpdateServicioTinte(?,?,?,?,?,?,?,?,?,?)}");
             
             cs.setInt("atencion_id", servTinte.getIdAtencion());
             cs.setString("nuevo_estado_servicio", servTinte.getEstadoServicio().name());
@@ -88,6 +88,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
                 serv.setIdCliente(rs.getInt("fk_id_cliente"));
                 EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
                 serv.setEstadoServicio(est);
+                serv.setIdEmpleado(rs.getInt("fk_id_empleado"));
                 listServ.add(serv);
             }
             rs.close();
