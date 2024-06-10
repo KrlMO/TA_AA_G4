@@ -54,7 +54,7 @@ public class ServicioEmpleadoWS {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-                
+        int num = nuevo.size();
         return nuevo;
     }
     
