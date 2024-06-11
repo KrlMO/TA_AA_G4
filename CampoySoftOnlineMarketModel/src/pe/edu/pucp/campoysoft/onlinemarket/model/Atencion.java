@@ -10,9 +10,11 @@ public class Atencion {
     private double areaTotal;
     private int idCliente;
     private int idEmpleado;
+    private int idCarrito;
+    
 
     public Atencion(){}
-    public Atencion(int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente,int idEmpleado) {
+    public Atencion(int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente,int idEmpleado,int idCarrito) {
         this.idAtencion = idAtencion;
         this.estadoServicio = estadoServicio;
         this.canTotalRollos = canTotalRollos;
@@ -21,6 +23,15 @@ public class Atencion {
         this.areaTotal = areaTotal;
         this.idCliente = id_cliente;
         this.idEmpleado = idEmpleado;
+        this.idCarrito = idCarrito;
+    }
+
+    public int getIdCarrito() {
+        return idCarrito;
+    }
+
+    public void setIdCarrito(int idCarrito) {
+        this.idCarrito = idCarrito;
     }
 
     public int getIdEmpleado() {
@@ -97,8 +108,10 @@ public class Atencion {
 
     @Override
     public String toString() {
-        return "Atencion{" + "idAtencion=" + idAtencion + ", estadoServicio=" + estadoServicio + ", canTotalRollos=" + canTotalRollos + ", precioTotal=" + precioTotal + ", pesoTotal=" + pesoTotal + ", areaTotal=" + areaTotal + ", idCliente=" + idCliente + ", idEmpleado=" + idEmpleado + '}';
+        return "Atencion{" + "idAtencion=" + idAtencion + ", estadoServicio=" + estadoServicio + ", canTotalRollos=" + canTotalRollos + ", precioTotal=" + precioTotal + ", pesoTotal=" + pesoTotal + ", areaTotal=" + areaTotal + ", idCliente=" + idCliente + ", idEmpleado=" + idEmpleado + ", idCarrito=" + idCarrito + '}';
     }
+
+    
     
     
 }

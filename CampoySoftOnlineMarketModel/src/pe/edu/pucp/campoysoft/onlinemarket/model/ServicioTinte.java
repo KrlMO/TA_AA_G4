@@ -11,8 +11,8 @@ public class ServicioTinte extends Atencion {
     
     public ServicioTinte(){}
     
-    public ServicioTinte(String codServicioTinte, double horasTintado, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente,int idEmpleado) {
-        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente,idEmpleado);
+    public ServicioTinte(String codServicioTinte, double horasTintado, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal,int id_cliente,int idEmpleado,int idCarrito) {
+        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente,idEmpleado,idCarrito);
         this.codServicioTinte = codServicioTinte;
         this.horasTintado = horasTintado;
         this.lineaServicios = new ArrayList<>();

@@ -8,8 +8,8 @@ public class Compra extends Atencion {
     private ArrayList<LineaCompra> lineaCompras;
     private boolean activo;
     public Compra(){}
-    public Compra(String codCompra, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal, int id_cliente,boolean activo,int idEmpleado) {
-        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente,idEmpleado);
+    public Compra(String codCompra, int idAtencion, EstadoAtencion estadoServicio, int canTotalRollos, double precioTotal, double pesoTotal, double areaTotal, int id_cliente,boolean activo,int idEmpleado,int idCarrito) {
+        super(idAtencion, estadoServicio, canTotalRollos, precioTotal, pesoTotal, areaTotal,id_cliente,idEmpleado,idCarrito);
         this.codCompra = codCompra;
         this.activo = activo;
     }

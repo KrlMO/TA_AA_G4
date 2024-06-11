@@ -20,17 +20,39 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
     
     @Override
     public int insertar(ServicioTinte servTinte) {
-       
-        return 0;
-       
+        int resultado = 0;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call InsertServicioTinte(?,?,?,?,?,?,?,?,?,?)}");
+            
+            cs.registerOutParameter("_id_servicio_tinte",java.sql.Types.INTEGER);
+            cs.setInt("p_fk_id_cliente", servTinte.getIdEmpleado());
+            cs.setString("p_estado_servicio", servTinte.getEstadoServicio().name());
+            cs.setDouble("p_precio_total", servTinte.getPrecioTotal());
+            cs.setInt("p_cantidad_total_rollos", servTinte.getCanTotalRollos());
+            cs.setDouble("p_peso_total", servTinte.getPesoTotal());
+            cs.setDouble("p_area_total", servTinte.getAreaTotal());
+            cs.setString("p_cod_servicio_tinte",  String.valueOf(servTinte.getCodServicioTinte()));
+            cs.setDouble("p_horas_tintado", servTinte.getHorasTintado());
+            cs.setInt("p_id_carrito", servTinte.getIdCarrito());
+            
+            cs.executeUpdate();
+            servTinte.setIdAtencion(cs.getInt("_id_servicio_tinte"));
+            resultado = 1;
+            cs.close();
+            
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return resultado;       
     }
 
     @Override
     public int modificar(ServicioTinte servTinte) {
         int resultado = 0;
         try{
-             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call UpdateServicioTinte(?,?,?,?,?,?,?,?,?,?)}");
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call UpdateServicioTinte(?,?,?,?,?,?,?,?,?,?,?)}");
             
             cs.setInt("atencion_id", servTinte.getIdAtencion());
             cs.setString("nuevo_estado_servicio", servTinte.getEstadoServicio().name());
@@ -42,7 +64,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
             cs.setDouble("nuevo_horas_tintado", servTinte.getHorasTintado());
             cs.setInt("nuevo_fk_id_empleado", servTinte.getIdEmpleado());
             cs.setBoolean("nuevo_activo_serv", true);
-            
+            cs.setInt("nuevo_id_carrito", servTinte.getIdCarrito());
             cs.executeUpdate();
             resultado = 1;
             cs.close();
