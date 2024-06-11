@@ -53,17 +53,28 @@ public class ServicioUsuarioWS {
         productoRollos = daoPr.listarPorTipo(tipoTela);
         return productoRollos;
     }
-    @WebMethod(operationName = "holaUsu")
-    public Usuario holaUsu(@WebParam(name = "tipo_de_tela") String nombre) {
-        Usuario usu = new Usuario();
-        usu.setUsername(nombre);
-        
-        return usu;
-    }
+
     @WebMethod(operationName = "identificar_usu")
     public int identificar_usu(@WebParam(name = "username") String username,@WebParam(name = "password") String password) {
         UsuarioDAO usuDAO = new UsuarioMySQL();
         return usuDAO.identificar_usu(username, password);
+    }
+    
+    @WebMethod(operationName = "Crear_Usuario")
+    public int Crear_Usuario(@WebParam(name = "Usuario") Usuario usuario,@WebParam(name = "Cliente") Cliente cliente) {
+        int resultado = 0;
+        try{
+            ClienteDAO clienteDAO = new ClienteMySQL();
+            UsuarioDAO usuarioDAO = new UsuarioMySQL();
+            cliente.setCodCliente("auxCodCli");
+            clienteDAO.insertar(cliente);
+            
+            usuario.setPersona(cliente);
+            resultado=usuarioDAO.insertar(usuario);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return resultado;
     }
     
     @WebMethod(operationName = "buscarProductos")
@@ -87,20 +98,6 @@ public class ServicioUsuarioWS {
         }
     }
     
-    @WebMethod(operationName = "holaCliente")
-    public Cliente holaCli(@WebParam(name = "nombClie")String nombre){
-        Cliente cli = new Cliente();
-        cli.setNombre(nombre);
-        return cli;
-    }
-    
-    @WebMethod(operationName = "holaAdmin")
-    public Administrador holaAdmin(@WebParam(name = "nombAdmin")String nombre){
-        Administrador admin = new Administrador();
-        admin.setNombre(nombre);
-        return admin;
-    }
-    
     @WebMethod(operationName = "ObtenerProductoRollo")
     public ProductoRollo ObtenerProductoRollo(@WebParam(name = "id_producto_rollo") int id_producto_rollo) {
         ProductoRollo producto = null;
@@ -115,5 +112,27 @@ public class ServicioUsuarioWS {
 
         
         return producto;
+    }
+    
+    @WebMethod(operationName = "holaAdmin")
+    public Administrador holaAdmin(@WebParam(name = "nombAdmin")String nombre){
+        Administrador admin = new Administrador();
+        admin.setNombre(nombre);
+        return admin;
+    }
+    
+    @WebMethod(operationName = "holaCliente")
+    public Cliente holaCli(@WebParam(name = "nombClie")String nombre){
+        Cliente cli = new Cliente();
+        cli.setNombre(nombre);
+        return cli;
+    }
+    
+    @WebMethod(operationName = "holaUsu")
+    public Usuario holaUsu(@WebParam(name = "tipo_de_tela") String nombre) {
+        Usuario usu = new Usuario();
+        usu.setUsername(nombre);
+        
+        return usu;
     }
 }
