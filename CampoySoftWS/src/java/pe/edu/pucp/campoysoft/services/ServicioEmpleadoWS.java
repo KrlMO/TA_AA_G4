@@ -32,7 +32,7 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.ClienteMySQL;
 
 /**
  *
- * @author USER
+ * @author USER CarlosMO
  */
 @WebService(serviceName = "ServicioEmpleadoWS")
 public class ServicioEmpleadoWS {
