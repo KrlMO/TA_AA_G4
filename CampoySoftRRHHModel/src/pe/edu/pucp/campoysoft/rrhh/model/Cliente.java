@@ -11,6 +11,7 @@ public class Cliente extends Persona{
     private String codCliente;
     private boolean activo;
     private ArrayList<Atencion>atenciones;
+    private int cantPedidos;
     public Cliente(){}
     
     
@@ -18,6 +19,7 @@ public class Cliente extends Persona{
         super( nombre, apPaterno, apMaterno, dni, fechaNac, direccion);
         this.codCliente=codCliente;
         this.activo = activo;
+        this.cantPedidos = 0;
     }
 
     public String getCodCliente() {
@@ -32,6 +34,14 @@ public class Cliente extends Persona{
 
     public boolean isActivo() {
         return activo;
+    }
+
+    public int getCantPedidos() {
+        return cantPedidos;
+    }
+
+    public void setCantPedidos(int cantPedidos) {
+        this.cantPedidos = cantPedidos;
     }
 
     public void setActivo(boolean activo) {

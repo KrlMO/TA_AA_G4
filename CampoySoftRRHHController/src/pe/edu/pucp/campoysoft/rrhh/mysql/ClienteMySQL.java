@@ -24,7 +24,7 @@ public class ClienteMySQL implements ClienteDAO {
         int resultado = 0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call InsertCliente(?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call InsertCliente(?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_id_cliente",java.sql.Types.INTEGER);
             cs.setString("p_nombre", cliente.getNombre());
             cs.setString("p_ap_paterno", cliente.getApPaterno());
@@ -33,6 +33,7 @@ public class ClienteMySQL implements ClienteDAO {
             cs.setDate("p_fecha_nac", new java.sql.Date(cliente.getFechaNac().getTime()));
             cs.setString("p_direccion", cliente.getDireccion());
             cs.setString("p_cod_cliente",cliente.getCodCliente());
+            cs.setInt("p_cant_pedidos", cliente.getCantPedidos());
             cs.executeUpdate();
             cliente.setIdPersona(cs.getInt("_id_cliente"));
             resultado = 1;
@@ -49,7 +50,7 @@ public class ClienteMySQL implements ClienteDAO {
         int resultado = 0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call UpdateCliente(?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call UpdateCliente(?,?,?,?,?,?,?,?,?,?)}");
             
             cs.setString("nuevo_nombre", cliente.getNombre());
             cs.setString("nuevo_ap_paterno", cliente.getApPaterno());
@@ -60,6 +61,7 @@ public class ClienteMySQL implements ClienteDAO {
             cs.setInt("nuevo_activo_cli", cliente.isActivo() ? 1 : 0);
             cs.setInt("cliente_id", cliente.getIdPersona());
             cs.setString("nuevo_cod_cliente",cliente.getCodCliente());
+            cs.setInt("p_cant_pedidos",cliente.getCantPedidos());
             cs.executeUpdate();
             resultado = 1;
             
