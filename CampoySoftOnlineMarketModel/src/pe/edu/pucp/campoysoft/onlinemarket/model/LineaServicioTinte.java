@@ -10,10 +10,12 @@ public class LineaServicioTinte {
     private double ancho;
     private double area;
     private double longitud;
+    private boolean activo;
     private Tinte tinteDestino;
     private TipoTela tipoTela;
     private ServicioTinte servTinte;
 
+    public LineaServicioTinte(){}
     public LineaServicioTinte(int idLineaOrdenTinte, double peso, double ancho, double area, double longitud, Tinte tinteDestino, TipoTela tipoTela, ServicioTinte servTinte) {
         this.idLineaOrdenTinte = idLineaOrdenTinte;
         this.peso = peso;
@@ -87,6 +89,14 @@ public class LineaServicioTinte {
 
     public void setServTinte(ServicioTinte servTinte) {
         this.servTinte = servTinte;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
     
     

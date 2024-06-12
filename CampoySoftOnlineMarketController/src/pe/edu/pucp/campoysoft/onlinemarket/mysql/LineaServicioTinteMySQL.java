@@ -11,6 +11,7 @@ import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 
 public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
@@ -58,6 +59,34 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
 
     @Override
     public ArrayList<LineaServicioTinte> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<LineaServicioTinte> lineasServ = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListLineaServicioTinte()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                LineaServicioTinte lineaServicio = new LineaServicioTinte();
+                
+                lineaServicio.setIdLineaOrdenTinte(rs.getInt("id_linea_servicio_tinte"));
+                lineaServicio.getServTinte().setCodServicioTinte(rs.getString("fk_id_servicio_tinte"));
+                lineaServicio.getTinteDestino().setIdTinte(rs.getInt("fk_id_tinte_destino"));
+                TipoTela tipoTela = TipoTela.valueOf(rs.getString("tipo_tela_recibida"));
+                
+                lineaServicio.setTipoTela(tipoTela);
+                lineaServicio.setLongitud(rs.getDouble("longitud_recibida"));  
+                lineaServicio.setPeso(rs.getDouble("peso_recibida"));
+                lineaServicio.setAncho(rs.getDouble("ancho_recibida"));
+                lineaServicio.setArea(rs.getDouble("area_recibida"));
+                lineaServicio.setActivo(rs.getBoolean("activo"));
+                lineasServ.add(lineaServicio);
+            }
+            rs.close();
+            cs.close();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return lineasServ;
     }
 }

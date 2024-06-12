@@ -12,13 +12,18 @@ import java.util.List;
 import pe.edu.pucp.campoysoft.model.CompraResultado;
 import pe.edu.pucp.campoysoft.model.ServicioTInteResultado;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaCompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.ServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
 import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaCompra;
+import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.LineaCompraMySQL;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.LineaServicioTinteMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.ServicioTinteMySQL;
 import pe.edu.pucp.campoysoft.rrhh.dao.ClienteDAO;
 import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
@@ -111,5 +116,41 @@ public class ServicioEmpleadoWS {
             System.out.println(e.getMessage());
         }
         return "";
+    }
+    
+    @WebMethod(operationName = "obtenerListLineaCompra")
+    public ArrayList<LineaCompra> obtenerListLineaCompra(@WebParam(name = "idAtencion")int idAtencion){
+        ArrayList<LineaCompra> listLinea = new ArrayList<>();
+        ArrayList<LineaCompra> listFin = new ArrayList<>();
+        try{
+            LineaCompraDAO daoLinCompra = new LineaCompraMySQL();
+            listLinea = daoLinCompra.listarTodas();
+            for(LineaCompra laux:listLinea){
+                if(Integer.parseInt(laux.getCompra().getCodCompra())==idAtencion){
+                    listFin.add(laux);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return listFin;
+    }
+    
+    @WebMethod(operationName = "obtenerListLineaServ")
+    public ArrayList<LineaServicioTinte> obtenerListLineaServicio(@WebParam(name = "idAtencion")int idAtencion){
+        ArrayList<LineaServicioTinte> listLinea = new ArrayList<>();
+        ArrayList<LineaServicioTinte> listFin = new ArrayList<>();
+        try{
+            LineaServicioTinteDAO daoLinServicio = new LineaServicioTinteMySQL();
+            listLinea = daoLinServicio.listarTodas();
+            for(LineaServicioTinte laux:listLinea){
+                if(Integer.parseInt(laux.getServTinte().getCodServicioTinte())==idAtencion){
+                    listFin.add(laux);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return listFin;
     }
 }
