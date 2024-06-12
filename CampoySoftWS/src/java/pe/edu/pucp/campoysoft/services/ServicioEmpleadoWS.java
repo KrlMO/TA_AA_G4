@@ -8,8 +8,18 @@ import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import java.util.ArrayList;
+import java.util.List;
+import pe.edu.pucp.campoysoft.model.CompraResultado;
+import pe.edu.pucp.campoysoft.model.ServicioTInteResultado;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.ServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Atencion;
+import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
+import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaCompra;
+import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.ServicioTinteMySQL;
 import pe.edu.pucp.campoysoft.rrhh.dao.ClienteDAO;
 import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
 import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
@@ -21,41 +31,60 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.ClienteMySQL;
  */
 @WebService(serviceName = "ServicioEmpleadoWS")
 public class ServicioEmpleadoWS {
-
-
     
-    @WebMethod(operationName = "listarPedidosEmitidos")
-    public ArrayList<Atencion> listarPedEmitidos(){
-        ArrayList<Atencion> listPedEmi = new ArrayList<>();
-        try{
-            Empleado emp = new Empleado();
-            listPedEmi = emp.listar_Atencion_Emitidas();
-            
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        
-        
-        return listPedEmi;
-    }
-    
-    
-    @WebMethod(operationName = "listarPedidosEntregados")
-    public ArrayList<Atencion> listarPedEntregado(@WebParam(name = "idEmp")int idEmp){
-        ArrayList<Atencion> listPedEntre = new ArrayList<>();
-        ArrayList<Atencion> nuevo = new ArrayList<>();
-        try{
-            Empleado emp = new Empleado();
-            listPedEntre = emp.listar_Atencion_Entregadas();
-            for(Atencion ataux:listPedEntre){
-                if(ataux.getIdEmpleado()==idEmp)
-                    nuevo.add(ataux);
+    @WebMethod(operationName = "listarCompras")
+    public CompraResultado listarCompras(@WebParam(name = "idEmp")int idEmp) {
+        List<Compra> listEmitidos = new ArrayList<>();
+        List<Compra> listEntregados = new ArrayList<>();
+        try {
+            CompraDAO daoCompra = new CompraMySQL();
+            List<Compra> allCompras = daoCompra.listarTodas();
+            for (Compra compra : allCompras) {
+                EstadoAtencion estado = compra.getEstadoServicio();
+                if (estado == EstadoAtencion.Emitido) {
+                    listEmitidos.add(compra);
+                } else if (estado == EstadoAtencion.Entregado) {
+                   if(compra.getIdEmpleado()== idEmp){
+                        listEntregados.add(compra);
+                   }
+                }
             }
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        int num = nuevo.size();
-        return nuevo;
+
+        CompraResultado result = new CompraResultado();
+        result.setListEmitidos(listEmitidos);
+        result.setListEntregados(listEntregados);
+        return result;
+    }
+
+    
+    @WebMethod(operationName = "listarServicios")
+    public ServicioTInteResultado listarServicios(@WebParam(name = "idEmp") int idEmp) {
+        List<ServicioTinte> listEmitidos = new ArrayList<>();
+        List<ServicioTinte> listEntregados = new ArrayList<>();
+        try {
+            ServicioTinteDAO daoServicio = new ServicioTinteMySQL();
+            List<ServicioTinte> allServicios = daoServicio.listarTodas();
+            for (ServicioTinte servicio : allServicios) {
+                EstadoAtencion estado = servicio.getEstadoServicio();
+                if (estado == EstadoAtencion.Emitido) {
+                    listEmitidos.add(servicio);
+                } else if (estado == EstadoAtencion.Entregado) {
+                    if(servicio.getIdEmpleado()==idEmp){
+                        listEntregados.add(servicio);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ServicioTInteResultado result = new ServicioTInteResultado();
+        result.setListEmitidos(listEmitidos);
+        result.setListEntregados(listEntregados);
+        return result;
     }
     
     @WebMethod(operationName = "Atender")
