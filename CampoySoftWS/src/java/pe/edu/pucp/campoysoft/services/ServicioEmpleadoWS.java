@@ -33,7 +33,7 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.ClienteMySQL;
 public class ServicioEmpleadoWS {
     
     @WebMethod(operationName = "listarCompras")
-    public CompraResultado listarCompras() {
+    public CompraResultado listarCompras(@WebParam(name = "idEmp")int idEmp) {
         List<Compra> listEmitidos = new ArrayList<>();
         List<Compra> listEntregados = new ArrayList<>();
         try {
@@ -44,7 +44,9 @@ public class ServicioEmpleadoWS {
                 if (estado == EstadoAtencion.Emitido) {
                     listEmitidos.add(compra);
                 } else if (estado == EstadoAtencion.Entregado) {
-                    listEntregados.add(compra);
+                   if(compra.getIdEmpleado()== idEmp){
+                        listEntregados.add(compra);
+                   }
                 }
             }
         } catch (Exception e) {
@@ -67,10 +69,10 @@ public class ServicioEmpleadoWS {
             List<ServicioTinte> allServicios = daoServicio.listarTodas();
             for (ServicioTinte servicio : allServicios) {
                 EstadoAtencion estado = servicio.getEstadoServicio();
-                if (idEmp == servicio.getIdEmpleado()) {
-                    if (estado == EstadoAtencion.Emitido) {
-                        listEmitidos.add(servicio);
-                    } else if (estado == EstadoAtencion.Entregado) {
+                if (estado == EstadoAtencion.Emitido) {
+                    listEmitidos.add(servicio);
+                } else if (estado == EstadoAtencion.Entregado) {
+                    if(servicio.getIdEmpleado()==idEmp){
                         listEntregados.add(servicio);
                     }
                 }
