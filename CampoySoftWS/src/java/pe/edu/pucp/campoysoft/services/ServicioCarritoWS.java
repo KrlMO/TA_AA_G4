@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.ServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
+import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaCompra;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
@@ -29,44 +30,56 @@ public class ServicioCarritoWS {
     private CompraDAO daoCompra;
     private ServicioTinteDAO daoServicio;
     
-    @WebMethod(operationName = "insertarProductos")
-    public int insertarProductos(@WebParam(name = "productos") ArrayList<LineaCompra>productos ) {
+    @WebMethod(operationName = "insertarDatosCompra")
+    public int insertarDatosCompra(@WebParam(name = "datos") int idUsu,double precioTotal,int cant,double peso ,double area) {
         int resultado = 0;
         try{
             if(compra ==null){
                 compra = new Compra();
             }
-            compra.setLineaCompras(productos);
-            resultado = 1;
+            compra.setCliente(idUsu);
+            compra.setEstadoServicio(EstadoAtencion.Emitido);
+            compra.setPrecioTotal(precioTotal);
+            compra.setCanTotalRollos(cant);
+            compra.setPesoTotal(peso);
+            compra.setAreaTotal(area);
+            resultado = idUsu;
         }catch(Exception ex){
             System.out.println(ex.getMessage());
+            //hola
         }
         return resultado;
     }
-    @WebMethod(operationName = "insertarServicios")
-    public int insertarServicios(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios ) {
+    @WebMethod(operationName = "insertarDatosServicio")
+    public int insertarDatosServicio(@WebParam(name = "datosS") int idUsu,double precioTotal,int cant,double peso ,double area, double horas_tintado) {
         int resultado = 0;
         try{
             if(servicio ==null){
                 servicio = new ServicioTinte();
             }
-            servicio.setLineaServicios(servicios);
-            resultado = 1;
+            servicio.setCliente(idUsu);
+            servicio.setEstadoServicio(EstadoAtencion.Emitido);
+            servicio.setPrecioTotal(precioTotal);
+            servicio.setCanTotalRollos(cant);
+            servicio.setPesoTotal(peso);
+            servicio.setAreaTotal(area);
+            servicio.setHorasTintado(horas_tintado);
+            resultado = idUsu;
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
         return resultado;
     }
-    
-    
+
     @WebMethod(operationName = "insertarCompra")
-    public int insertarCompra() {
-        int resultado = 0;
+    public int insertarCompra(@WebParam(name = "productos") ArrayList<LineaCompra>productos) {
+        int resultado = 3;
         try{
-            if(compra != null){
+            if(compra!=null){
+                compra.setLineaCompras(productos);
                 daoCompra = new CompraMySQL();
                 resultado = daoCompra.insertar(compra);
-            }   
+            }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -74,15 +87,17 @@ public class ServicioCarritoWS {
     }
     
     @WebMethod(operationName = "insertarServicio")
-    public int insertarServicio() {
+    public int insertarServicio(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios) {
         int resultado = 0;
         try{
-            if(servicio != null){
+            if(servicio!=null){
+                servicio.setLineaServicios(servicios);
                 daoServicio = new ServicioTinteMySQL();
                 resultado = daoServicio.insertar(servicio);
-            }
+            }        
         }catch(Exception ex){
             System.out.println(ex.getMessage());
+            return 2;
         }
         return resultado;
     }
