@@ -25,7 +25,7 @@ public class EmpleadoMySQL implements EmpleadoDAO{
         
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call InsertEmpleado(?,?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call InsertEmpleado(?,?,?,?,?,?,?,?,?)}");
             cs.registerOutParameter("_id_empleado",java.sql.Types.INTEGER);
             cs.setString("p_nombre", empleado.getNombre());
             cs.setString("p_ap_paterno", empleado.getApPaterno());
@@ -35,7 +35,6 @@ public class EmpleadoMySQL implements EmpleadoDAO{
             cs.setString("p_direccion", empleado.getDireccion());
             cs.setDouble("p_salario", empleado.getSalario());
             cs.setString("p_cargo", empleado.getCargo());
-            cs.setString("p_cod_empleado", empleado.getCodEmpleado());
             
             cs.executeUpdate();
             empleado.setIdPersona(cs.getInt("_id_empleado"));
