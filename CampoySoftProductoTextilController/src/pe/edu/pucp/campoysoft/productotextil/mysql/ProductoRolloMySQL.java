@@ -247,7 +247,7 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
                 productoRollo.setTinte(tinte);
                 productoRollo.setPrecioXmetro2(rs.getDouble("precio_x_metro2"));
                 productoRollo.setStock(rs.getInt("stock"));
-                productoRollo.setDescripcion("descripcion");
+                productoRollo.setDescripcion(rs.getString("descripcion"));
                 productoRollo.setActivo(true);
                 productoRollos.add(productoRollo);//añado un empleado al arraylist empleados
             }
