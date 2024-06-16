@@ -228,4 +228,36 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
         }
         return productoRollo;
     }
+
+    @Override
+    public ArrayList<ProductoRollo> listarProductosBajoStock() {
+        ArrayList<ProductoRollo> productoRollos = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListProductosBajoStock()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                ProductoRollo productoRollo = new ProductoRollo();
+                productoRollo.setIdProducto(rs.getInt("id_producto"));
+                EspecificacionRollo especificacionRollo = new EspecificacionRollo();
+                especificacionRollo.setIdEspecifiacionRollo(rs.getInt("fk_id_especificacion_rollo"));
+                productoRollo.setEspecificiacionRollo(especificacionRollo);
+                Tinte tinte = new Tinte();
+                tinte.setIdTinte(rs.getInt("fk_id_tinte"));
+                productoRollo.setTinte(tinte);
+                productoRollo.setPrecioXmetro2(rs.getDouble("precio_x_metro2"));
+                productoRollo.setStock(rs.getInt("stock"));
+                productoRollo.setDescripcion("descripcion");
+                productoRollo.setActivo(true);
+                productoRollos.add(productoRollo);//añado un empleado al arraylist empleados
+            }
+            rs.close();
+            cs.close();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return productoRollos;
+    }
 }

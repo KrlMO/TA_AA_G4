@@ -25,6 +25,9 @@ import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.LineaCompraMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.LineaServicioTinteMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.ServicioTinteMySQL;
+import pe.edu.pucp.campoysoft.productotextil.dao.ProductoRolloDAO;
+import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
+import pe.edu.pucp.campoysoft.productotextil.mysql.ProductoRolloMySQL;
 import pe.edu.pucp.campoysoft.rrhh.dao.ClienteDAO;
 import pe.edu.pucp.campoysoft.rrhh.model.Cliente;
 import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
@@ -152,5 +155,17 @@ public class ServicioEmpleadoWS {
             System.out.println(e.getMessage());
         }
         return listFin;
+    }
+    
+    @WebMethod(operationName = "listarProductosStockBajo")
+    public ArrayList<ProductoRollo> listarProdBajoStock(){
+        ArrayList<ProductoRollo> listProds = new ArrayList<>();
+        try{
+            ProductoRolloDAO daoProducto = new ProductoRolloMySQL();
+            listProds = daoProducto.listarProductosBajoStock();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return listProds;
     }
 }

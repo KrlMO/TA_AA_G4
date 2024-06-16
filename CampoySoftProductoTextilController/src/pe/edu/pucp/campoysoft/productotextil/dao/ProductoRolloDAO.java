@@ -16,4 +16,5 @@ public interface ProductoRolloDAO {
     public int eliminar (int idProducto);
     //
     public ProductoRollo obtenerProductoRollo(int productoID);
+    ArrayList<ProductoRollo> listarProductosBajoStock();
 }
