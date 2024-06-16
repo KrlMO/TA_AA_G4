@@ -19,11 +19,11 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
     private String sql;
     
     @Override
-    public int insertar(ServicioTinte servTinte) {
+    public int insertar(ServicioTinte servTinte, int prod_en_carrito) {
         int resultado = 0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call InsertServicioTinte(?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call InsertServicioTinte(?,?,?,?,?,?,?,?,?)}");
 
             cs.registerOutParameter("_id_servicio_tinte",java.sql.Types.INTEGER);
             cs.setInt("p_fk_id_cliente", servTinte.getCliente());
@@ -33,6 +33,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
             cs.setDouble("p_peso_total", servTinte.getPesoTotal());
             cs.setDouble("p_area_total", servTinte.getAreaTotal());
             cs.setDouble("p_horas_tintado", servTinte.getHorasTintado());
+            cs.setInt("p_prod_en_carrito",prod_en_carrito);
             
             cs.executeUpdate();
             servTinte.setIdAtencion(cs.getInt("_id_servicio_tinte"));
