@@ -169,4 +169,21 @@ public class ServicioEmpleadoWS {
         
         return listProds;
     }
+    
+    @WebMethod(operationName = "reponerProducto")
+    public int modificarReponerPrdo(@WebParam(name = "id")int id, @WebParam(name = "cantRepo")int cantidadRep){
+        int resultado;
+        try{
+            ProductoRolloDAO daoProducto = new ProductoRolloMySQL();
+            ProductoRollo prod = daoProducto.obtenerProductoRollo(id);
+            int nuevoStock = prod.getStock() + cantidadRep;
+            prod.setStock(nuevoStock);
+            
+            resultado = daoProducto.modificar(prod);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            resultado = 0;
+        }
+        return resultado;
+    }
 }
