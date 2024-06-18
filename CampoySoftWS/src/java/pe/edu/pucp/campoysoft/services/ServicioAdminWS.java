@@ -10,8 +10,10 @@ import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
 import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
 import pe.edu.pucp.campoysoft.productotextil.mysql.EspecificacionRolloMySQL;
 import pe.edu.pucp.campoysoft.productotextil.mysql.TinteMySQL;
+import pe.edu.pucp.campoysoft.rrhh.dao.AdministradorDAO;
 import pe.edu.pucp.campoysoft.rrhh.dao.EmpleadoDAO;
 import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
+import pe.edu.pucp.campoysoft.rrhh.mysql.AdministradorMySQL;
 import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
 
 /**
@@ -21,9 +23,23 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
 @WebService(serviceName = "ServicioAdminWS")
 public class ServicioAdminWS {
     
+    private AdministradorDAO daoAdministrador;
     private EmpleadoDAO daoEmpleado;
     private EspecificacionRolloDAO daoEspecificacion;
     private TinteDAO daoTinte;
+    
+    @WebMethod(operationName = "insertarEmpleado")
+    public int insertarEmpleado(@WebParam(name = "empleado1")Empleado empleado1) {
+        int resultado = 0;    
+        try{
+            daoEmpleado = new EmpleadoMySQL();
+            resultado = daoEmpleado.insertar(empleado1);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return resultado;
+    }
+    
     
     @WebMethod(operationName = "listarEmpleados")
     public ArrayList<Empleado> listarEmpleados() {
@@ -101,5 +117,17 @@ public class ServicioAdminWS {
             System.out.println(e.getMessage());
         }
         return "";
+    }
+    
+    @WebMethod(operationName = "BusquedaEmpleado")
+    public Empleado busquedaEmpleado(@WebParam(name = "codEmp") String codEmp){
+        Empleado empleado = new Empleado();
+        try{
+            daoAdministrador= new AdministradorMySQL();
+            empleado = daoAdministrador.busquedaEmpleado(codEmp);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return empleado;
     }
 }

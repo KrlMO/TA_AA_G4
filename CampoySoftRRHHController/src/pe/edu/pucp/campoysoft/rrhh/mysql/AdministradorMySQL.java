@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.rrhh.dao.AdministradorDAO;
 import pe.edu.pucp.campoysoft.rrhh.model.Administrador;
+import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
 
 public class AdministradorMySQL implements AdministradorDAO{
     
@@ -120,5 +121,36 @@ public class AdministradorMySQL implements AdministradorDAO{
             try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
         }
         return adminstradores;
+    }
+
+    @Override
+    public Empleado busquedaEmpleado(String codEmp) {
+        Empleado empleado = new Empleado();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call Buscar_Empleado_X_CodEmp(?)}");
+            cs.setString("p_cod_emp", codEmp);
+            rs = cs.executeQuery();
+            while(rs.next()){
+                empleado.setIdPersona(rs.getInt("id_persona"));
+                empleado.setActivo(true);
+                empleado.setNombre(rs.getString("nombre"));
+                empleado.setApPaterno(rs.getString("ap_paterno"));
+                empleado.setApMaterno(rs.getString("ap_materno"));
+                empleado.setDni(Integer.parseInt(rs.getString("dni")));
+                empleado.setFechaNac(rs.getDate("fecha_nac"));
+                empleado.setDireccion(rs.getString("direccion"));
+                empleado.setCodEmpleado(rs.getString("cod_empleado"));
+                empleado.setSalario(rs.getDouble("salario"));
+                empleado.setCargo(rs.getString("cargo"));
+            }
+            rs.close();
+            cs.close();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return empleado;
     }
 }
