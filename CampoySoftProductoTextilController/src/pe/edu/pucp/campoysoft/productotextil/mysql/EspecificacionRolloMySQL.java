@@ -42,7 +42,7 @@ public class EspecificacionRolloMySQL implements EspecificacionRolloDAO{
     
                 cs.executeUpdate();
                 especificacionRollo.setIdEspecifiacionRollo(cs.getInt("_id_especificacion_rollo")); 
-                resultado = 1;
+                resultado = especificacionRollo.getIdEspecifiacionRollo();
                 cs.close();
             }catch(SQLException ex){
                 System.out.println(ex.getMessage());

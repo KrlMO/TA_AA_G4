@@ -183,6 +183,18 @@ public class ServicioAdminWS {
         return especifi;
         //comentario rando
     }
+    //comentario rando
+    @WebMethod(operationName = "insertarEspecificacionRollo")
+    public int insertarEspecificacionRollo(@WebParam(name = "especi") EspecificacionRollo especi){
+        int resultado = 0;
+            try{
+                daoEspecificacion= new EspecificacionRolloMySQL();
+                resultado = daoEspecificacion.insertar(especi);
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            return resultado;
+    }
     
     @WebMethod(operationName = "ListarTelas")
     public ArrayList<String> listarTipoTelas(){
