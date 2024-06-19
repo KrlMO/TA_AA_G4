@@ -11,6 +11,9 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 
 import pe.edu.pucp.campoysoft.config.DBManager;
+import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 import pe.edu.pucp.campoysoft.rrhh.dao.AdministradorDAO;
 import pe.edu.pucp.campoysoft.rrhh.model.Administrador;
 import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
@@ -153,5 +156,30 @@ public class AdministradorMySQL implements AdministradorDAO{
             try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
         }
         return empleado;
+    }
+    
+    public EspecificacionRollo busquedaEspecificacion(int codEsp) {
+        EspecificacionRollo rollito = new EspecificacionRollo();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call Buscar_EspecificacionRollo_X_CodRollo(?)}");
+            cs.setInt("p_cod_emp", codEsp);
+            rs = cs.executeQuery();
+            while(rs.next()){
+                rollito.setIdEspecifiacionRollo(rs.getInt("id_especificacion_rollo"));
+                rollito.setLongitudRollo(rs.getDouble("longitud_rollo"));
+                rollito.setPesoRollo(rs.getDouble("peso_rollo"));
+                rollito.setAreaRollo(rs.getDouble("area_rollo"));
+                rollito.setTipoRollo(TipoRollo.valueOf(rs.getString("tipo_rollo")));
+                rollito.setTipoTela(TipoTela.valueOf(rs.getString("tipo_tela")));
+            }
+            rs.close();
+            cs.close();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return rollito;
     }
 }

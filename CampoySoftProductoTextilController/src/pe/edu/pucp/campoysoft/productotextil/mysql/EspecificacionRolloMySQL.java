@@ -122,4 +122,49 @@ public class EspecificacionRolloMySQL implements EspecificacionRolloDAO{
         return especificacionesRollo;
         }
     
+        @Override
+        public ArrayList<String> listarTipoTelas() {
+            ArrayList<String> tiposTelas = new ArrayList<>();
+            String cadena;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListarTipoTela()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                cadena = rs.getString("tipo_tela");
+                tiposTelas.add(cadena);
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return tiposTelas;
+        }
+        
+        @Override
+        public ArrayList<String> listarTipoRollo(){
+            ArrayList<String> tiposRollo = new ArrayList<>();
+            String cadena;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListarTipoRollo()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                cadena = rs.getString("tipo_rollo");
+                tiposRollo.add(cadena);
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return tiposRollo;
+        }
 }
+
+
