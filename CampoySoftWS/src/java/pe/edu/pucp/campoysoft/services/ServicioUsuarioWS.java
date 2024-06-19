@@ -26,6 +26,10 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.EmpleadoMySQL;
 import pe.edu.pucp.campoysoft.tech.dao.UsuarioDAO;
 import pe.edu.pucp.campoysoft.tech.mysql.UsuarioMySQL;
 import pe.edu.pucp.campoysoft.tech.model.Usuario;
+import java.sql.Connection;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import pe.edu.pucp.campoysoft.config.DBManager;
 /**
  *ServiciosCampoyTextWS
  * @author s
@@ -148,4 +152,68 @@ public class ServicioUsuarioWS {
         
         return usu;
     }
+    
+    @WebMethod(operationName = "historialServicios")
+public ArrayList<String> historialServicios(@WebParam(name = "idCliente") String idCliente) {
+    ArrayList<String> servicios = new ArrayList<String>();
+    Connection con = null;
+    CallableStatement cs = null;
+    ResultSet rs = null;     
+
+    try {
+        con = DBManager.getInstance().getConnection();
+        cs = con.prepareCall("{call ListarHistorialServicios(?)}");
+        cs.setString(1, idCliente);  // Proporcionar el parámetro idCliente
+        rs = cs.executeQuery();
+        while (rs.next()) {
+            String servicio = rs.getString("concatenado");
+            servicios.add(servicio);
+        }
+    } catch (Exception ex) {
+        System.out.println(ex.getMessage());
+    } finally {
+        // Cerrar ResultSet, CallableStatement y Connection en el bloque finally
+        try {
+            if (rs != null) rs.close();
+            if (cs != null) cs.close();
+            if (con != null) con.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    return servicios;
+}
+    @WebMethod(operationName = "historialCompras")
+public ArrayList<String> historialCompras(@WebParam(name = "idCliente") String idCliente) {
+    ArrayList<String> compras = new ArrayList<String>();
+    Connection con = null;
+    CallableStatement cs = null;
+    ResultSet rs = null;     
+
+    try {
+        con = DBManager.getInstance().getConnection();
+        cs = con.prepareCall("{call ListarHistorialCompras(?)}");
+        cs.setString(1, idCliente);  // Proporcionar el parámetro idCliente
+        rs = cs.executeQuery();
+        while (rs.next()) {
+            String compra = rs.getString("concatenado");
+            compras.add(compra);
+        }
+    } catch (Exception ex) {
+        System.out.println(ex.getMessage());
+    } finally {
+        // Cerrar ResultSet, CallableStatement y Connection en el bloque finally
+        try {
+            if (rs != null) rs.close();
+            if (cs != null) cs.close();
+            if (con != null) con.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    return compras;
+}
+    
+    
+    
 }
