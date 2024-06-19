@@ -143,6 +143,7 @@ public class AdministradorMySQL implements AdministradorDAO{
                 empleado.setCodEmpleado(rs.getString("cod_empleado"));
                 empleado.setSalario(rs.getDouble("salario"));
                 empleado.setCargo(rs.getString("cargo"));
+                empleado.setActivo(rs.getBoolean("activo"));
             }
             rs.close();
             cs.close();
