@@ -4,7 +4,6 @@ package pe.edu.pucp.campoysoft.rrhh.model;
 
 import java.util.Date;
 
-
 public class Administrador extends Persona {
 
     
@@ -34,5 +33,4 @@ public class Administrador extends Persona {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
 }
