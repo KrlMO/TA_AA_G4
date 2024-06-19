@@ -11,7 +11,6 @@ import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
-import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 
@@ -25,25 +24,23 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
     public int insertar(LineaServicioTinte lineaServTinte) {
         int resultado = 0;
         try{
-            try (Connection con = DBManager.getInstance().getConnection()) {
-                String sql = "insert into LineaServicioTinte(fk_id_servicio_tinte,"
-                        + "fk_id_tinte_destino,tipo_tela_recibida,longitud_recibida,peso_recibida,ancho_recibida,area_recibida) "
-                        + "values (?,?,?,?,?,?,?)";
-                PreparedStatement statement = con.prepareStatement(sql);
-                statement.setString(1, lineaServTinte.getServTinte().getCodServicioTinte());
-                statement.setInt(2, lineaServTinte.getTinteDestino().getIdTinte());
-                statement.setString(3, lineaServTinte.getTipoTela().name());
-                statement.setDouble(4, lineaServTinte.getLongitud());
-                statement.setDouble(5, lineaServTinte.getPeso());
-                statement.setDouble(6, lineaServTinte.getAncho());
-                statement.setDouble(7, lineaServTinte.getArea());
-
-                
-                resultado = statement.executeUpdate();
-                System.out.println("Resultado " + resultado);
-            }
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call InsertLineaServicioTinte(?,?,?,?,?,?,?,?)}");
+            cs.registerOutParameter("_id_linea_servicio_tinte",java.sql.Types.INTEGER);
+            cs.setInt("p_fk_id_servicio_tinte", lineaServTinte.getServTinte().getIdAtencion());
+            cs.setInt("p_fk_id_tinte_destino", lineaServTinte.getTinteDestino().getIdTinte());
+            cs.setString("p_tipo_tela_recibida", lineaServTinte.getTipoTela().name());
+            cs.setDouble("p_longitud_recibida", lineaServTinte.getLongitud());
+            cs.setDouble("p_peso_recibida", lineaServTinte.getPeso());
+            cs.setDouble("p_ancho_recibida", lineaServTinte.getAncho());
+            cs.setDouble("p_area_recibida", lineaServTinte.getArea());
+            
+            cs.executeUpdate();
+            lineaServTinte.setIdLineaOrdenTinte(cs.getInt("_id_linea_servicio_tinte"));
+            resultado = 1;
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
+            return 44;
         }
         return resultado;
     }
@@ -69,9 +66,7 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
                 LineaServicioTinte lineaServicio = new LineaServicioTinte();
                 
                 lineaServicio.setIdLineaOrdenTinte(rs.getInt("id_linea_servicio_tinte"));
-                lineaServicio.setServTinte(new ServicioTinte());
-                lineaServicio.getServTinte().setIdAtencion(rs.getInt("fk_id_servicio_tinte"));
-                lineaServicio.setTinteDestino(new Tinte());
+                lineaServicio.getServTinte().setCodServicioTinte(rs.getString("fk_id_servicio_tinte"));
                 lineaServicio.getTinteDestino().setIdTinte(rs.getInt("fk_id_tinte_destino"));
                 TipoTela tipoTela = TipoTela.valueOf(rs.getString("tipo_tela_recibida"));
                 
@@ -81,8 +76,6 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
                 lineaServicio.setAncho(rs.getDouble("ancho_recibida"));
                 lineaServicio.setArea(rs.getDouble("area_recibida"));
                 lineaServicio.setActivo(rs.getBoolean("activo"));
-
-                lineaServicio.getTinteDestino().setNombre(rs.getString("nombre"));
                 lineasServ.add(lineaServicio);
             }
             rs.close();
