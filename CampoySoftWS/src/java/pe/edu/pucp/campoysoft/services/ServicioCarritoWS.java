@@ -9,6 +9,8 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.CompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaCompraDAO;
+import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.ServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
 import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
@@ -16,7 +18,9 @@ import pe.edu.pucp.campoysoft.onlinemarket.model.LineaCompra;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.LineaServicioTinteMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.ServicioTinteMySQL;
+import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 /**
  *
@@ -29,7 +33,9 @@ public class ServicioCarritoWS {
     private ServicioTinte servicio;
     private CompraDAO daoCompra;
     private ServicioTinteDAO daoServicio;
-    
+    //
+    private LineaCompraDAO daoLineaCompra;
+    private LineaServicioTinteDAO daoLineaService;
     @WebMethod(operationName = "insertarDatosCompra")
     public int insertarDatosCompra(@WebParam(name = "datos") int idUsu,double precioTotal,int cant,double peso ,double area) {
         int resultado = 0;
@@ -87,19 +93,37 @@ public class ServicioCarritoWS {
     }
     
     @WebMethod(operationName = "insertarServicio")
-    public int insertarServicio(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios, int prod_en_carrito) {
+    public int insertarServicio(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios, int prod_en_carrito, String palabra2,double precio) {
         int resultado = 0;
+        int ide_tinte = 2;
+        int ide_servicio_tinte = 0;
+        String tipo = "";
         try{
             if(servicio!=null){
                 servicio.setLineaServicios(servicios);
+                servicio.setPrecioTotal(precio);
                 daoServicio = new ServicioTinteMySQL();
-                resultado = daoServicio.insertar(servicio,prod_en_carrito);
+                daoServicio.insertar(servicio,prod_en_carrito);
+                servicio.getPrecioTotal();
+                //
+                //
+                daoLineaService = new LineaServicioTinteMySQL();
+                for(int i=0;i<servicios.size();i++){
+                    LineaServicioTinte service = servicios.get(i);
+                    service.setServTinte(servicio);
+                    service.setArea(30);
+                    TipoTela tipoTela = TipoTela.valueOf(palabra2);
+                    service.setTipoTela(tipoTela);
+                    tipo = service.getTipoTela().name();
+                    //ide_tinte = service.getTinteDestino().getIdTinte();
+                    daoLineaService.insertar(service);
+                }
+                resultado = 1;
             }        
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            return 2;
+            return 0;
         }
         return resultado;
     }
-    
 }
