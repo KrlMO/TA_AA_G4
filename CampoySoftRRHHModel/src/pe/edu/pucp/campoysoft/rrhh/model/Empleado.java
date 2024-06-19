@@ -81,7 +81,7 @@ public class Empleado extends Persona{
         
         return productoRollos;
     }
-    
+    //comentario rando
     public ArrayList<Atencion> listar_Atencion_Emitidas(){
         CompraDAO compraDAO = new CompraMySQL();
         ArrayList<Atencion> atenciones = new ArrayList<>();

@@ -39,7 +39,7 @@ public class EmpleadoMySQL implements EmpleadoDAO{
             cs.executeUpdate();
             empleado.setIdPersona(cs.getInt("_id_empleado"));
             empleado.setCodEmpleado(cs.getString("_id_empleado"));
-            resultado = 1;
+            resultado = empleado.getIdPersona();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -53,7 +53,7 @@ public class EmpleadoMySQL implements EmpleadoDAO{
         int resultado = 0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call UpdateEmpleado(?,?,?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call UpdateEmpleado(?,?,?,?,?,?,?,?,?)}");
             
             cs.setString("nuevo_nombre", empleado.getNombre());
             cs.setString("nuevo_ap_paterno", empleado.getApPaterno());
@@ -61,11 +61,9 @@ public class EmpleadoMySQL implements EmpleadoDAO{
             cs.setString("nuevo_dni", String.valueOf(empleado.getDni()));
             cs.setDate("nuevo_fecha_nac", new java.sql.Date(empleado.getFechaNac().getTime()));
             cs.setString("nuevo_direccion", empleado.getDireccion());
-            cs.setInt("nuevo_activo_per", empleado.isActivo() ? 1 : 0);
             cs.setInt("empleado_id", empleado.getIdPersona());
             cs.setDouble("nuevo_salario", empleado.getSalario());
             cs.setString("nuevo_cargo", empleado.getCargo());
-            cs.setInt("nuevo_activo_emp", empleado.isActivo() ? 1 : 0);
             cs.executeUpdate();
             resultado = 1;
             cs.close();
@@ -76,7 +74,7 @@ public class EmpleadoMySQL implements EmpleadoDAO{
         }
         return resultado;
     }
-
+    //comentario rando
     @Override
     public int eliminar(int idEmpleado) {
         int resultado = 0;
@@ -106,7 +104,7 @@ public class EmpleadoMySQL implements EmpleadoDAO{
             while(rs.next()){
                 Empleado empleado = new Empleado();
                 empleado.setIdPersona(rs.getInt("id_empleado"));
-                empleado.setCodEmpleado(rs.getString("id_empleado"));
+                empleado.setCodEmpleado(rs.getString("cod_empleado"));
                 empleado.setSalario(rs.getDouble("salario"));
                 empleado.setCargo(rs.getString("cargo"));
                 empleado.setActivo(true);

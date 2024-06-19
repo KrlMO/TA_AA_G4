@@ -77,6 +77,19 @@ public class ServicioUsuarioWS {
         return resultado;
     }
     
+    @WebMethod(operationName = "Crear_Usuario_Empleado")
+    public int Crear_Usuario_Empleado(@WebParam(name = "Usuario") Usuario usuario) {
+        int resultado = 0;
+        try{
+            UsuarioDAO usuarioDAO = new UsuarioMySQL();
+            resultado=usuarioDAO.insertar(usuario);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return resultado;
+        //comentario rando
+    }
+    
     @WebMethod(operationName = "buscarProductos")
     public ArrayList<ProductoRollo> buscarProductos(@WebParam(name = "text") String text) {
         ArrayList<ProductoRollo> productoRollos = new ArrayList<>();

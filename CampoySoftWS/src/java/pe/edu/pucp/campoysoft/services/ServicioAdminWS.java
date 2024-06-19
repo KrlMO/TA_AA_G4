@@ -170,4 +170,44 @@ public class ServicioAdminWS {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);        
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
+    
+    @WebMethod(operationName = "BusquedaEspecificacion")
+    public EspecificacionRollo BusquedaEspecificacion(@WebParam(name = "cod_rollo") int codRollo){
+        EspecificacionRollo especifi = new EspecificacionRollo();
+        try{
+            daoAdministrador= new AdministradorMySQL();
+            especifi = daoAdministrador.busquedaEspecificacion(codRollo);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return especifi;
+        //comentario rando
+    }
+    
+    @WebMethod(operationName = "ListarTelas")
+    public ArrayList<String> listarTipoTelas(){
+        ArrayList<String> tiposTelas = new ArrayList<>();
+            String cadena;
+        try{
+            daoEspecificacion= new EspecificacionRolloMySQL();
+            tiposTelas = daoEspecificacion.listarTipoTelas();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return tiposTelas;
+    }
+    
+    @WebMethod(operationName = "ListarRollos")
+    public ArrayList<String> listarRollos(){
+        ArrayList<String> tiposRollo = new ArrayList<>();
+            String cadena;
+        try{
+            daoEspecificacion= new EspecificacionRolloMySQL();
+            tiposRollo = daoEspecificacion.listarTipoRollo();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return tiposRollo;
+    }
+    
 }

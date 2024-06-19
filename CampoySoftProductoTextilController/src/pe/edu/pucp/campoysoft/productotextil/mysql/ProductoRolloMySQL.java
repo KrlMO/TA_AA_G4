@@ -123,7 +123,7 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
         }
         return productoRollos;
     }
-    
+    //comentario rando
     @Override
     public ArrayList<ProductoRollo> listarPorTipo(TipoTela tipoTela) {
         ArrayList<ProductoRollo> productoRollos = new ArrayList<>();

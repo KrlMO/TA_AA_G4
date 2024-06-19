@@ -18,3 +18,4 @@ public interface ProductoRolloDAO {
     public ProductoRollo obtenerProductoRollo(int productoID);
     ArrayList<ProductoRollo> listarProductosBajoStock();
 }
+//comentario rando

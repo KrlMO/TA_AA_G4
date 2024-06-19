@@ -16,4 +16,7 @@ public interface EspecificacionRolloDAO {
     public int insertar(EspecificacionRollo especificacionRollo);
     public int modificar(EspecificacionRollo especificacionRollo);
     public int eliminar (int idEspecificacionRollo);
+    public ArrayList<String> listarTipoTelas();
+    public ArrayList<String> listarTipoRollo();
 }
+//comentario rando
