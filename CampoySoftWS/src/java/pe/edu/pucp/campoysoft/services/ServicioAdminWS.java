@@ -143,7 +143,7 @@ public class ServicioAdminWS {
         return especifi;
         //comentario rando
     }
-    
+    //comentario rando
     @WebMethod(operationName = "insertarEspecificacionRollo")
     public int insertarEspecificacionRollo(@WebParam(name = "especi") EspecificacionRollo especi){
         int resultado = 0;
