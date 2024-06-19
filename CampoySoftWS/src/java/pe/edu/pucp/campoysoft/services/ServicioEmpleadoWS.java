@@ -197,10 +197,10 @@ public class ServicioEmpleadoWS {
     }
     
     @WebMethod(operationName = "reportePDF")
-    public byte[] reportePDF() throws Exception {
+    public byte[] reportePDF(@WebParam(name = "nomvre")String nombre) throws Exception {
         try {
             Map<String, Object> parameters = new HashMap<>();
-            parameters.put("GeneradoPor", "Sebastian");
+            parameters.put("GeneradoPor", nombre );
             String absolutePath = "C:\\Users\\samt1\\OneDrive\\Documentos\\Universidad\\Programacion_3\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_usuario_compras.jrxml";
    
             byte[] byteArray = 
