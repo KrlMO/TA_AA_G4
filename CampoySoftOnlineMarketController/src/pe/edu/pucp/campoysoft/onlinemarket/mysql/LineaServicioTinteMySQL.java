@@ -11,6 +11,7 @@ import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaServicioTinteDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.EstadoAtencion;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
+import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 
 
@@ -68,7 +69,9 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
                 LineaServicioTinte lineaServicio = new LineaServicioTinte();
                 
                 lineaServicio.setIdLineaOrdenTinte(rs.getInt("id_linea_servicio_tinte"));
-                lineaServicio.getServTinte().setCodServicioTinte(rs.getString("fk_id_servicio_tinte"));
+                lineaServicio.setServTinte(new ServicioTinte());
+                lineaServicio.getServTinte().setIdAtencion(rs.getInt("fk_id_servicio_tinte"));
+                lineaServicio.setTinteDestino(new Tinte());
                 lineaServicio.getTinteDestino().setIdTinte(rs.getInt("fk_id_tinte_destino"));
                 TipoTela tipoTela = TipoTela.valueOf(rs.getString("tipo_tela_recibida"));
                 
@@ -78,6 +81,8 @@ public class LineaServicioTinteMySQL implements LineaServicioTinteDAO{
                 lineaServicio.setAncho(rs.getDouble("ancho_recibida"));
                 lineaServicio.setArea(rs.getDouble("area_recibida"));
                 lineaServicio.setActivo(rs.getBoolean("activo"));
+
+                lineaServicio.getTinteDestino().setNombre(rs.getString("nombre"));
                 lineasServ.add(lineaServicio);
             }
             rs.close();

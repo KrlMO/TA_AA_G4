@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.onlinemarket.dao.LineaCompraDAO;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaCompra;
-
+import pe.edu.pucp.campoysoft.onlinemarket.model.Compra;
+import pe.edu.pucp.campoysoft.productotextil.model.ProductoRollo;
 
 public class LineaCompraMySQL implements LineaCompraDAO{
     private Connection con;
@@ -88,10 +89,13 @@ public class LineaCompraMySQL implements LineaCompraDAO{
             while(rs.next()){
                 LineaCompra lineaCompra = new LineaCompra();
                 lineaCompra.setIdLineaCompra(rs.getInt("id_linea_compra"));
-                lineaCompra.getCompra().setCodCompra(rs.getString("fk_id_compra"));
+                lineaCompra.setCompra(new Compra());
+                lineaCompra.getCompra().setIdAtencion(rs.getInt("fk_id_compra"));
+                lineaCompra.setProdRollo(new ProductoRollo());
                 lineaCompra.getProdRollo().setIdProducto(rs.getInt("fk_id_producto"));
                 lineaCompra.setCantRollo(rs.getInt("cant_rollo"));
-                lineaCompra.setActivo(true); 
+                lineaCompra.getProdRollo().setDescripcion(rs.getString("descripcion"));
+                lineaCompra.setActivo(rs.getBoolean("activo")); 
                 lineasCompras.add(lineaCompra);
             }
             rs.close();

@@ -138,7 +138,7 @@ public class ServicioEmpleadoWS {
             LineaCompraDAO daoLinCompra = new LineaCompraMySQL();
             listLinea = daoLinCompra.listarTodas();
             for(LineaCompra laux:listLinea){
-                if(Integer.parseInt(laux.getCompra().getCodCompra())==idAtencion){
+                if(laux.getCompra().getIdAtencion()==idAtencion){
                     listFin.add(laux);
                 }
             }
@@ -156,7 +156,7 @@ public class ServicioEmpleadoWS {
             LineaServicioTinteDAO daoLinServicio = new LineaServicioTinteMySQL();
             listLinea = daoLinServicio.listarTodas();
             for(LineaServicioTinte laux:listLinea){
-                if(Integer.parseInt(laux.getServTinte().getCodServicioTinte())==idAtencion){
+                if(laux.getServTinte().getIdAtencion()==idAtencion){
                     listFin.add(laux);
                 }
             }
@@ -201,7 +201,7 @@ public class ServicioEmpleadoWS {
         try {
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("GeneradoPor", nombre );
-            String absolutePath = "C:\\Users\\samt1\\OneDrive\\Documentos\\Universidad\\Programacion_3\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_usuario_compras.jrxml";
+            String absolutePath = "C:\\Users\\USER\\Desktop\\fin back\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_usuario_compras.jrxml";
    
             byte[] byteArray = 
                     generarBuffer(absolutePath, parameters);

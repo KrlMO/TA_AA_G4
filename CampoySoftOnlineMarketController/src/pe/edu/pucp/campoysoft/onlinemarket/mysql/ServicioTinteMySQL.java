@@ -111,6 +111,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
                 EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
                 serv.setEstadoServicio(est);
                 serv.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                serv.setPrecioTotal(rs.getDouble("precio_total"));
                 listServ.add(serv);
             }
             rs.close();
