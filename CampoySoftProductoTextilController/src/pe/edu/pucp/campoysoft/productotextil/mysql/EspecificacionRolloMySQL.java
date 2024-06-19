@@ -50,6 +50,7 @@ public class EspecificacionRolloMySQL implements EspecificacionRolloDAO{
                 try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
             }
             return resultado;
+            //comentario rando
         }
 
         @Override
