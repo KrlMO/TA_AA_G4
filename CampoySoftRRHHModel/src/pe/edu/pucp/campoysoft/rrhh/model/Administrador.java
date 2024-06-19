@@ -11,7 +11,7 @@ public class Administrador extends Persona {
     private boolean activo;
     
     public Administrador(){};
-    
+    //comentario rando
     public Administrador( String codAdmin,boolean activo, String nombre, String apPaterno, String apMaterno, int dni, Date fechaNac, String direccion) {
         super( nombre, apPaterno, apMaterno, dni, fechaNac, direccion);
         this.codAdmin=codAdmin;

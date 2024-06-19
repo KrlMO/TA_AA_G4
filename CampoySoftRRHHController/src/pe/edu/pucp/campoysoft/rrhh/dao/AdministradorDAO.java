@@ -19,3 +19,4 @@ public interface AdministradorDAO {
     public Empleado busquedaEmpleado(String codEmp);
     public EspecificacionRollo busquedaEspecificacion(int codEsp);
 }
+//comentario rando

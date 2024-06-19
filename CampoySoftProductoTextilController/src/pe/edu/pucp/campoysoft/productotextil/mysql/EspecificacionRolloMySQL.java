@@ -93,7 +93,7 @@ public class EspecificacionRolloMySQL implements EspecificacionRolloDAO{
             }
             return resultado;
         }
-
+//comentario rando
         @Override
         public ArrayList<EspecificacionRollo> listar() {
             ArrayList<EspecificacionRollo> especificacionesRollo = new ArrayList<>();

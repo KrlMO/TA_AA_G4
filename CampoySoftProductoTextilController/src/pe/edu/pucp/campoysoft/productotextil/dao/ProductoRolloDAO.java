@@ -17,3 +17,4 @@ public interface ProductoRolloDAO {
     //
     public ProductoRollo obtenerProductoRollo(int productoID);
 }
+//comentario rando

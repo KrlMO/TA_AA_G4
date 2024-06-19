@@ -74,7 +74,7 @@ public class EmpleadoMySQL implements EmpleadoDAO{
         }
         return resultado;
     }
-
+    //comentario rando
     @Override
     public int eliminar(int idEmpleado) {
         int resultado = 0;

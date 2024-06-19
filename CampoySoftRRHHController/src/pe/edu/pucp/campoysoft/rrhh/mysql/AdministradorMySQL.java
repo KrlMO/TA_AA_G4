@@ -157,7 +157,7 @@ public class AdministradorMySQL implements AdministradorDAO{
         }
         return empleado;
     }
-    
+    //comentario rando
     public EspecificacionRollo busquedaEspecificacion(int codEsp) {
         EspecificacionRollo rollito = new EspecificacionRollo();
         try{

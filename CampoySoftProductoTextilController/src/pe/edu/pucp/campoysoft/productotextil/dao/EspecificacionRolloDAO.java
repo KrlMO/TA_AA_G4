@@ -19,3 +19,4 @@ public interface EspecificacionRolloDAO {
     public ArrayList<String> listarTipoTelas();
     public ArrayList<String> listarTipoRollo();
 }
+//comentario rando

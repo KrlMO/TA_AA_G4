@@ -141,6 +141,7 @@ public class ServicioAdminWS {
             System.out.println(ex.getMessage());
         }
         return especifi;
+        //comentario rando
     }
     
     @WebMethod(operationName = "ListarTelas")

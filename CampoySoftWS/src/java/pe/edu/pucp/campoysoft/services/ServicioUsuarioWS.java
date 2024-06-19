@@ -87,7 +87,7 @@ public class ServicioUsuarioWS {
             System.out.println(e.getMessage());
         }
         return resultado;
-        //comentario random
+        //comentario rando
     }
     
     @WebMethod(operationName = "buscarProductos")
