@@ -258,18 +258,18 @@ where L.fk_id_compra = a.id_atencion and P.id_producto=L.fk_id_producto and Per1
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="71" splitType="Stretch">
+		<band height="75" splitType="Stretch">
 			<line>
 				<reportElement x="-11" y="30" width="570" height="1" uuid="97fd11ba-19cc-4f52-91da-c25aa314588b"/>
 			</line>
-			<textField>
-				<reportElement x="276" y="41" width="100" height="30" uuid="45beb2e4-4063-4b0e-8c8f-913f2c600aaa"/>
-				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="230" y="40" width="46" height="30" uuid="5ad677f0-1f68-446b-a2c0-c31d5a59e1ab"/>
+				<reportElement x="244" y="40" width="46" height="30" uuid="5ad677f0-1f68-446b-a2c0-c31d5a59e1ab"/>
 				<text><![CDATA[Pagina: ]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="290" y="40" width="100" height="30" uuid="2d8e0024-3521-4ae0-96bf-cbdaf8742bd5"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>

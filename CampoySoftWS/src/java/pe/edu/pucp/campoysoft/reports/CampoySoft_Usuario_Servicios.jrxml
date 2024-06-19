@@ -65,7 +65,7 @@ WHERE
 		<property name="com.jaspersoft.studio.field.label" value="peso_recibida"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="LineaServicioTinte"/>
 	</field>
-	<variable name="Total_ganado_servicios" class="java.math.BigDecimal">
+	<variable name="Total_ganado_servicios" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal(String.valueOf($F{precio_total}) )]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal("0.0")]]></initialValueExpression>
 	</variable>
@@ -281,7 +281,7 @@ WHERE
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="61" splitType="Stretch">
+		<band height="73" splitType="Stretch">
 			<line>
 				<reportElement x="-11" y="30" width="570" height="1" uuid="7f39181c-6d37-4191-9c96-3cefd18d6997"/>
 			</line>
@@ -290,8 +290,8 @@ WHERE
 				<text><![CDATA[Pagina: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="275" y="30" width="100" height="30" uuid="3bdcad7f-cde7-453a-bc9a-eb97b4818d59"/>
-				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+				<reportElement x="280" y="31" width="100" height="30" uuid="fe481541-a62a-4c4b-8e24-681b29934e7a"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

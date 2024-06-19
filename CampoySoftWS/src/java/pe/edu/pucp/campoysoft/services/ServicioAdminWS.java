@@ -3,7 +3,16 @@ package pe.edu.pucp.campoysoft.services;
 import jakarta.jws.WebService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.productotextil.dao.EspecificacionRolloDAO;
 import pe.edu.pucp.campoysoft.productotextil.dao.TinteDAO;
 import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
@@ -129,5 +138,36 @@ public class ServicioAdminWS {
             System.out.println(ex.getMessage());
         }
         return empleado;
+    }
+    @WebMethod(operationName = "reportePDFAdmin")
+    public byte[] reportePDF(@WebParam(name = "nombre")String nombre) throws Exception {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("GeneradoPor", nombre );
+            String absolutePath = "C:\\Users\\samt1\\OneDrive\\Documentos\\Universidad\\Programacion_3\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_Empleados.jrxml";
+   
+            byte[] byteArray = 
+                    generarBuffer(absolutePath, parameters);
+            return byteArray;            
+            /*File myFile = new File("D:/temp/Report.pdf");
+            byte[] byteArray = new byte[(int) myFile.length()];
+            try (FileInputStream inputStream = new FileInputStream(myFile)) {
+                inputStream.read(byteArray);
+            }
+            return byteArray;*/
+         } catch (Exception ex) {
+            System.out.println(ex);
+        }
+         return null;
+    }
+    
+    public static byte[] generarBuffer(String inFileXML, Map<String, Object> parameters) throws Exception{
+        //1- compilar el xml
+        Connection conn = DBManager.getInstance().getConnection();
+        //2- poblar el reporte
+        JasperReport jasperReport = JasperCompileManager.compileReport(inFileXML);        
+        //3- exportar a PDF y retorn el array de bytes
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);        
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 }
