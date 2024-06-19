@@ -197,7 +197,7 @@ public class ServicioEmpleadoWS {
     }
     
     @WebMethod(operationName = "reportePDF")
-    public byte[] reportePDF(@WebParam(name = "nomvre")String nombre) throws Exception {
+    public byte[] reportePDF(@WebParam(name = "nombre")String nombre) throws Exception {
         try {
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("GeneradoPor", nombre );
@@ -226,5 +226,30 @@ public class ServicioEmpleadoWS {
         //3- exportar a PDF y retorn el array de bytes
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);        
         return JasperExportManager.exportReportToPdf(jasperPrint);
+    }
+    
+    
+    
+    
+    @WebMethod(operationName = "reportePDFSer")
+    public byte[] reportePDFSer(@WebParam(name = "nombre")String nombre) throws Exception {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("GeneradoPor", nombre );
+            String absolutePath ="C:\\Users\\samt1\\OneDrive\\Documentos\\Universidad\\Programacion_3\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_Usuario_Servicios.jrxml";
+   
+            byte[] byteArray = 
+                    generarBuffer(absolutePath, parameters);
+            return byteArray;            
+            /*File myFile = new File("D:/temp/Report.pdf");
+            byte[] byteArray = new byte[(int) myFile.length()];
+            try (FileInputStream inputStream = new FileInputStream(myFile)) {
+                inputStream.read(byteArray);
+            }
+            return byteArray;*/
+         } catch (Exception ex) {
+            System.out.println(ex);
+        }
+         return null;
     }
 }
