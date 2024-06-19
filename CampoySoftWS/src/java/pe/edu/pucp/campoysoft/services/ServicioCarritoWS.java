@@ -18,6 +18,7 @@ import pe.edu.pucp.campoysoft.onlinemarket.model.LineaCompra;
 import pe.edu.pucp.campoysoft.onlinemarket.model.LineaServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.model.ServicioTinte;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.CompraMySQL;
+import pe.edu.pucp.campoysoft.onlinemarket.mysql.LineaCompraMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.LineaServicioTinteMySQL;
 import pe.edu.pucp.campoysoft.onlinemarket.mysql.ServicioTinteMySQL;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
@@ -36,6 +37,7 @@ public class ServicioCarritoWS {
     //
     private LineaCompraDAO daoLineaCompra;
     private LineaServicioTinteDAO daoLineaService;
+    
     @WebMethod(operationName = "insertarDatosCompra")
     public int insertarDatosCompra(@WebParam(name = "datos") int idUsu,double precioTotal,int cant,double peso ,double area) {
         int resultado = 0;
@@ -78,13 +80,21 @@ public class ServicioCarritoWS {
     }
 
     @WebMethod(operationName = "insertarCompra")
-    public int insertarCompra(@WebParam(name = "productos") ArrayList<LineaCompra>productos) {
+    public int insertarCompra(@WebParam(name = "productos") ArrayList<LineaCompra>productos,double precio) {
         int resultado = 3;
         try{
             if(compra!=null){
                 compra.setLineaCompras(productos);
+                compra.setPrecioTotal(precio);
                 daoCompra = new CompraMySQL();
                 resultado = daoCompra.insertar(compra);
+                //
+                daoLineaCompra = new LineaCompraMySQL();
+                for(int i=0;i<productos.size();i++){
+                    LineaCompra producto = productos.get(i);
+                    producto.setCompra(compra);
+                    daoLineaCompra.insertar(producto);
+                }
             }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -126,4 +136,5 @@ public class ServicioCarritoWS {
         }
         return resultado;
     }
+    
 }
