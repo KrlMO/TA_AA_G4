@@ -23,7 +23,7 @@ public class CompraMySQL implements CompraDAO{
        int resultado = 0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call InsertCompra(?,?,?,?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call InsertCompra(?,?,?,?,?,?,?)}");
             
             cs.registerOutParameter("_id_compra",java.sql.Types.INTEGER);
             cs.setInt("p_fk_id_cliente", compra.getCliente());
@@ -32,8 +32,6 @@ public class CompraMySQL implements CompraDAO{
             cs.setInt("p_cantidad_total_rollos", compra.getCanTotalRollos());
             cs.setDouble("p_peso_total", compra.getPesoTotal());
             cs.setDouble("p_area_total", compra.getAreaTotal());
-            cs.setString("p_cod_compra", compra.getCodCompra());
-            cs.setInt("p_id_carrito", compra.getIdCarrito());
             cs.executeUpdate();
             compra.setIdAtencion(cs.getInt("_id_compra"));
             resultado = 1;
@@ -106,6 +104,8 @@ public class CompraMySQL implements CompraDAO{
                 compra.setCodCompra(rs.getString("cod_compra"));
                 compra.setIdCliente(rs.getInt("fk_id_cliente"));
                 compra.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                compra.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
+                compra.setPrecioTotal(rs.getDouble("precio_total"));
                 compras.add(compra);  
             }
             rs.close();

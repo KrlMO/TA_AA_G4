@@ -87,13 +87,13 @@ public class ServicioCarritoWS {
     }
     
     @WebMethod(operationName = "insertarServicio")
-    public int insertarServicio(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios) {
+    public int insertarServicio(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios, int prod_en_carrito) {
         int resultado = 0;
         try{
             if(servicio!=null){
                 servicio.setLineaServicios(servicios);
                 daoServicio = new ServicioTinteMySQL();
-                resultado = daoServicio.insertar(servicio);
+                resultado = daoServicio.insertar(servicio,prod_en_carrito);
             }        
         }catch(Exception ex){
             System.out.println(ex.getMessage());
