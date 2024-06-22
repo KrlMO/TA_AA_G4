@@ -39,7 +39,7 @@ public class ServicioCarritoWS {
     private LineaServicioTinteDAO daoLineaService;
     
     @WebMethod(operationName = "insertarDatosCompra")
-    public int insertarDatosCompra(@WebParam(name = "datos") int idUsu,double precioTotal,int cant,double peso ,double area) {
+    public int insertarDatosCompra(@WebParam(name = "datos") int idUsu,int cant,double peso ,double area) {
         int resultado = 0;
         try{
             if(compra ==null){
@@ -47,7 +47,6 @@ public class ServicioCarritoWS {
             }
             compra.setCliente(idUsu);
             compra.setEstadoServicio(EstadoAtencion.Emitido);
-            compra.setPrecioTotal(precioTotal);
             compra.setCanTotalRollos(cant);
             compra.setPesoTotal(peso);
             compra.setAreaTotal(area);
@@ -59,7 +58,7 @@ public class ServicioCarritoWS {
         return resultado;
     }
     @WebMethod(operationName = "insertarDatosServicio")
-    public int insertarDatosServicio(@WebParam(name = "datosS") int idUsu,double precioTotal,int cant,double peso ,double area, double horas_tintado) {
+    public int insertarDatosServicio(@WebParam(name = "datosS") int idUsu,int cant,double peso ,double area, double horas_tintado) {
         int resultado = 0;
         try{
             if(servicio ==null){
@@ -67,7 +66,6 @@ public class ServicioCarritoWS {
             }
             servicio.setCliente(idUsu);
             servicio.setEstadoServicio(EstadoAtencion.Emitido);
-            servicio.setPrecioTotal(precioTotal);
             servicio.setCanTotalRollos(cant);
             servicio.setPesoTotal(peso);
             servicio.setAreaTotal(area);
