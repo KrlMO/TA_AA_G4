@@ -53,7 +53,6 @@ public class ServicioCarritoWS {
             resultado = idUsu;
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            //hola
         }
         return resultado;
     }
@@ -103,9 +102,6 @@ public class ServicioCarritoWS {
     @WebMethod(operationName = "insertarServicio")
     public int insertarServicio(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios, int prod_en_carrito, String palabra2,double precio) {
         int resultado = 0;
-        int ide_tinte = 2;
-        int ide_servicio_tinte = 0;
-        String tipo = "";
         try{
             if(servicio!=null){
                 servicio.setLineaServicios(servicios);
