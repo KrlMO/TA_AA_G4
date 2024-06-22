@@ -208,6 +208,7 @@ public class ProductoRolloMySQL implements ProductoRolloDAO{
                 
                 EspecificacionRollo especificacionRollo = new EspecificacionRollo();
                 especificacionRollo.setIdEspecifiacionRollo(rs.getInt("fk_id_especificacion_rollo"));
+                especificacionRollo.setAreaRollo(rs.getDouble("area_rollo"));
                 productoRollo.setEspecificiacionRollo(especificacionRollo);
                 
                 Tinte tinte = new Tinte();
