@@ -118,7 +118,7 @@ public class ServicioCarritoWS {
                     service.setArea(30);
                     TipoTela tipoTela = TipoTela.valueOf(palabra2);
                     service.setTipoTela(tipoTela);
-                    tipo = service.getTipoTela().name();
+                    service.getTipoTela().name();
                     //ide_tinte = service.getTinteDestino().getIdTinte();
                     daoLineaService.insertar(service);
                 }
