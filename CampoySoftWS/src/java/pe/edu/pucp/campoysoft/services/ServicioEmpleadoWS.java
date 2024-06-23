@@ -55,21 +55,11 @@ public class ServicioEmpleadoWS {
         List<Compra> listEntregados = new ArrayList<>();
         try {
             CompraDAO daoCompra = new CompraMySQL();
-            List<Compra> allCompras = daoCompra.listarTodas();
-            for (Compra compra : allCompras) {
-                EstadoAtencion estado = compra.getEstadoServicio();
-                if (estado == EstadoAtencion.Emitido) {
-                    listEmitidos.add(compra);
-                } else if (estado == EstadoAtencion.Entregado) {
-                   if(compra.getIdEmpleado()== idEmp){
-                        listEntregados.add(compra);
-                   }
-                }
-            }
+            listEmitidos = daoCompra.listarEmitidas();
+            listEntregados = daoCompra.listarEntregadas();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         CompraResultado result = new CompraResultado();
         result.setListEmitidos(listEmitidos);
         result.setListEntregados(listEntregados);
@@ -83,21 +73,11 @@ public class ServicioEmpleadoWS {
         List<ServicioTinte> listEntregados = new ArrayList<>();
         try {
             ServicioTinteDAO daoServicio = new ServicioTinteMySQL();
-            List<ServicioTinte> allServicios = daoServicio.listarTodas();
-            for (ServicioTinte servicio : allServicios) {
-                EstadoAtencion estado = servicio.getEstadoServicio();
-                if (estado == EstadoAtencion.Emitido) {
-                    listEmitidos.add(servicio);
-                } else if (estado == EstadoAtencion.Entregado) {
-                    if(servicio.getIdEmpleado()==idEmp){
-                        listEntregados.add(servicio);
-                    }
-                }
-            }
+            listEmitidos = daoServicio.listarEmitidos();
+            listEntregados = daoServicio.listarEntregadas();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         ServicioTInteResultado result = new ServicioTInteResultado();
         result.setListEmitidos(listEmitidos);
         result.setListEntregados(listEntregados);

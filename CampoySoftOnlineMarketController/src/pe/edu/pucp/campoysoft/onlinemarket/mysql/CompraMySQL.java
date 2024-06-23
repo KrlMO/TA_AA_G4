@@ -117,5 +117,63 @@ public class CompraMySQL implements CompraDAO{
         }
         return compras;
     }
+
+    @Override
+    public ArrayList<Compra> listarEmitidas() {
+        ArrayList<Compra> compras = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListComprasEmitidas()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Compra compra = new Compra();
+                compra.setIdAtencion(rs.getInt("id_atencion"));
+                EstadoAtencion estado = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                compra.setEstadoServicio(estado);
+                compra.setCodCompra(rs.getString("cod_compra"));
+                compra.setIdCliente(rs.getInt("fk_id_cliente"));
+                compra.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                compra.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
+                compra.setPrecioTotal(rs.getDouble("precio_total"));
+                compras.add(compra);  
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return compras;
+    }
+
+    @Override
+    public ArrayList<Compra> listarEntregadas() {
+        ArrayList<Compra> compras = new ArrayList<>();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListComprasEntregadas()}");
+            rs = cs.executeQuery();
+            while(rs.next()){
+                Compra compra = new Compra();
+                compra.setIdAtencion(rs.getInt("id_atencion"));
+                EstadoAtencion estado = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                compra.setEstadoServicio(estado);
+                compra.setCodCompra(rs.getString("cod_compra"));
+                compra.setIdCliente(rs.getInt("fk_id_cliente"));
+                compra.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                compra.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
+                compra.setPrecioTotal(rs.getDouble("precio_total"));
+                compras.add(compra);  
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return compras;
+    }
     
 }

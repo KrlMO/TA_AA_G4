@@ -9,4 +9,6 @@ public interface CompraDAO {
     int modificar(Compra compra);
     int elimniar(int codCompra);
     ArrayList<Compra> listarTodas();
+    ArrayList<Compra> listarEmitidas();
+    ArrayList<Compra> listarEntregadas();
 }

@@ -8,4 +8,6 @@ public interface ServicioTinteDAO {
     int modificar(ServicioTinte servTinte);
     int elimniar(int idServTinte);
     ArrayList<ServicioTinte> listarTodas();
+    ArrayList<ServicioTinte> listarEmitidos();
+    ArrayList<ServicioTinte> listarEntregadas();
 }

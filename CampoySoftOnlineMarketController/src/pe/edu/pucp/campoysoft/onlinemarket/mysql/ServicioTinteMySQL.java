@@ -124,4 +124,64 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
         }
         return listServ;
     }
+
+    @Override
+    public ArrayList<ServicioTinte> listarEmitidos() {
+        ArrayList<ServicioTinte> listServ = new ArrayList<>();
+        
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListServicioTintesEmitidos()}");
+            rs = cs.executeQuery();
+            int cant;
+            while(rs.next()){
+                ServicioTinte serv = new ServicioTinte();
+                serv.setIdAtencion(rs.getInt("id_atencion"));
+                serv.setIdCliente(rs.getInt("fk_id_cliente"));
+                EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                serv.setEstadoServicio(est);
+                serv.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                serv.setPrecioTotal(rs.getDouble("precio_total"));
+                listServ.add(serv);
+            }
+            rs.close();
+            cs.close();
+            cant = listServ.size();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return listServ;
+    }
+
+    @Override
+    public ArrayList<ServicioTinte> listarEntregadas() {
+        ArrayList<ServicioTinte> listServ = new ArrayList<>();
+        
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call ListServicioTintesEntregados()}");
+            rs = cs.executeQuery();
+            int cant;
+            while(rs.next()){
+                ServicioTinte serv = new ServicioTinte();
+                serv.setIdAtencion(rs.getInt("id_atencion"));
+                serv.setIdCliente(rs.getInt("fk_id_cliente"));
+                EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                serv.setEstadoServicio(est);
+                serv.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                serv.setPrecioTotal(rs.getDouble("precio_total"));
+                listServ.add(serv);
+            }
+            rs.close();
+            cs.close();
+            cant = listServ.size();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return listServ;
+    }
 }
