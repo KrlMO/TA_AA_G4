@@ -128,7 +128,6 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
     @Override
     public ArrayList<ServicioTinte> listarEmitidos() {
         ArrayList<ServicioTinte> listServ = new ArrayList<>();
-        
         try{
             con = DBManager.getInstance().getConnection();
             cs = con.prepareCall("{call ListServicioTintesEmitidos()}");
