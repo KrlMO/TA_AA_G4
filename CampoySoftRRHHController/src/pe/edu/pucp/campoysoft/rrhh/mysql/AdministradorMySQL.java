@@ -169,6 +169,7 @@ public class AdministradorMySQL implements AdministradorDAO{
                 rollito.setIdEspecifiacionRollo(rs.getInt("id_especificacion_rollo"));
                 rollito.setLongitudRollo(rs.getDouble("longitud_rollo"));
                 rollito.setPesoRollo(rs.getDouble("peso_rollo"));
+                rollito.setAnchoRollo(rs.getDouble("ancho_rollo"));
                 rollito.setAreaRollo(rs.getDouble("area_rollo"));
                 rollito.setTipoRollo(TipoRollo.valueOf(rs.getString("tipo_rollo")));
                 rollito.setTipoTela(TipoTela.valueOf(rs.getString("tipo_tela")));
