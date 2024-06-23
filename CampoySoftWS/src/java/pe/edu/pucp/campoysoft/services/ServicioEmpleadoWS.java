@@ -48,13 +48,27 @@ import pe.edu.pucp.campoysoft.rrhh.mysql.ClienteMySQL;
  */
 @WebService(serviceName = "ServicioEmpleadoWS")
 public class ServicioEmpleadoWS {
+    private final CompraDAO daoCompra;
+    private final ServicioTinteDAO daoServicio;
+    private final ClienteDAO daoCli;
+    private final LineaCompraDAO daoLinCompra;
+    private final LineaServicioTinteDAO daoLinServicio;
+    private final ProductoRolloDAO daoProducto;
+    
+    public ServicioEmpleadoWS(){
+        daoCompra = new CompraMySQL();
+        daoServicio = new ServicioTinteMySQL();
+        daoCli = new ClienteMySQL();
+        daoLinCompra = new LineaCompraMySQL();
+        daoLinServicio = new LineaServicioTinteMySQL();
+        daoProducto = new ProductoRolloMySQL();
+    }
     
     @WebMethod(operationName = "listarCompras")
     public CompraResultado listarCompras(@WebParam(name = "idEmp")int idEmp) {
         List<Compra> listEmitidos = new ArrayList<>();
         List<Compra> listEntregados = new ArrayList<>();
         try {
-            CompraDAO daoCompra = new CompraMySQL();
             listEmitidos = daoCompra.listarEmitidas();
             listEntregados = daoCompra.listarEntregadas();
         } catch (Exception e) {
@@ -72,7 +86,6 @@ public class ServicioEmpleadoWS {
         List<ServicioTinte> listEmitidos = new ArrayList<>();
         List<ServicioTinte> listEntregados = new ArrayList<>();
         try {
-            ServicioTinteDAO daoServicio = new ServicioTinteMySQL();
             listEmitidos = daoServicio.listarEmitidos();
             listEntregados = daoServicio.listarEntregadas();
         } catch (Exception e) {
@@ -98,7 +111,6 @@ public class ServicioEmpleadoWS {
     public String obtenerNombreCliente(@WebParam(name = "idCliente") int id){
         ArrayList<Cliente> listCli = new ArrayList<>();
         try{
-            ClienteDAO daoCli = new ClienteMySQL();
             listCli = daoCli.listar();
             for(Cliente caux:listCli){
                 if(id==caux.getIdPersona())
@@ -115,7 +127,6 @@ public class ServicioEmpleadoWS {
         ArrayList<LineaCompra> listLinea = new ArrayList<>();
         ArrayList<LineaCompra> listFin = new ArrayList<>();
         try{
-            LineaCompraDAO daoLinCompra = new LineaCompraMySQL();
             listLinea = daoLinCompra.listarTodas();
             for(LineaCompra laux:listLinea){
                 if(laux.getCompra().getIdAtencion()==idAtencion){
@@ -133,7 +144,6 @@ public class ServicioEmpleadoWS {
         ArrayList<LineaServicioTinte> listLinea = new ArrayList<>();
         ArrayList<LineaServicioTinte> listFin = new ArrayList<>();
         try{
-            LineaServicioTinteDAO daoLinServicio = new LineaServicioTinteMySQL();
             listLinea = daoLinServicio.listarTodas();
             for(LineaServicioTinte laux:listLinea){
                 if(laux.getServTinte().getIdAtencion()==idAtencion){
@@ -150,7 +160,6 @@ public class ServicioEmpleadoWS {
     public ArrayList<ProductoRollo> listarProdBajoStock(){
         ArrayList<ProductoRollo> listProds = new ArrayList<>();
         try{
-            ProductoRolloDAO daoProducto = new ProductoRolloMySQL();
             listProds = daoProducto.listarProductosBajoStock();
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -163,7 +172,6 @@ public class ServicioEmpleadoWS {
     public int modificarReponerPrdo(@WebParam(name = "id")int id, @WebParam(name = "cantRepo")int cantidadRep){
         int resultado;
         try{
-            ProductoRolloDAO daoProducto = new ProductoRolloMySQL();
             ProductoRollo prod = daoProducto.obtenerProductoRollo(id);
             int nuevoStock = prod.getStock() + cantidadRep;
             prod.setStock(nuevoStock);
