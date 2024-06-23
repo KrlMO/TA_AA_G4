@@ -169,16 +169,4 @@ public class ServicioCarritoWS {
         return resultado;
         
     }
-    @WebMethod(operationName = "actualizarStock")
-    public String actualizarStock(@WebParam(name = "data") Compra compra_act) {
-        int resultado = 0;
-        String error = "";
-        try{
-            return daoCompra.actualizarStock(compra_act);
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-            return "Excepción capturada: " + ex.getMessage();
-        }
-        //return resultado;
-    }
 }
