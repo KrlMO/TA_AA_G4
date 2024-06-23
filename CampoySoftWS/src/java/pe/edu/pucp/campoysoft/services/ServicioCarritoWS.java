@@ -38,8 +38,8 @@ public class ServicioCarritoWS {
     private LineaCompraDAO daoLineaCompra;
     private LineaServicioTinteDAO daoLineaService;
     
-    @WebMethod(operationName = "insertarDatosCompra")
-    public int insertarDatosCompra(@WebParam(name = "datos") int idUsu,int cant,double peso ,double area) {
+    @WebMethod(operationName = "insertarCompra")
+    public int insertarCompra(@WebParam(name = "datos") int idUsu,int cant,double peso ,double area, ArrayList<LineaCompra>productos,double precio) {
         int resultado = 0;
         try{
             if(compra ==null){
@@ -50,14 +50,26 @@ public class ServicioCarritoWS {
             compra.setCanTotalRollos(cant);
             compra.setPesoTotal(peso);
             compra.setAreaTotal(area);
-            resultado = idUsu;
+            
+            compra.setLineaCompras(productos);
+            compra.setPrecioTotal(precio);
+            daoCompra = new CompraMySQL();
+            resultado = daoCompra.insertar(compra);
+            //
+            daoLineaCompra = new LineaCompraMySQL();
+            for(int i=0;i<productos.size();i++){
+                LineaCompra producto = productos.get(i);
+                producto.setCompra(compra);
+                daoLineaCompra.insertar(producto);
+            }
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
         return resultado;
     }
-    @WebMethod(operationName = "insertarDatosServicio")
-    public int insertarDatosServicio(@WebParam(name = "datosS") int idUsu,int cant,double peso ,double area, double horas_tintado) {
+    @WebMethod(operationName = "insertarServicio")
+    public int insertarServicio(@WebParam(name = "datosS") int idUsu,int cant,double peso ,double area, double horas_tintado, ArrayList<LineaServicioTinte>servicios,
+            int prod_en_carrito, String palabra2,double precio) {
         int resultado = 0;
         try{
             if(servicio ==null){
@@ -69,45 +81,13 @@ public class ServicioCarritoWS {
             servicio.setPesoTotal(peso);
             servicio.setAreaTotal(area);
             servicio.setHorasTintado(horas_tintado);
-            resultado = idUsu;
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        return resultado;
-    }
-
-    @WebMethod(operationName = "insertarCompra")
-    public int insertarCompra(@WebParam(name = "productos") ArrayList<LineaCompra>productos,double precio) {
-        int resultado = 3;
-        try{
-            if(compra!=null){
-                compra.setLineaCompras(productos);
-                compra.setPrecioTotal(precio);
-                daoCompra = new CompraMySQL();
-                resultado = daoCompra.insertar(compra);
-                //
-                daoLineaCompra = new LineaCompraMySQL();
-                for(int i=0;i<productos.size();i++){
-                    LineaCompra producto = productos.get(i);
-                    producto.setCompra(compra);
-                    daoLineaCompra.insertar(producto);
-                }
-            }
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        return resultado;
-    }
-    
-    @WebMethod(operationName = "insertarServicio")
-    public int insertarServicio(@WebParam(name = "servicios") ArrayList<LineaServicioTinte>servicios, int prod_en_carrito, String palabra2,double precio) {
-        int resultado = 0;
-        try{
+            
+            //
             if(servicio!=null){
                 servicio.setLineaServicios(servicios);
                 servicio.setPrecioTotal(precio);
                 daoServicio = new ServicioTinteMySQL();
-                daoServicio.insertar(servicio,prod_en_carrito);
+                resultado = daoServicio.insertar(servicio,prod_en_carrito);
                 servicio.getPrecioTotal();
                 //
                 //
@@ -122,13 +102,72 @@ public class ServicioCarritoWS {
                     //ide_tinte = service.getTinteDestino().getIdTinte();
                     daoLineaService.insertar(service);
                 }
-                resultado = 1;
             }        
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            return 0;
         }
         return resultado;
+    }
+    @WebMethod(operationName = "insertarCompra2")
+    public int insertarCompra2(@WebParam(name = "datos") Compra compra_in) {
+        int resultado = 0;
+        String error;
+        try{
+            compra = compra_in;  
+            //
+            daoCompra = new CompraMySQL();
+            compra.setEstadoServicio(EstadoAtencion.Emitido);
+            resultado = daoCompra.insertar(compra);
+            //
+            daoLineaCompra = new LineaCompraMySQL();
+            for(int i=0;i<compra.getLineaCompras().size();i++){
+                LineaCompra producto = compra.getLineaCompras().get(i);
+                producto.setCompra(compra);
+                daoLineaCompra.insertar(producto);
+            }       
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            //return "Excepción capturada: " + ex.getMessage();
+        }
+        return resultado;
+        
+    }
+    @WebMethod(operationName = "insertarServicio2")
+    public int insertarServicio2(@WebParam(name = "datosS") ServicioTinte servicio_in,int prod_en_carrito) {
+        int resultado = 0;
+        String error;
+        try{
+            servicio = servicio_in;  
+            //
+            if(servicio!=null){
+                daoServicio = new ServicioTinteMySQL();
+                servicio.setEstadoServicio(EstadoAtencion.Emitido);
+                resultado = daoServicio.insertar(servicio,prod_en_carrito);
+                //
+                if (resultado > 0) {
+                    daoLineaService = new LineaServicioTinteMySQL();
+
+                    for (int i = 0; i < servicio.getLineaServicios().size(); i++) {
+                        LineaServicioTinte service = servicio.getLineaServicios().get(i);
+                        TipoTela tipoTela = TipoTela.valueOf("Franela");
+                        service.setTipoTela(tipoTela);
+                        service.setServTinte(servicio);
+                        resultado = daoLineaService.insertar(service);
+                    }
+                    //return "Inserción exitosa";
+                } else {
+                    //return "Fallo al insertar el servicio en la base de datos";
+                }
+            } else {
+            //return "El objeto servicio es nulo después de la asignación";
+            resultado = 1;
+        }       
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            //return "Excepción capturada: " + ex.getMessage();
+        }
+        return resultado;
+        
     }
     
 }
