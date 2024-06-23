@@ -63,7 +63,7 @@ public class ServicioCarritoWS {
         
     }
     @WebMethod(operationName = "insertarServicio")
-    public int insertarServicio(@WebParam(name = "datosS") ServicioTinte servicio_in,int prod_en_carrito) {
+    public String insertarServicio(@WebParam(name = "datosS") ServicioTinte servicio_in,int prod_en_carrito, String[]tiposTelas ) {
         int resultado = 0;
         String error;
         try{
@@ -79,24 +79,23 @@ public class ServicioCarritoWS {
 
                     for (int i = 0; i < servicio.getLineaServicios().size(); i++) {
                         LineaServicioTinte service = servicio.getLineaServicios().get(i);
-                        TipoTela tipoTela = TipoTela.valueOf("Franela");
+                        TipoTela tipoTela = TipoTela.valueOf(tiposTelas[i]);
                         service.setTipoTela(tipoTela);
                         service.setServTinte(servicio);
                         resultado = daoLineaService.insertar(service);
                     }
-                    //return "Inserción exitosa";
+                    return "Inserción exitosa";
                 } else {
-                    //return "Fallo al insertar el servicio en la base de datos";
+                    return "Fallo al insertar el servicio en la base de datos";
                 }
-            } else {
-            //return "El objeto servicio es nulo después de la asignación";
-            resultado = 1;
-        }       
+            }
+            
+            //resultado = 1;      
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            //return "Excepción capturada: " + ex.getMessage();
+            return "Excepción capturada: " + ex.getMessage();
         }
-        return resultado;
-        
+        //return resultado;
+        return "El objeto servicio se asigno correctamente";
     }
 }
