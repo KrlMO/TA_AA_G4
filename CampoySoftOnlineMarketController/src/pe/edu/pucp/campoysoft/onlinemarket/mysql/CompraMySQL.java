@@ -175,33 +175,4 @@ public class CompraMySQL implements CompraDAO{
         }
         return compras;
     }
-    @Override
-    public String actualizarStock(Compra compra){
-        int resultado = 0;
-        try{
-            con = DBManager.getInstance().getConnection();            
-            
-            for(int i=0;i<compra.getLineaCompras().size();i++){
-                cs = con.prepareCall("{call UpdateProductoRolloStock(?,?)}");
-                cs.setInt("p_id_producto",compra.getLineaCompras().get(i).getProdRollo().getIdProducto() );
-                cs.setInt("cantidad_a_restar", compra.getLineaCompras().get(i).getCantRollo());
-                
-                cs.executeUpdate();
-                cs.close();
-            }    
-            resultado = 1;
-            return "stock actualizado";
-        }catch(SQLException ex){
-            System.out.println(ex.getMessage());
-            return "Excepción capturada: " + ex.getMessage();
-        }finally {
-            try {
-                if (cs != null) cs.close();
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        //return resultado;
-    }
 }
