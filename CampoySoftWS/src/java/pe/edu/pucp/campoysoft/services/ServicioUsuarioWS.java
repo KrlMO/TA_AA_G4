@@ -30,6 +30,9 @@ import java.sql.Connection;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import pe.edu.pucp.campoysoft.config.DBManager;
+import pe.edu.pucp.campoysoft.productotextil.dao.TinteDAO;
+import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
+import pe.edu.pucp.campoysoft.productotextil.mysql.TinteMySQL;
 /**
  *ServiciosCampoyTextWS
  * @author s
@@ -214,6 +217,20 @@ public ArrayList<String> historialCompras(@WebParam(name = "idCliente") String i
     return compras;
 }
     
+    @WebMethod(operationName = "ListarTintes")
+    public ArrayList<Tinte> ListarTintes() {
+        ArrayList<Tinte> tintes;
+        TinteDAO daoTinte = new TinteMySQL();
+        try {
+            tintes = daoTinte.listar();
+        } catch (Exception ex) {
+            // Manejar el caso donde el tipo de tela no es válido
+            System.out.println(ex.getMessage());
+            return new ArrayList<>(); // Devolver una lista vacía o manejar de otra manera
+        }
+
+        return tintes;
+    }
     
     
 }
