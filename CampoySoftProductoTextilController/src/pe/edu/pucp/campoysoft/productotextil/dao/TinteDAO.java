@@ -11,4 +11,5 @@ public interface TinteDAO {
     public int insertar(Tinte tinte);
     public int modificar(Tinte tinte);
     public int eliminar (int idTinte);
+    public Tinte ObtenerTinte(int id);
 }
