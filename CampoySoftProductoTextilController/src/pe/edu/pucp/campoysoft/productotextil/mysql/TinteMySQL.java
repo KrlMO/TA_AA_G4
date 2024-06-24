@@ -112,4 +112,47 @@ public class TinteMySQL implements TinteDAO{
         }
         return tintes;
     }
+    @Override
+    public Tinte ObtenerTinte(int id) {
+        Tinte tinte = null;
+        Connection con = null;
+        CallableStatement cs = null;
+        ResultSet rs = null;
+
+        try {
+            // Obtener la conexión desde el DBManager
+            con = DBManager.getInstance().getConnection();
+
+            // Preparar la llamada al procedimiento almacenado
+            cs = con.prepareCall("{call ListTinte(?)}");
+            cs.setInt(1, id);
+
+            // Ejecutar la consulta
+            rs = cs.executeQuery();
+
+            // Verificar si hay resultados
+            if (rs.next()) {
+                // Crear y mapear el objeto Tinte
+                tinte = new Tinte();
+                tinte.setIdTinte(rs.getInt("id_tinte"));
+                tinte.setNombre(rs.getString("nombre"));
+                tinte.setR(rs.getInt("R"));
+                tinte.setG(rs.getInt("G"));
+                tinte.setB(rs.getInt("B"));
+                // Agrega aquí las propiedades adicionales según la estructura de la tabla
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (cs != null) cs.close();
+                if (con != null) con.close();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        return tinte;
+    }
 }
