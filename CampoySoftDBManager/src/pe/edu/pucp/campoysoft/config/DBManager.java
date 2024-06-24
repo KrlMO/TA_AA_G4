@@ -6,11 +6,11 @@ import java.sql.SQLException;
 public class DBManager {
     private static DBManager dbManager;
     private Connection con;
-    private final String host = "nicolaydb.ctdmcgvtbjvf.us-east-1.rds.amazonaws.com";
+    private final String host = "nicobase02.cqgxu9wf7ias.us-east-1.rds.amazonaws.com";
     private final String port = "3306";
-    private final String db = "elNicolays?useSSL=false";
+    private final String db = "NicoBase02?useSSL=false";
     private final String username = "admin";
-    private final String password = "2o6k1pfgpPi2IEGGKSsJ";
+    private final String password = "PmLfRzQcLdZHuNeR7vZN";
     
     private DBManager(){
         connectToDatabase();
