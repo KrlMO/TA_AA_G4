@@ -190,12 +190,13 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
     @Override
     public ServicioTinte obtenerServicio(int id) {
         ServicioTinte serv = null;
-        try{
+        try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call obtenerServicio(?)}");
+            cs = con.prepareCall("{call ObtenerServicio(?)}");
             cs.setInt(1, id);
             rs = cs.executeQuery();
-            if(rs.next()){
+
+            if (rs.next()) {
                 serv = new ServicioTinte();
                 serv.setIdAtencion(rs.getInt("id_atencion"));
                 serv.setCodServicioTinte(rs.getString("cod_servicio_tinte"));
@@ -210,12 +211,23 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
                 serv.setPesoTotal(rs.getDouble("peso_total"));
                 serv.setAreaTotal(rs.getDouble("area_total"));
             }
-            rs.close();
-            cs.close();
-        }catch(SQLException ex){
-            System.out.println(ex.getMessage());
-        }finally{
-            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Considera usar un logger en lugar de esto
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Considera usar un logger en lugar de esto
+            }
         }
         return serv;
     }

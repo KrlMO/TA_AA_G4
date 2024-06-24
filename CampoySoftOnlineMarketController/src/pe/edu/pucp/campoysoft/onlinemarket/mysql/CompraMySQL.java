@@ -179,14 +179,14 @@ public class CompraMySQL implements CompraDAO{
     @Override
     public Compra obtenerCompra(int id) {
         Compra comp = null;
-        try{
+        try {
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call obtenerCompra(?)}");
-            cs.setInt(1, id);
+            cs = con.prepareCall("{call ObtenerCompra(?)}");
+            cs.setInt(1, id); // Corregir aquí a índice en lugar de nombre del parámetro
             rs = cs.executeQuery();
-            if(rs.next()){
+
+            if (rs.next()) {
                 comp = new Compra();
-                comp.setIdAtencion(rs.getInt("id_atencion"));
                 comp.setCodCompra(rs.getString("cod_compra"));
                 comp.setActivo(rs.getBoolean("activo"));
                 comp.setIdCarrito(rs.getInt("id_carrito"));
@@ -194,17 +194,29 @@ public class CompraMySQL implements CompraDAO{
                 comp.setIdCliente(rs.getInt("fk_id_cliente"));
                 EstadoAtencion estado = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
                 comp.setEstadoServicio(estado);
-                comp.setPrecioTotal(rs.getDouble("precio_total")); 
+                comp.setPrecioTotal(rs.getDouble("precio_total"));
                 comp.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
                 comp.setPesoTotal(rs.getDouble("peso_total"));
-                comp.setAreaTotal(rs.getDouble("area_total"));                
+                comp.setAreaTotal(rs.getDouble("area_total"));
+                comp.setIdAtencion(rs.getInt("id_atencion"));
             }
-            rs.close();
-            cs.close();
-        }catch(SQLException ex){
-            System.out.println(ex.getMessage());
-        }finally{
-            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Considera usar un logger en lugar de esto
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (cs != null) {
+                    cs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Considera usar un logger en lugar de esto
+            }
         }
         return comp;
     }
