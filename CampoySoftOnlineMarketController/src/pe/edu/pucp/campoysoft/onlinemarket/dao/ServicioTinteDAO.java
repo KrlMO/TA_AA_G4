@@ -10,4 +10,6 @@ public interface ServicioTinteDAO {
     ArrayList<ServicioTinte> listarTodas();
     ArrayList<ServicioTinte> listarEmitidos();
     ArrayList<ServicioTinte> listarEntregadas();
+    
+    ServicioTinte obtenerServicio(int id);
 }

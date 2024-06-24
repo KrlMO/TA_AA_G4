@@ -11,4 +11,6 @@ public interface CompraDAO {
     ArrayList<Compra> listarTodas();
     ArrayList<Compra> listarEmitidas();
     ArrayList<Compra> listarEntregadas();
+    
+    Compra obtenerCompra(int id);
 }

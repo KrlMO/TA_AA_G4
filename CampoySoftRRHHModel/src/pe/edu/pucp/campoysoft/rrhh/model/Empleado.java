@@ -161,35 +161,19 @@ public class Empleado extends Persona{
     
    
     
-    public void despachar_Atencion(int id){
-        CompraDAO compraDAO = new CompraMySQL();
-        ArrayList<Compra> compras = new ArrayList<>();
-        Compra compra;
-        compras = compraDAO.listarTodas();
-        for(int i = compras.size() - 1; i >= 0; i--){
-            if(compras.get(i).getIdAtencion()== id){
-                compra=compras.get(i);
-                compra.setEstadoServicio(EstadoAtencion.Entregado);
-                compra.setIdEmpleado(this.getIdPersona());
-                compraDAO.modificar(compra);
-                return;
-            }
+    public void despachar_Atencion(int id, String tipo){
+        if(tipo.equals("compra")){
+            CompraDAO daoCompra = new CompraMySQL();
+            Compra comp = daoCompra.obtenerCompra(id);
+            comp.setEstadoServicio(EstadoAtencion.Entregado);
+            comp.setIdEmpleado(this.getIdPersona());
+            daoCompra.modificar(comp);
+        }else if(tipo.equals("servicio")){
+            ServicioTinteDAO daoServicioTinte = new ServicioTinteMySQL();
+            ServicioTinte serv = daoServicioTinte.obtenerServicio(id);
+            serv.setEstadoServicio(EstadoAtencion.Entregado);
+            serv.setIdEmpleado(this.getIdPersona());
+            daoServicioTinte.modificar(serv);
         }
-        ServicioTinteDAO servicioTinteDAO = new ServicioTinteMySQL();
-        ArrayList<ServicioTinte> ServicioTintes = new ArrayList<>();
-        ServicioTinte servicioTinte;
-        ServicioTintes = servicioTinteDAO.listarTodas();
-        for(int i = ServicioTintes.size() - 1; i >= 0; i--){
-            if(ServicioTintes.get(i).getIdAtencion()== id){
-                servicioTinte=ServicioTintes.get(i);;
-                servicioTinte.setEstadoServicio(EstadoAtencion.Entregado);
-                servicioTinte.setIdEmpleado(this.getIdPersona());
-                servicioTinteDAO.modificar(servicioTinte);
-                return;
-            }
-        }
-        
     }
-
-
 }
