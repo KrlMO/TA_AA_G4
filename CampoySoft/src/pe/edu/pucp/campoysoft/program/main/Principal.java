@@ -41,7 +41,7 @@ public class Principal {
             String str= productoRollos.get(i).toString();
             System.out.println(str);
         }
-          emp.despachar_Atencion(1);
+          emp.despachar_Atencion(1,"compra");
         ArrayList<Atencion> atenciones = new ArrayList<>();
         atenciones=emp.listar_Atencion_Emitidas();
         for(int i=0;i<atenciones.size();i++){
