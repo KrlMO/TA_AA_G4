@@ -63,7 +63,7 @@ public class ServicioCarritoWS {
         
     }
     @WebMethod(operationName = "insertarServicio")
-    public String insertarServicio(@WebParam(name = "datosS") ServicioTinte servicio_in,int prod_en_carrito, String[]tiposTelas ) {
+    public int insertarServicio(@WebParam(name = "datosS") ServicioTinte servicio_in,int prod_en_carrito, String[]tiposTelas ) {
         int resultado = 0;
         String error;
         try{
@@ -84,18 +84,18 @@ public class ServicioCarritoWS {
                         service.setServTinte(servicio);
                         resultado = daoLineaService.insertar(service);
                     }
-                    return "Inserción exitosa";
+                    //return "Inserción exitosa";
                 } else {
-                    return "Fallo al insertar el servicio en la base de datos";
+                    //return "Fallo al insertar el servicio en la base de datos";
                 }
             }
             
             //resultado = 1;      
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            return "Excepción capturada: " + ex.getMessage();
+            //return "Excepción capturada: " + ex.getMessage();
         }
-        //return resultado;
-        return "El objeto servicio se asigno correctamente";
+        return resultado;
+        //return "El objeto servicio se asigno correctamente";
     }
 }
