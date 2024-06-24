@@ -175,4 +175,37 @@ public class CompraMySQL implements CompraDAO{
         }
         return compras;
     }
+
+    @Override
+    public Compra obtenerCompra(int id) {
+        Compra comp = null;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call obtenerCompra(?)}");
+            cs.setInt(1, id);
+            rs = cs.executeQuery();
+            if(rs.next()){
+                comp = new Compra();
+                comp.setIdAtencion(rs.getInt("id_atencion"));
+                comp.setCodCompra(rs.getString("cod_compra"));
+                comp.setActivo(rs.getBoolean("activo"));
+                comp.setIdCarrito(rs.getInt("id_carrito"));
+                comp.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                comp.setIdCliente(rs.getInt("fk_id_cliente"));
+                EstadoAtencion estado = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                comp.setEstadoServicio(estado);
+                comp.setPrecioTotal(rs.getDouble("precio_total")); 
+                comp.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
+                comp.setPesoTotal(rs.getDouble("peso_total"));
+                comp.setAreaTotal(rs.getDouble("area_total"));                
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return comp;
+    }
 }

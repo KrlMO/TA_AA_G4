@@ -107,6 +107,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
             while(rs.next()){
                 ServicioTinte serv = new ServicioTinte();
                 serv.setIdAtencion(rs.getInt("id_atencion"));
+                serv.setCodServicioTinte(rs.getString("cod_servicio_tinte"));
                 serv.setIdCliente(rs.getInt("fk_id_cliente"));
                 EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
                 serv.setEstadoServicio(est);
@@ -136,6 +137,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
             while(rs.next()){
                 ServicioTinte serv = new ServicioTinte();
                 serv.setIdAtencion(rs.getInt("id_atencion"));
+                serv.setCodServicioTinte(rs.getString("cod_servicio_tinte"));
                 serv.setIdCliente(rs.getInt("fk_id_cliente"));
                 EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
                 serv.setEstadoServicio(est);
@@ -166,6 +168,7 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
             while(rs.next()){
                 ServicioTinte serv = new ServicioTinte();
                 serv.setIdAtencion(rs.getInt("id_atencion"));
+                serv.setCodServicioTinte(rs.getString("cod_servicio_tinte"));
                 serv.setIdCliente(rs.getInt("fk_id_cliente"));
                 EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
                 serv.setEstadoServicio(est);
@@ -182,5 +185,38 @@ public class ServicioTinteMySQL implements ServicioTinteDAO{
             try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
         }
         return listServ;
+    }
+
+    @Override
+    public ServicioTinte obtenerServicio(int id) {
+        ServicioTinte serv = null;
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call obtenerServicio(?)}");
+            cs.setInt(1, id);
+            rs = cs.executeQuery();
+            if(rs.next()){
+                serv = new ServicioTinte();
+                serv.setIdAtencion(rs.getInt("id_atencion"));
+                serv.setCodServicioTinte(rs.getString("cod_servicio_tinte"));
+                serv.setHorasTintado(rs.getDouble("horas_tintado"));
+                serv.setIdCarrito(rs.getInt("id_carrito"));
+                serv.setIdEmpleado(rs.getInt("fk_id_empleado"));
+                serv.setIdCliente(rs.getInt("fk_id_cliente"));
+                EstadoAtencion est = EstadoAtencion.valueOf(rs.getString("estado_servicio"));
+                serv.setEstadoServicio(est);
+                serv.setPrecioTotal(rs.getDouble("precio_total"));
+                serv.setCanTotalRollos(rs.getInt("cantidad_total_rollos"));
+                serv.setPesoTotal(rs.getDouble("peso_total"));
+                serv.setAreaTotal(rs.getDouble("area_total"));
+            }
+            rs.close();
+            cs.close();
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return serv;
     }
 }

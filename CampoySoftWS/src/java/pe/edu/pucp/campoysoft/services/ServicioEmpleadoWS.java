@@ -98,11 +98,11 @@ public class ServicioEmpleadoWS {
     }
     
     @WebMethod(operationName = "Atender")
-    public void Atender(@WebParam(name = "atencion")int idAtencion, @WebParam(name = "empleado") int idEmp){
+    public void Atender(@WebParam(name = "atencion")int idAtencion, @WebParam(name = "empleado") int idEmp, @WebParam(name = "tipo") String tipo){
         try{
             Empleado emp = new Empleado();
             emp.setIdPersona(idEmp);
-            emp.despachar_Atencion(idAtencion);
+            emp.despachar_Atencion(idAtencion,tipo);
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
