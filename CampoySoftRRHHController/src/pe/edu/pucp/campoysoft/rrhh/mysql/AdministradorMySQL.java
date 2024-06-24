@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 
 import pe.edu.pucp.campoysoft.config.DBManager;
 import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoRollo;
 import pe.edu.pucp.campoysoft.productotextil.model.TipoTela;
 import pe.edu.pucp.campoysoft.rrhh.dao.AdministradorDAO;
@@ -158,6 +159,7 @@ public class AdministradorMySQL implements AdministradorDAO{
         return empleado;
     }
     //comentario rando
+    @Override
     public EspecificacionRollo busquedaEspecificacion(int codEsp) {
         EspecificacionRollo rollito = new EspecificacionRollo();
         try{
@@ -182,5 +184,31 @@ public class AdministradorMySQL implements AdministradorDAO{
             try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
         }
         return rollito;
+    }
+    @Override
+    public Tinte busquedaTinte(String codTinte){
+        Tinte tintito = new Tinte();
+        try{
+            con = DBManager.getInstance().getConnection();
+            cs = con.prepareCall("{call Buscar_Tinte_X_CodTinte(?)}");
+            cs.setString("p_cod_tinte", codTinte);
+            rs = cs.executeQuery();
+            while(rs.next()){
+                tintito.setIdTinte(rs.getInt("id_tinte"));
+                tintito.setCodTinte(rs.getString("cod_tinte"));
+                tintito.setNombre(rs.getString("nombre"));
+                tintito.setR(rs.getInt("R"));
+                tintito.setG(rs.getInt("G"));
+                tintito.setB(rs.getInt("B"));
+                tintito.setActivo(rs.getBoolean("activo"));
+            }
+            rs.close();
+            cs.close();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(Exception ex){System.out.println(ex.getMessage());}
+        }
+        return tintito;
     }
 }

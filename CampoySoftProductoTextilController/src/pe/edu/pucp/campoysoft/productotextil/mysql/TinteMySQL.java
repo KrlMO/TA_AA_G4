@@ -26,9 +26,8 @@ public class TinteMySQL implements TinteDAO{
         int resultado = 0;
         try{
             con = DBManager.getInstance().getConnection();
-            cs = con.prepareCall("{call InsertTinte(?,?,?,?,?,?)}");
+            cs = con.prepareCall("{call InsertTinte(?,?,?,?,?)}");
             cs.registerOutParameter("_id_tinte", java.sql.Types.INTEGER); // registra como parametro de salida
-            cs.setString("p_cod_tinte", tinte.getCodTinte());
             cs.setString("p_nombre", tinte.getNombre());
             cs.setInt("p_R", tinte.getR());
             cs.setInt("p_G", tinte.getG());

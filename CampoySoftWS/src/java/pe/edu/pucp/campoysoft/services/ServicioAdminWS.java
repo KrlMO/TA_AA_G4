@@ -196,6 +196,43 @@ public class ServicioAdminWS {
             return resultado;
     }
     
+    @WebMethod(operationName = "eliminarTinte")
+        public int eliminarTinte(@WebParam(name = "idtinte") int idTinte){
+        int resultado = 0;
+            try{
+                daoTinte= new TinteMySQL();
+                resultado = daoTinte.eliminar(idTinte);
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            return resultado;
+    }
+        
+    @WebMethod(operationName = "insertarTinte")
+        public int insertarTinte(@WebParam(name = "Tinte") Tinte objTinte){
+        int resultado = 0;
+            try{
+                daoTinte= new TinteMySQL();
+                resultado = daoTinte.insertar(objTinte);
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+            return resultado;
+    }
+    
+    @WebMethod(operationName = "BusquedaTinte")
+    public Tinte BusquedaTinte(@WebParam(name = "cod_tinte") String codTinte){
+        Tinte tinte = new Tinte();
+        try{
+            daoAdministrador= new AdministradorMySQL();
+            tinte = daoAdministrador.busquedaTinte(codTinte);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return tinte;
+        //comentario rando
+    }
+    
     @WebMethod(operationName = "ListarTelas")
     public ArrayList<String> listarTipoTelas(){
         ArrayList<String> tiposTelas = new ArrayList<>();

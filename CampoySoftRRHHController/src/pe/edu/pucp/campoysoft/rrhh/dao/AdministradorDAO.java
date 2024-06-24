@@ -6,6 +6,7 @@ package pe.edu.pucp.campoysoft.rrhh.dao;
 
 import java.util.ArrayList;
 import pe.edu.pucp.campoysoft.productotextil.model.EspecificacionRollo;
+import pe.edu.pucp.campoysoft.productotextil.model.Tinte;
 import pe.edu.pucp.campoysoft.rrhh.model.Administrador;
 import pe.edu.pucp.campoysoft.rrhh.model.Empleado;
 
@@ -18,5 +19,6 @@ public interface AdministradorDAO {
     
     public Empleado busquedaEmpleado(String codEmp);
     public EspecificacionRollo busquedaEspecificacion(int codEsp);
+    public Tinte busquedaTinte(String codTinte);
 }
 //comentario rando
