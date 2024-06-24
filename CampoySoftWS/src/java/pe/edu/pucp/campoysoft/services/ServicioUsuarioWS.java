@@ -231,6 +231,18 @@ public ArrayList<String> historialCompras(@WebParam(name = "idCliente") String i
 
         return tintes;
     }
-    
+    @WebMethod(operationName = "ObtenerTintebyID")
+    public Tinte ObtenerTintebyID(@WebParam(name = "idTinte") int idTinte) {
+        Tinte tinte_out = null;
+        TinteDAO daoTinte = new TinteMySQL();
+        try {
+            tinte_out = daoTinte.ObtenerTinte(idTinte);
+        } catch (Exception ex) {
+            // Manejar el caso donde el tipo de tela no es válido
+            System.out.println(ex.getMessage());
+        }
+
+        return tinte_out;
+    }
     
 }
