@@ -144,7 +144,7 @@ public class ServicioAdminWS {
         try {
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("GeneradoPor", nombre );
-            String absolutePath = "C:\\Users\\USER\\Desktop\\fin back\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_Empleados.jrxml";
+            String absolutePath = "C:\\Users\\USER\\Desktop\\NUEVO_FIN\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_Empleados.jrxml";
    
             byte[] byteArray = 
                     generarBuffer(absolutePath, parameters);

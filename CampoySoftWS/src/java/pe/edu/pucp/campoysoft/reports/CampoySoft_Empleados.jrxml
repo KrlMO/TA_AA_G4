@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CampoySoft_Empleados" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="315e7f24-b28e-45f5-b3c2-6e9462bc4a30">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ta_con"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ta_con_final"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="GeneradoPor" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM elNicolays.Empleado where activo=1]]>
+		<![CDATA[SELECT * FROM NicoBase02.Empleado where activo=1]]>
 	</queryString>
 	<field name="id_empleado" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id_empleado"/>

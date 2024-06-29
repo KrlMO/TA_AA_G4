@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CampoySoft_usuario_compras" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f8e0c398-e2c0-4b91-bc8d-c8d5a4c6b307">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ta_con"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ta_con_final"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="GeneradoPor" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT L.id_linea_compra, a.precio_total, P.descripcion, Per1.nombre, L.cant_rollo, Per2.nombre
-FROM elNicolays.Atencion a, elNicolays.LineaCompra L, elNicolays.ProductoRollo P, elNicolays.Persona Per1,elNicolays.Persona Per2
+FROM NicoBase02.Atencion a, NicoBase02.LineaCompra L, NicoBase02.ProductoRollo P, NicoBase02.Persona Per1,NicoBase02.Persona Per2
 where L.fk_id_compra = a.id_atencion and P.id_producto=L.fk_id_producto and Per1.id_persona=a.fk_id_cliente and Per2.id_persona = a.fk_id_empleado and a.estado_servicio = 'Entregado']]>
 	</queryString>
 	<field name="id_linea_compra" class="java.lang.Integer">

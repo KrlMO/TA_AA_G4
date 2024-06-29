@@ -189,7 +189,7 @@ public class ServicioEmpleadoWS {
         try {
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("GeneradoPor", nombre );
-            String absolutePath = "C:\\Users\\USER\\Desktop\\fin back\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_usuario_compras.jrxml";
+            String absolutePath = "C:\\Users\\USER\\Desktop\\NUEVO_FIN\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_usuario_compras.jrxml";
    
             byte[] byteArray = 
                     generarBuffer(absolutePath, parameters);
@@ -224,7 +224,7 @@ public class ServicioEmpleadoWS {
         try {
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("GeneradoPor", nombre );
-            String absolutePath ="C:\\Users\\samt1\\OneDrive\\Documentos\\Universidad\\Programacion_3\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_Usuario_Servicios.jrxml";
+            String absolutePath ="C:\\Users\\USER\\Desktop\\NUEVO_FIN\\Campoy_TEX\\CampoySoftWS\\src\\java\\pe\\edu\\pucp\\campoysoft\\reports\\CampoySoft_Usuario_Servicios.jrxml";
    
             byte[] byteArray = 
                     generarBuffer(absolutePath, parameters);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CampoySoft_Usuario_Servicios" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87dac582-f1df-4aab-8a73-84ef36dde5e2">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ta_con"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ta_con_final"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="GeneradoPor" class="java.lang.String"/>
 	<queryString>
@@ -15,13 +15,13 @@
     L.ancho_recibida, 
     L.peso_recibida
 FROM 
-    elNicolays.Atencion a
+    NicoBase02.Atencion a
 JOIN 
-    elNicolays.LineaServicioTinte L ON L.fk_id_servicio_tinte = a.id_atencion
+    NicoBase02.LineaServicioTinte L ON L.fk_id_servicio_tinte = a.id_atencion
 JOIN 
-    elNicolays.Persona Per ON Per.id_persona = a.fk_id_cliente
+    NicoBase02.Persona Per ON Per.id_persona = a.fk_id_cliente
 JOIN 
-    elNicolays.Persona Per1 ON Per1.id_persona = a.fk_id_empleado
+    NicoBase02.Persona Per1 ON Per1.id_persona = a.fk_id_empleado
 WHERE 
     a.estado_servicio = 'Entregado']]>
 	</queryString>
